@@ -1,0 +1,124 @@
+\documentclass[11pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage[top=1.25in,bottom=1.25in,left=1in,right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{pstricks-add}
+\usepackage{pst-node}
+\usepackage{pst-plot}
+\usepackage{fancyhdr}
+\usepackage[absolute,showboxes]{textpos}
+\usepackage{booktabs}
+\usepackage{dcolumn}
+\usepackage{arydshln}
+\usepackage{natbib}
+\usepackage{tabularx}
+\usepackage{subfigure}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\setcounter{MaxMatrixCols}{10}
+\newcolumntype{d}[1]{D{.}{.}{-2.#1}}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\setlength{\columnsep}{.2in}
+\psset{unit=1cm}
+
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+%%%%%%%% Create template for table inclusion
+\newcommand{\addtab}[4]{
+\clearpage
+
+\begin{table}[!htb]
+\begin{center}
+\caption{#1}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
+ & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Wheat & Rice & Wheat  & Rice  & Wheat  & Rice \\
+ & Only & Only &  $>33\%$ & $>33\%$ & $>50\%$ & $>50\%$   \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{#3}
+\midrule
+\\
+\multicolumn{7}{l}{Panel B: Samples with other restrictions (using suitability to distinguish crop families)} \\ \\
+ & \multicolumn{2}{c}{Urban Pop. $<25K$:} & \multicolumn{2}{c}{Ex. Europe/N. Amer.:} & \multicolumn{2}{c}{Rural dens. $>$ 25th P'tile:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+  & Wheat Only& Rice Only & Wheat Only& Rice Only& Wheat Only& Rice Only\\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{#4}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{#2}
+}
+\end{table}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+\begin{titlepage}
+\vspace{2in} \noindent {\large \today}
+
+\vspace{.5in} \noindent {\Large \textbf{\strut How Tight are Malthusian Constraints?}}
+
+\vspace{.25in} \noindent {\large T. Ryan Johnson}
+
+\vspace{.05in} \noindent University of Houston
+
+\vspace{.25in} \noindent {\large Dietrich Vollrath}
+
+\vspace{.05in} \noindent University of Houston
+
+\vspace{2in} \noindent \textsc{Online Appendix} \hrulefill
+
+\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here.
+\vspace{.1in} \hrule
+
+\end{titlepage}
+
+\pagebreak 
+
+\section{Introduction}
+This appendix consists of a series of tables reporting robustness checks for our main results. Each table is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, for sub-samples of districts distinguished by their suitability or production of different crops. 
+
+Here we list the baseline assumptions behind each table, rather than replicating the same footnotes over and over again. In each case, these are the baseline assumptions, and the individual table may change or drop the assumption, as will be noted in each table in bold. 
+
+Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.
+
+\listoftables
+
+\addtab{Baseline results}{Baseline results}{tab_beta_crop_base.tex}{tab_beta_crop_sub_base.tex}
+
+\addtab{Conley SE cutoff of 1000km}{Use 1000km to form cutoffs for Conley standard errors}{tab_beta_crop_cut1000.tex}{tab_beta_crop_sub_cut1000.tex}
+
+\addtab{Province-level data}{Using provinces as the units of observation, with country fixed effects. Night lights and urban percent controls are at the province level.}{tab_beta_crop_province.tex}{tab_beta_crop_sub_province.tex}
+
+\addtab{Using cultivated area}{Rural density measured using rural population per hectare of cultivated land. Also includes a control for cultivated land as a percent of total land.}{tab_beta_crop_cult.tex}{tab_beta_crop_sub_cult.tex}
+
+\addtab{Using population from 1900CE}{Rural density measured using population data from 1900CE from HYDE database.}{tab_beta_crop_pop1900.tex}{tab_beta_crop_sub_pop1900.tex}
+
+\addtab{Using population from 1950CE}{Rural density measured using population data from 1950CE from HYDE database.}{tab_beta_crop_pop1950.tex}{tab_beta_crop_sub_pop1950.tex}
+
+\addtab{Using log rural percent of population as a control}{Include log rural percent of the population as a control, consistent with a model of districts being autarkic.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
+
+\addtab{Dropping districts under 25th percentile in production}{Drops all districts below the 25th percentile of total tonnes of staple crops produced across all districts. Raw tonnes are used, unadjusted for calorie content.}{tab_beta_crop_prodsum25th.tex}{tab_beta_crop_sub_prodsum25th.tex}
+
+
+\end{document}
