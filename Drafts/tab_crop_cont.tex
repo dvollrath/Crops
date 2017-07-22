@@ -1,0 +1,34 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\toprule
+                    &\multicolumn{5}{c}{Dep var: Log Pop Density in 1500}                                                         \\
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+                    &    Wet Rice         &     Sorghum         &       Wheat         &      Barley         &       Maize         \\
+\midrule
+Log CSI yield       &        1.22         &        0.60\sym{***}&        0.50\sym{***}&        0.20         &       -0.53         \\
+                    &      (0.65)         &      (0.15)         &      (0.13)         &      (0.60)         &      (0.44)         \\
+\addlinespace
+Log Years since Neolithic Transition&        1.50\sym{***}&        1.63\sym{***}&        0.80\sym{*}  &        1.76         &        0.03         \\
+                    &      (0.35)         &      (0.39)         &      (0.35)         &      (0.97)         &      (0.36)         \\
+\addlinespace
+Log Absolute Latitude&        0.07         &       -0.41         &       -0.87         &        2.90         &       -0.42         \\
+                    &      (0.16)         &      (0.30)         &      (0.63)         &      (2.05)         &      (0.30)         \\
+\addlinespace
+Mean distance Coast/River&        1.60         &        0.02         &       -0.41         &       -2.36\sym{*}  &       -2.76         \\
+                    &      (1.03)         &      (0.51)         &      (0.23)         &      (0.71)         &      (4.09)         \\
+\addlinespace
+Perc land less 100km Coast/River&        1.51         &        0.77         &        1.42\sym{*}  &       -2.89         &        1.07         \\
+                    &      (0.80)         &      (0.48)         &      (0.62)         &      (1.68)         &      (1.25)         \\
+\addlinespace
+Constant            &      -40.40\sym{*}  &      -25.08\sym{***}&      -13.60\sym{**} &      -25.77         &       12.59         \\
+                    &     (17.03)         &      (6.10)         &      (4.15)         &     (13.06)         &     (11.47)         \\
+\midrule
+Observations        &          38         &          35         &          53         &          14         &          23         \\
+R-squared           &        0.42         &        0.69         &        0.66         &        0.79         &        0.40         \\
+Adj. R-squared      &        0.33         &        0.64         &        0.63         &        0.66         &        0.22         \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

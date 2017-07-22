@@ -1,0 +1,33 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                    &\multicolumn{1}{c}{Urb 1500}&\multicolumn{1}{c}{Urb 1600}&\multicolumn{1}{c}{Urb 1700}&\multicolumn{1}{c}{Urb 1800}&\multicolumn{1}{c}{Urb 1900}&\multicolumn{1}{c}{Urb 2000}\\
+\midrule
+ln\_area             &      -0.009\sym{***}&      -0.009\sym{***}&      -0.010\sym{***}&      -0.012\sym{***}&       0.048\sym{***}&       0.109\sym{***}\\
+                    &    (0.0006)         &    (0.0007)         &    (0.0007)         &    (0.0010)         &    (0.0015)         &    (0.0017)         \\
+\addlinespace
+popd\_reg            &       0.007\sym{***}&       0.007\sym{***}&       0.007\sym{***}&       0.024\sym{***}&       0.091\sym{***}&       0.153\sym{***}\\
+                    &    (0.0006)         &    (0.0006)         &    (0.0006)         &    (0.0008)         &    (0.0011)         &    (0.0012)         \\
+\addlinespace
+suit\_rcw\_p1500      &       0.012         &       0.011         &       0.013         &      -0.021         &      -0.061\sym{**} &      -0.063\sym{**} \\
+                    &    (0.0101)         &    (0.0105)         &    (0.0110)         &    (0.0144)         &    (0.0198)         &    (0.0244)         \\
+\addlinespace
+suit\_mze\_p1500      &      -0.004         &      -0.003         &      -0.003         &      -0.027\sym{***}&      -0.061\sym{***}&      -0.035\sym{**} \\
+                    &    (0.0054)         &    (0.0056)         &    (0.0059)         &    (0.0077)         &    (0.0106)         &    (0.0130)         \\
+\addlinespace
+suit\_whe\_p1500      &      -0.012\sym{**} &      -0.012\sym{*}  &      -0.013\sym{*}  &      -0.055\sym{***}&      -0.094\sym{***}&      -0.091\sym{***}\\
+                    &    (0.0047)         &    (0.0049)         &    (0.0051)         &    (0.0067)         &    (0.0091)         &    (0.0112)         \\
+\addlinespace
+Constant            &      -0.056\sym{***}&      -0.056\sym{***}&      -0.055\sym{***}&      -0.194\sym{***}&      -0.717\sym{***}&      -1.276\sym{***}\\
+                    &    (0.0053)         &    (0.0052)         &    (0.0054)         &    (0.0071)         &    (0.0106)         &    (0.0130)         \\
+\midrule
+Observations        &       41190         &       41187         &       41189         &       41192         &       41192         &       41207         \\
+\(R^{2}\)           &       0.092         &       0.095         &       0.100         &       0.198         &       0.342         &       0.409         \\
+Adjusted \(R^{2}\)  &       0.088         &       0.091         &       0.096         &       0.195         &       0.340         &       0.407         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

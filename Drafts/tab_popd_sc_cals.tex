@@ -1,0 +1,42 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                    &\multicolumn{1}{c}{Density 1500}&\multicolumn{1}{c}{Density 1600}&\multicolumn{1}{c}{Density 1700}&\multicolumn{1}{c}{Density 1800}&\multicolumn{1}{c}{Density 1900}&\multicolumn{1}{c}{Density 2000}\\
+\midrule
+ln\_area             &      -0.915\sym{***}&      -0.914\sym{***}&      -0.940\sym{***}&      -1.104\sym{***}&      -1.211\sym{***}&      -1.212\sym{***}\\
+                    &    (0.0082)         &    (0.0082)         &    (0.0082)         &    (0.0085)         &    (0.0084)         &    (0.0098)         \\
+\addlinespace
+ln\_cals\_p1500\_max   &       0.427\sym{***}&       0.426\sym{***}&       0.425\sym{***}&       0.448\sym{***}&       0.475\sym{***}&       0.412\sym{***}\\
+                    &    (0.0086)         &    (0.0086)         &    (0.0087)         &    (0.0090)         &    (0.0089)         &    (0.0103)         \\
+\addlinespace
+Cal Ratio 1         &      -0.107\sym{***}&      -0.107\sym{***}&      -0.242\sym{***}&      -0.215\sym{***}&      -0.303\sym{***}&      -0.021         \\
+                    &    (0.0246)         &    (0.0246)         &    (0.0247)         &    (0.0257)         &    (0.0253)         &    (0.0294)         \\
+\addlinespace
+Cal Ratio 2         &      -0.295\sym{***}&      -0.294\sym{***}&      -0.466\sym{***}&      -0.438\sym{***}&      -0.426\sym{***}&      -0.055         \\
+                    &    (0.0392)         &    (0.0391)         &    (0.0394)         &    (0.0408)         &    (0.0403)         &    (0.0468)         \\
+\addlinespace
+Cal Ratio 3         &      -0.119\sym{**} &      -0.122\sym{**} &      -0.018         &       0.033         &      -0.059         &       0.054         \\
+                    &    (0.0421)         &    (0.0421)         &    (0.0423)         &    (0.0439)         &    (0.0433)         &    (0.0503)         \\
+\addlinespace
+ln\_cals\_p1500\_max $\times$ Cal Ratio 1&       0.005\sym{***}&       0.005\sym{***}&       0.012\sym{***}&       0.009\sym{***}&       0.016\sym{***}&      -0.000         \\
+                    &    (0.0012)         &    (0.0012)         &    (0.0012)         &    (0.0013)         &    (0.0012)         &    (0.0014)         \\
+\addlinespace
+ln\_cals\_p1500\_max $\times$ Cal Ratio 2&       0.016\sym{***}&       0.016\sym{***}&       0.025\sym{***}&       0.023\sym{***}&       0.023\sym{***}&       0.003         \\
+                    &    (0.0019)         &    (0.0019)         &    (0.0020)         &    (0.0020)         &    (0.0020)         &    (0.0023)         \\
+\addlinespace
+ln\_cals\_p1500\_max $\times$ Cal Ratio 3&       0.005\sym{*}  &       0.005\sym{*}  &      -0.001         &      -0.003         &       0.004\sym{*}  &       0.001         \\
+                    &    (0.0021)         &    (0.0021)         &    (0.0021)         &    (0.0022)         &    (0.0022)         &    (0.0025)         \\
+\addlinespace
+Constant            &      -0.683\sym{***}&      -1.225\sym{***}&      -1.172\sym{***}&      -1.407\sym{***}&      -1.138\sym{***}&       1.422\sym{***}\\
+                    &    (0.1914)         &    (0.1913)         &    (0.1925)         &    (0.1995)         &    (0.1969)         &    (0.2288)         \\
+\midrule
+Observations        &       38858         &       38855         &       38857         &       38861         &       38861         &       38868         \\
+\(R^{2}\)           &       0.766         &       0.835         &       0.846         &       0.796         &       0.714         &       0.632         \\
+Adjusted \(R^{2}\)  &       0.765         &       0.834         &       0.845         &       0.795         &       0.713         &       0.631         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

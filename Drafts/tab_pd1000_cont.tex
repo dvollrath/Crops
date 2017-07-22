@@ -1,0 +1,36 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{6}{c}{Log Pop Density in 1000:}                                                                                       \\
+                    &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         &\multicolumn{1}{c}{(6)}         \\
+                    &         All         &      Europe         &     Mideast         &     Asia ex         &         SSA         &    Americas         \\
+\midrule
+Log Land Productivity&        0.49\sym{***}&       -0.56         &        0.51\sym{**} &        0.84\sym{*}  &        0.61\sym{***}&        0.10         \\
+                    &      (0.07)         &      (0.38)         &      (0.13)         &      (0.37)         &      (0.10)         &      (0.39)         \\
+\addlinespace
+Log Years since Neolithic Transition&        1.42\sym{***}&        2.12\sym{*}  &        2.39\sym{*}  &        0.78         &        1.45\sym{***}&        0.28         \\
+                    &      (0.19)         &      (0.93)         &      (0.91)         &      (1.16)         &      (0.33)         &      (0.66)         \\
+\addlinespace
+Log Absolute Latitude&       -0.24\sym{*}  &       -1.77         &       -1.38         &        0.66         &       -0.26\sym{*}  &       -0.51         \\
+                    &      (0.10)         &      (1.83)         &      (0.85)         &      (0.34)         &      (0.12)         &      (0.30)         \\
+\addlinespace
+Mean distance Coast/River&       -0.54\sym{*}  &      -10.83\sym{*}  &       -2.57\sym{*}  &       -1.10\sym{*}  &        0.26         &       -2.00         \\
+                    &      (0.22)         &      (5.15)         &      (1.18)         &      (0.49)         &      (0.40)         &      (1.23)         \\
+\addlinespace
+Perc land less 100km Coast/River&        0.69\sym{*}  &       -0.55         &       -0.96         &       -0.12         &        0.89         &        1.03         \\
+                    &      (0.31)         &      (0.91)         &      (0.84)         &      (0.91)         &      (0.56)         &      (1.03)         \\
+\addlinespace
+Constant            &      -11.72\sym{***}&       -8.42         &      -14.46         &       -7.47         &      -11.12\sym{***}&       -1.66         \\
+                    &      (1.60)         &     (14.16)         &      (8.64)         &     (10.17)         &      (2.67)         &      (5.85)         \\
+\addlinespace
+Continent dummies   &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         &         Yes         \\
+\midrule
+Observations        &         142         &          32         &          23         &          23         &          39         &          22         \\
+R-squared           &        0.67         &        0.55         &        0.62         &        0.67         &        0.76         &        0.69         \\
+Adj. R-squared      &        0.65         &        0.46         &        0.47         &        0.58         &        0.72         &        0.60         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

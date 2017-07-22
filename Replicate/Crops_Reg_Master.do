@@ -1,0 +1,91 @@
+//////////////////////////////////////////////////////////////////////
+// Date: 2016-11-08
+// Author: Dietz Vollrath
+// 
+// Control the flow of work for regressions
+// 1. Create program to reset globals controlling code
+// 2. Call data merge and prep routines
+// 3. Call regression routines under various assumptions
+//
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////
+// Program to reset control variables
+// YOU SHOULD EDIT THE PATHS TO POINT TO YOUR DIRECTORIES
+//////////////////////////////////////
+capture program drop reset
+program reset // reset all globals to the baseline values
+	macro drop _all // get rid of all macros
+	global data "/users/dietz/dropbox/project/crops/work"
+	global output "/users/dietz/dropbox/project/crops/drafts"
+	global code "/users/dietz/dropbox/project/crops/replicate"
+	global year 2000 // year of data to use
+	global level gadm2 // level of data to use (gadm1 = province, gadm2 = district)
+	global fe state_id // fixed effect to include
+	global csivar ln_csi_yield // our max calories per hectare
+	global rurdvar ln_rurd_2000 // rural density per unit of total land in 2000
+	global cntl urb_perc_2000 ln_light_mean // urban percent and light mean
+	global cutoff 500 // km cutoff for Conley SE
+	global drop = "urbc_2000<-99999" // drop from sample - baseline is to drop noone
+end
+
+//////////////////////////////////////
+// Set initial controls - load programs
+//////////////////////////////////////
+reset
+do "$code/ols_spatial_HAC.ado" // set up program to do spatial standard errors
+do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
+
+//////////////////////////////////////
+// Call programs given controls
+//////////////////////////////////////
+// Base results
+reset // reset all globals to baseline
+global tag = "base" // name the set of results (files, figures)
+do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
+//do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
+
+// Change cutoff for SE
+//reset
+//global cutoff 1000
+//global tag = "cut1000"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// Province level results
+//reset
+//global level gadm1
+//global tag = "province"
+//global fe country_id
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// Autarkic districts
+//reset
+//global cntl urb_perc_2000 ln_light_mean ln_rur_perc_2000
+//global tag = "autarky"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// Cultivated area
+//reset
+//global rurdvar ln_rurd_cult_2000
+//global cntl urb_perc_2000 ln_light_mean ln_cult_area_perc
+//global tag = "cult"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// 1900 population results
+//reset
+//global year 1900
+//global tag = "pop1900"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// 1950 population results
+//reset
+//global year 1950
+//global tag = "pop1950"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// Remove districts with few harvest hectares
+//reset
+//global drop = "prod_sum<2792" // drop if below 25th percentile in total production
+//global tag = "prodsum25th"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions

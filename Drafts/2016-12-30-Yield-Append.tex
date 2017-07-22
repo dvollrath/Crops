@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage[top=1.25in,bottom=1.25in,left=1in,right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage[usenames,dvipsnames]{pstricks}
+\usepackage{epsfig}
+\usepackage{pstricks-add}
+\usepackage{pst-node}
+\usepackage{pst-plot}
+\usepackage{fancyhdr}
+\usepackage[absolute,showboxes]{textpos}
+\usepackage{booktabs}
+\usepackage{dcolumn}
+\usepackage{arydshln}
+\usepackage{natbib}
+\usepackage{tabularx}
+
+\setcounter{MaxMatrixCols}{10}
+\newcolumntype{d}[1]{D{.}{.}{-2.#1}}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\setlength{\columnsep}{.2in}
+\psset{unit=1cm}
+
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+\begin{document}
+\begin{titlepage}
+\vspace{2in} \noindent {\large \today}
+
+\vspace{.5in} \noindent {\Large \textbf{\strut The Influence of Crop Type on Comparative Development}}
+
+\vspace{.25in} \noindent {\large T. Ryan Johnson}
+
+\vspace{.05in} \noindent University of Houston
+
+\vspace{.25in} \noindent {\large Dietrich Vollrath}
+
+\vspace{.05in} \noindent University of Houston
+
+\vfill \noindent \textsc{Abstract} \hrulefill
+
+\vspace{.05in} \noindent Stuff
+
+\vspace{.1in} \hrule
+
+\vspace{.5in} \noindent {\small JEL Codes: TBD}
+
+\vspace{.1in} \noindent {\small Keywords: TDB}
+
+\vspace{.1in} \noindent {\small Contact information: 201C McElhinney Hall, U. of Houston, Houston, TX 77204, devollrath@uh.edu.}
+\end{titlepage}
+
+\pagebreak 
+
+\clearpage
+
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Malthusian Tightness, $\beta$, by Region, 2000CE}
+\label{TAB_beta_region}
+{\small
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable: Log caloric yield ($A_{ic}$)} \\
+ & \multicolumn{6}{c}{Region:} \\ \cmidrule{2-7}
+ &        &      & Sub-        & South \&  & North     &  \\
+ &        &      & Saharan     & Central   & Africa \& & North \\
+ & Europe & Asia & Africa      & America   & Mideast   & America \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_region_1900.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Standard errors are clustered at the country level, *** indicates significance at 1\%, ** at 5\%, and * at 10\%. All regressions include country fixed effects and a constant. See appendix for lists of exact countries included in each region. The coefficient estimate on rural population density indicates the value of $\beta$, see equation (\ref{EQ_regress}). Rural population is from HYDE database \citep{hyde31}, and caloric yield is the author's calculations based on the data from \citet{galorozak2016}. The p-value is from a hypothesis test that the estimated $\beta$ is equal to that estimated for Europe, $\beta^{Eur}$, and is obtained from an interaction term in a separate regression including both Europe and the given region, see equation (\ref{EQ_interaction}) and the text for details.
+}
+\end{table}
+
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Malthusian Tightness, $\beta$, by Sub-regions, 2000CE}
+\label{TAB_beta_subregion}
+{\small
+\begin{tabularx}{\textwidth}{lXXXXX}
+\midrule
+\multicolumn{6}{l}{Dependent Variable in both panels: Log caloric yield ($A_{ic}$)} \\ \\
+\\
+Panel A & \multicolumn{5}{c}{Sub-Region:} \\ \cmidrule{2-6}
+ &          &         &             &  \multicolumn{2}{c}{Excl. China} \\ \cmidrule(lr){5-6}
+ & North \& &         &              & South \&  & Central \&             \\
+ & Western  & Eastern & Southern     & Southeast & West        \\
+ & Europe   & Europe  & Europe       & Asia      & Asia      \\
+ & (1) & (2) & (3) & (4) & (5) \\
+\midrule
+\input{tab_beta_subregionA_1900.tex}
+\midrule
+\\
+Panel B & \multicolumn{5}{c}{Sub-Region:} \\ \cmidrule{2-6}
+ &           &   &           &          &             \\
+ & Temperate & Tropical  & Tropical & South    & North    \\
+ & Americas  & Americas  & Africa   & Africa   & Africa     \\
+\midrule
+\input{tab_beta_subregionB_1900.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Standard errors are clustered at the country level, *** indicates significance at 1\%, ** at 5\%, and * at 10\%. All regressions include country fixed effects and a constant. See appendix for lists of exact countries included in each region. The coefficient estimate on rural population density indicates the value of $\beta$, see equation (\ref{EQ_regress}). Rural population is from HYDE database \citep{hyde31}, and caloric yield is the author's calculations based on the data from \citet{galorozak2016}. The p-value is from a hypothesis test that the estimated $\beta$ is equal to that estimated for Northwest Europe, $\beta^{NWEur}$, and is obtained from an interaction term in a separate regression including both Northwest Europe and the given region, see equation (\ref{EQ_interaction}) and the text for details.
+}
+\end{table}
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Malthusian Tightness, $\beta$, China, 2000CE}
+\label{TAB_beta_china}
+{\small
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable: Log caloric yield ($A_{ic}$)} \\
+ & \multicolumn{3}{c}{Province level:} & \multicolumn{3}{c}{District level:} \\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & All& North & South & All   & North   & South \\
+ & China & China  & China      & China    & China   & China \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_china_1900.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Standard errors are clustered at the country level, *** indicates significance at 1\%, ** at 5\%, and * at 10\%. All regressions include country fixed effects and a constant. See appendix for lists of exact countries included in each region. The coefficient estimate on rural population density indicates the value of $\beta$, see equation (\ref{EQ_regress}). Rural population is from HYDE database \citep{hyde31}, and caloric yield is the author's calculations based on the data from \citet{galorozak2016}. The p-value is from a hypothesis test that the estimated $\beta$ is equal to that estimated for North China, $\beta^{North}$, and is obtained from an interaction term in a separate regression including both North and South China, see equation (\ref{EQ_interaction}) and the text for details.
+}
+\end{table}
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Malthusian Tightness, $\beta$, by Crop Suitability, 2000CE}
+\label{TAB_beta_crops}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{ic}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Wheat and rice} \\
+ & \multicolumn{6}{c}{Inclusion by crop suitability:} \\ \cmidrule(lr){2-7}
+ & \multicolumn{4}{c}{Entire world:} & \multicolumn{2}{c}{Ex. Americas:}\\ \cmidrule(lr){2-5} \cmidrule(lr){6-7} 
+ & Wheat$>$0& Wheat=0 &         &        & Wheat$>$0   & Wheat=0   \\
+ & Rice=0 & Rice$>$0  & Wheat$>$0 & Rice$>$0 & Rice=0    & Rice$>$0   \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_crop_1900.tex}
+\midrule
+\\
+\multicolumn{7}{l}{Panel B: Tropical crops} \\
+                   & \multicolumn{6}{c}{Inclusion by crop suitability:} \\ \cmidrule(lr){2-7}
+                   &            &              &          &   Pearl       &  Sweet      & \\
+& Cassava$>$0 & Cowpeas$>$0  & Maize$>$0 & Millet$>$0 & Potato$>$0 & Yams$>$0   \\
+\midrule
+\input{tab_beta_crop_otherA_1900.tex}
+\midrule
+\\
+\multicolumn{7}{l}{Panel C: Temperate crops} \\
+                   & \multicolumn{6}{c}{Inclusion by crop suitability:} \\ \cmidrule(lr){2-7}
+                   &            & Buck-        &          &          &         & White \\
+                   & Barley$>$0 & wheat$>$0  & Oats$>$0 & Flax$>$0 & Rye$>$0 & Potato$>$0   \\
+\midrule
+\input{tab_beta_crop_otherB_1900.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Standard errors are clustered at the country level, *** indicates significance at 1\%, ** at 5\%, and * at 10\%. All regressions include country fixed effects and a constant. The coefficient estimate on rural population density indicates the value of $\beta$, see equation (\ref{EQ_regress}). Rural population is from HYDE database \citep{hyde31}, and caloric yield is the author's calculations based on the data from \citet{galorozak2016}. Inclusion of sub-national units in the regression is based on crop suitability indices from \citet{gaez}, which range from 0 to 100, and are calculated by the author's for each sub-national unit. See text for details.
+}
+\end{table}
+
+\end{document}

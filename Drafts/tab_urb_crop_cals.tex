@@ -1,0 +1,42 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}&\multicolumn{1}{c}{(6)}\\
+                    &\multicolumn{1}{c}{Urb 1500}&\multicolumn{1}{c}{Urb 1600}&\multicolumn{1}{c}{Urb 1700}&\multicolumn{1}{c}{Urb 1800}&\multicolumn{1}{c}{Urb 1900}&\multicolumn{1}{c}{Urb 2000}\\
+\midrule
+ln\_area             &      -0.012\sym{***}&      -0.012\sym{***}&      -0.013\sym{***}&      -0.030\sym{***}&      -0.040\sym{***}&      -0.053\sym{***}\\
+                    &    (0.0011)         &    (0.0012)         &    (0.0012)         &    (0.0016)         &    (0.0024)         &    (0.0032)         \\
+\addlinespace
+ln\_cals\_p1500\_max   &      -0.000         &       0.000         &       0.000         &      -0.002         &       0.003         &       0.005         \\
+                    &    (0.0023)         &    (0.0024)         &    (0.0025)         &    (0.0033)         &    (0.0049)         &    (0.0066)         \\
+\addlinespace
+lim\_wheat\_ratio\_cals\_p1500&       0.052         &       0.052         &       0.051         &       0.066         &      -0.037         &      -0.513\sym{***}\\
+                    &    (0.0436)         &    (0.0452)         &    (0.0472)         &    (0.0614)         &    (0.0913)         &    (0.1239)         \\
+\addlinespace
+lim\_wetrice\_ratio\_cals\_p1500&      -0.002         &       0.016         &       0.021         &      -0.306\sym{***}&      -0.572\sym{***}&      -0.952\sym{***}\\
+                    &    (0.0351)         &    (0.0364)         &    (0.0380)         &    (0.0495)         &    (0.0736)         &    (0.0999)         \\
+\addlinespace
+lim\_maize\_ratio\_cals\_p1500&      -0.016         &      -0.011         &      -0.019         &      -0.036         &       0.009         &       0.196\sym{*}  \\
+                    &    (0.0322)         &    (0.0334)         &    (0.0349)         &    (0.0454)         &    (0.0675)         &    (0.0917)         \\
+\addlinespace
+ln\_cals\_p1500\_max $\times$ lim\_wheat\_ratio\_cals\_p1500&      -0.004         &      -0.004         &      -0.004         &      -0.006         &      -0.002         &       0.019\sym{**} \\
+                    &    (0.0022)         &    (0.0022)         &    (0.0023)         &    (0.0031)         &    (0.0045)         &    (0.0062)         \\
+\addlinespace
+ln\_cals\_p1500\_max $\times$ lim\_wetrice\_ratio\_cals\_p1500&       0.000         &      -0.001         &      -0.001         &       0.015\sym{***}&       0.029\sym{***}&       0.048\sym{***}\\
+                    &    (0.0017)         &    (0.0018)         &    (0.0019)         &    (0.0024)         &    (0.0036)         &    (0.0049)         \\
+\addlinespace
+ln\_cals\_p1500\_max $\times$ lim\_maize\_ratio\_cals\_p1500&       0.001         &       0.000         &       0.001         &       0.001         &      -0.000         &      -0.009\sym{*}  \\
+                    &    (0.0016)         &    (0.0017)         &    (0.0017)         &    (0.0023)         &    (0.0034)         &    (0.0046)         \\
+\addlinespace
+Constant            &       0.020         &       0.015         &       0.019         &       0.056         &       0.038         &       0.182         \\
+                    &    (0.0471)         &    (0.0488)         &    (0.0510)         &    (0.0664)         &    (0.0986)         &    (0.1339)         \\
+\midrule
+Observations        &       38858         &       38855         &       38857         &       38861         &       38861         &       38868         \\
+\(R^{2}\)           &       0.092         &       0.094         &       0.099         &       0.186         &       0.239         &       0.187         \\
+Adjusted \(R^{2}\)  &       0.088         &       0.090         &       0.096         &       0.182         &       0.236         &       0.184         \\
+\bottomrule
+\multicolumn{7}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

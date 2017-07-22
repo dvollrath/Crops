@@ -1,0 +1,33 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{5}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
+                    &\multicolumn{1}{c}{Density 1700}&\multicolumn{1}{c}{Density 1700}&\multicolumn{1}{c}{Density 1700}&\multicolumn{1}{c}{Density 1700}&\multicolumn{1}{c}{Density 1700}\\
+\midrule
+ln\_area             &      -0.492\sym{***}&      -0.520\sym{***}&      -0.527\sym{***}&      -0.472\sym{***}&      -0.609\sym{***}\\
+                    &    (0.0054)         &    (0.0051)         &    (0.0048)         &    (0.0045)         &    (0.0045)         \\
+\addlinespace
+Urb in same year    &      -0.174\sym{***}&      -0.051\sym{*}  &       0.036         &       0.098\sym{***}&      -0.022         \\
+                    &    (0.0238)         &    (0.0226)         &    (0.0216)         &    (0.0190)         &    (0.0146)         \\
+\addlinespace
+suit\_rcw\_p1500      &       6.726\sym{***}&       4.462\sym{***}&       2.609\sym{***}&       2.868\sym{***}&       1.757\sym{***}\\
+                    &    (0.0906)         &    (0.0915)         &    (0.0939)         &    (0.0967)         &    (0.0842)         \\
+\addlinespace
+suit\_mze\_p1500      &      -3.421\sym{***}&      -0.424\sym{***}&      -0.440\sym{***}&      -0.169\sym{**} &       0.747\sym{***}\\
+                    &    (0.0512)         &    (0.0645)         &    (0.0614)         &    (0.0555)         &    (0.0449)         \\
+\addlinespace
+suit\_whe\_p1500      &       2.729\sym{***}&       1.523\sym{***}&       1.217\sym{***}&       1.423\sym{***}&       1.323\sym{***}\\
+                    &    (0.0381)         &    (0.0399)         &    (0.0447)         &    (0.0470)         &    (0.0388)         \\
+\addlinespace
+Constant            &       8.207\sym{***}&       8.055\sym{***}&       8.139\sym{***}&       8.194\sym{***}&       7.824\sym{***}\\
+                    &    (0.0215)         &    (0.0204)         &    (0.0199)         &    (0.0176)         &    (0.0150)         \\
+\midrule
+Observations        &       41186         &       41186         &       41186         &       41186         &       41186         \\
+\(R^{2}\)           &       0.474         &       0.530         &       0.574         &       0.686         &       0.834         \\
+Adjusted \(R^{2}\)  &       0.474         &       0.530         &       0.574         &       0.686         &       0.833         \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{6}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}

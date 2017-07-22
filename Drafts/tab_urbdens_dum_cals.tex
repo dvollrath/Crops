@@ -1,0 +1,30 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{Urb 1700}&\multicolumn{1}{c}{Urb 1800}&\multicolumn{1}{c}{Urb 1900}&\multicolumn{1}{c}{Urb 2000}\\
+\midrule
+ln\_area             &      -0.005\sym{***}&      -0.012\sym{***}&      -0.016\sym{***}&      -0.007\sym{*}  \\
+                    &    (0.0010)         &    (0.0017)         &    (0.0024)         &    (0.0032)         \\
+\addlinespace
+ln\_cals\_p1500\_max   &      -0.003\sym{**} &      -0.007\sym{***}&      -0.007\sym{**} &      -0.007\sym{*}  \\
+                    &    (0.0011)         &    (0.0018)         &    (0.0026)         &    (0.0035)         \\
+\addlinespace
+dum\_crop\_cals\_p1500=1&       0.013         &      -0.100\sym{*}  &      -0.030         &       0.091         \\
+                    &    (0.0295)         &    (0.0478)         &    (0.0690)         &    (0.0898)         \\
+\addlinespace
+dum\_crop\_cals\_p1500=1 $\times$ ln\_cals\_p1500\_max&      -0.001         &       0.004\sym{*}  &       0.001         &      -0.004         \\
+                    &    (0.0013)         &    (0.0020)         &    (0.0029)         &    (0.0038)         \\
+\addlinespace
+Constant            &       0.106\sym{***}&       0.249\sym{***}&       0.380\sym{***}&       0.646\sym{***}\\
+                    &    (0.0245)         &    (0.0406)         &    (0.0599)         &    (0.0785)         \\
+\midrule
+Observations        &        1676         &        1736         &        1797         &        1856         \\
+\(R^{2}\)           &       0.827         &       0.811         &       0.859         &       0.869         \\
+Adjusted \(R^{2}\)  &       0.814         &       0.797         &       0.849         &       0.860         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+}
