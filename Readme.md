@@ -68,6 +68,8 @@ You can see the organization of the folders for the data in the "Crops_Data_Refe
 3. res01_???_crav6190.tif: A set of 7 files (??? are codes ID's the files) which measure more agro-climatic constraints (growing period, reference evapotranspiration, etc..)
 4. res03_crav6190l_sxlr_???.tif: A set of files (??? denote crop codes - see the crop_control.csv file) that measure suitability for a crop on a 0 to 100 scale
 
+The shell script "Crops_GAEZ_unzip.sh" in the Replicate folder is a utility that will unzip the sets of zip files downloaded from GAEZ.
+
 ### Running Regressions
 These files are all named "Crops_Reg_????.do". There are two files that need to be run first to merge the CSV files from R into a usable DTA file for Stata. 
 
