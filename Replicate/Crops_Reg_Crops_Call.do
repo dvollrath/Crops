@@ -21,29 +21,29 @@ gen y = 1 // "time" variable for use in spatial OLS
 drop if $drop // drop based on passed condition
 
 //////////////////////////////////////
-// Crop regressions - wheat and rice
+// Crop regressions - wheat and rice families
 //////////////////////////////////////	
-	// Wheat only 
+	// Wheat family suitable
 	est_ref if dry_suit==1 & wet_suit==0
 	estimates store reg_crop_1
 
-	// Rice only
+	// Rice family suitable
 	est_reg if dry_suit==0 & wet_suit==1
 	estimates store reg_crop_2
 	
-	// Any wheat
+	// Wheat family is dominant in max calories
 	est_ref if dry_max==1 & wet_max==0
 	estimates store reg_crop_3
 
-	// Any rice
+	// Rice family is dominant in max calories
 	est_reg if dry_max==0 & wet_max==1
 	estimates store reg_crop_4
 
-	// Wheat only, ex Americas
+	// Wheat family is dominant in actual crop area
 	est_ref if dry_area==1 & wet_area==0
 	estimates store reg_crop_5
 
-	// Rice only, ex Americas
+	// Rice family is dominant in actual crop area
 	est_reg if dry_area==0 & wet_area==1
 	estimates store reg_crop_6
 		
@@ -76,31 +76,31 @@ graph export "$output/fig_beta_crop.eps", replace as(eps)
 // Crop regressions - alternatives
 //////////////////////////////////////
 	// Only districts without big citites
-	// Wheat only 
+	// Wheat family 
 	est_ref if dry_suit==1 & wet_suit==0 & urbc_2000<25000
 	estimates store reg_sub_1
 
-	// Rice only
+	// Rice rice family
 	est_reg if dry_suit==0 & wet_suit==1 & urbc_2000<25000
 	estimates store reg_sub_2
 
-	// Only "poor" regions
-	// Wheat only 
+	// Only "poor" regions - no NA or Europe
+	// Wheat family  
 	est_ref if dry_suit==1 & wet_suit==0 & inlist(jv_subregion,4,7,8,9)
 	estimates store reg_sub_3
 
-	// Rice only
+	// Rice family
 	est_reg if dry_suit==0 & wet_suit==1 & inlist(jv_subregion,4,7,8,9)
 	estimates store reg_sub_4
 
 	// Only high density regions
 	qui summ $rurdvar, det
 	global rurdcut = r(p25)
-	// Wheat only 
+	// Wheat family 
 	est_ref if dry_suit==1 & wet_suit==0 & $rurdvar > $rurdcut
 	estimates store reg_sub_5
 
-	// Rice only
+	// Rice family
 	est_reg if dry_suit==0 & wet_suit==1 & $rurdvar > $rurdcut
 	estimates store reg_sub_6
 	

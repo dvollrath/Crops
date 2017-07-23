@@ -92,15 +92,13 @@ replace wet_suit = 1 if suit_csv>0 & suit_cow>0 & suit_pml>0 & suit_spo & suit_r
 
 keep if sjbasesamplenoncomm==1 & startrich!=1 & !missing(logGDPperpopworkingage)
 
-//drop if beta<0
+drop if beta<0
 
 summ beta, det
 capture drop beta_low
 gen beta_low = .
-replace beta_low = 1 if beta<=r(p50) & !missing(beta)
-replace beta_low = 0 if beta>r(p50) & !missing(beta)
-drop if beta>=r(p99)
-drop if beta<=r(p1)
+replace beta_low = 1 if beta<r(p50) & !missing(beta)
+replace beta_low = 0 if beta>=r(p50) & !missing(beta)
 
 // Pull out country and year FE from each major variable
 qui reg logtotalmaddgdp i.ctry yr????
