@@ -42,8 +42,8 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 // Base results
 reset // reset all globals to baseline
 global tag = "base" // name the set of results (files, figures)
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
-do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
+do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
 //do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
 // Change cutoff for SE
@@ -88,4 +88,16 @@ do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
 //reset
 //global drop = "prod_sum<2792" // drop if below 25th percentile in total production
 //global tag = "prodsum25th"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// HYDE Data, using IPUMS countries for comparison
+//reset // reset all globals to baseline
+//global drop "ipums_flag~=1" // exclude countries without IPUMS data
+//global tag = "ipumsflag" // name the set of results (files, figures)
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// GRUMP population data
+//reset
+//global rurdvar ln_grump_rurd
+//global tag = "grump"
 //do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions

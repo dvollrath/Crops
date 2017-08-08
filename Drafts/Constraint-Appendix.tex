@@ -22,6 +22,17 @@
 \usepackage{natbib}
 \usepackage{tabularx}
 \usepackage{subfigure}
+\usepackage{caption}
+\usepackage{minitoc}
+
+\renewcommand{\thetable}{A.\arabic{table}}
+\renewcommand{\thesection}{A.\arabic{section}}
+\renewcommand{\theequation}{A.\arabic{equation}}
+\makeatletter
+\renewcommand{\l@section}{\@dottedtocline{1}{1.5em}{2.6em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{4.0em}{3.6em}}
+\renewcommand{\l@subsubsection}{\@dottedtocline{3}{7.4em}{4.5em}}
+\makeatother
 
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
@@ -88,37 +99,239 @@
 
 \vspace{2in} \noindent \textsc{Online Appendix} \hrulefill
 
-\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here.
+\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here. Also included are definitions of countries included in regions used in paper. 
 \vspace{.1in} \hrule
 
 \end{titlepage}
 
 \pagebreak 
 
-\section{Introduction}
-This appendix consists of a series of tables reporting robustness checks for our main results. Each table is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, for sub-samples of districts distinguished by their suitability or production of different crops. 
+\tableofcontents
+
+\section{Alternative Mobility Assumptions}
+Our baseline specifications are built off of a model that assumes agricultural output, as well as labor and capital, are freely mobile across districts within a given province (although we do not require them to be mobile across provinces). However, even within a given province, there may be frictions or limits on the mobility of either output or inputs, or both. If these frictions exist, then our regressions may not be delivering unbiased estimates of $\beta$. We outline two alternative assumptions about mobility here, and how our results relate to those. 
+
+\subsection{Immobile Factors}
+The baseline model assumes capital and labor are free to move between districts within a region. If we make factors immobile, but allow both agricultural and non-agricultural output to move between districts, this changes the specification of the relationship between agricultural productivity and rural density. 
+
+The agricultural production function for a district is the same as in (1), and we also need to specify a production function for non-agriculture. We do so as $Y_{Ni} = A_{Ni} K_{Ni}^{\alpha} L_{Ni}^{1-\alpha}$. Capital and labor are assumed to be mobile \textit{within} the district between the two sectors, implying that the return to capital and the return to labor are equalized across different uses. Because of this, the capital/labor ratio in both sectors will be identical, with $K_{Ai}/L_{Ai} = K_{Ni}/L_{Ni} = K_i/L_i$, where $K_i/L_i$ is the district's aggregate capital/labor ratio. 
+
+Equality of the return to labor across different sectors implies that 
+\begin{equation}
+    p_A (1-\alpha)(1-\beta)\frac{Y_{Ai}}{L_{Ai}} = p_N (1-\alpha)\frac{Y_{Ni}}{L_{Ni}}. \nonumber
+\end{equation}
+Using the condition that the capital/labor ratio will be identical across the two sectors, and re-arranging this relationship, we have that
+\begin{equation}
+    p_A (1-\beta) A_{Ai} \left(\frac{K_i}{L_i}\right)^{\alpha(1-\beta)} \left(\frac{X_i}{L_{Ai}}\right)^{\beta} = p_N A_{Ni} \left(\frac{K_i}{L_i}\right)^{\alpha} \nonumber
+\end{equation}
+Taking logs, are again re-arranging terms, we arrive at
+\begin{equation}
+    \ln A_{Ai} = \beta \ln L_{Ai}/X_i + \ln A_{Ni} + \alpha\beta \ln K_i/L_i + \ln p_N/p_A. \nonumber
+\end{equation}
+This equation shows that the relationship between agricultural productivity, $A_{Ai}$, and rural density, $L_{Ai}/X_i$, can still be used to recover an estimate of $\beta$. To do this, we must control for the district-specific levels of non-agricultural productivity, $A_{Ni}$, and capital/labor, $K_i/L_i$. While we do not have direct measures of those, we believe that our control for night lights will act as a decent proxy for these terms. Finally, the price ratio, $p_N/p_A$, is the province relative price, as goods are traded freely, so this will be captured by the province level fixed effects.
+
+If our night lights control is not capturing the variation in $A_{Ni}$ or $K_i/L_i$, then our estimates may be biased if there is a relationship between those variables and rural density. In particular, if rural density is negatively related to $A_{Ni}$ and/or $K_i/L_i$ then we could be under-stating the value of $\beta$. It is not clear why this negative relationship would hold only in tropical areas (with small estimate $\beta$ values), but not in other areas.
+
+\subsection{Autarkic Districts}
+If districts are entirely closed, in that neither factors of production nor output can move between districts, then this again changes the specification of our regressions. Here, the crucial remaining assumption is that the value of $\beta$ is the same across all districts within a given province. 
+
+Within each district, let the amount of agricultural output consumed be $c_{Ai}$, and hence market clearing within the district requires $c_{Ai} L_i = Y_i$ for agricultural output. Using the same production function as in the main section, and again assuming that capital and labor move freely between sectors (non-agriculture and agriculture) so that the capital/labor ratios are equal to the aggregate ratio, we have
+\begin{equation}
+    c_{Ai} L_i = A_i X_i^{\beta} \left(K_i/L_i\right)^{\alpha(1-\beta)} L_{Ai}^{1-\beta}. \nonumber
+\end{equation}
+Taking logs and re-arranging, we have the following
+\begin{equation}
+    \ln A_i = \beta \ln L_{Ai}/X_i - \ln L_{A_i}/L_i - \alpha(1-\beta) \ln K_{i}/L_{i} + \ln c_{Ai}. \nonumber
+\end{equation}
+We can recover an estimate of $\beta$ from the relationship of productivity and rural density, but now must control for the agricultural share of labor, $L_{Ai}/L_i$, the capital/labor ratio, and the consumption of agricultural goods per capita. For $L_{Ai}/L_i$, we have this data, and can include it directly in a regression (it is implicitly included in our baseline regression when we use the percent urban). For the capital/labor ratio and consumption of agricultural goods, we believe that the night lights data are a decent proxy for these terms.
+
+Including the log of $L_{Ai}/L_i$ explicitly as a control is possible, and the results of this are shown in Table A.11 at the end of this Appendix.
+
+The results in Table A.11 may still be biased, however, if the night lights proxy does not pick up the variation in consumption or the capital/labor ratio. If the capital/labor ratio is positively related to the rural density, then we would be under-estimating the true value of $\beta$. The small estimated values of $\beta$ in tropical areas may be because of this relationship, although it is not clear why rural density would be positively related to capital/labor ratios only in tropical areas. Alternatively, if consumption of agricultural goods is negatively related to rural density, and we are not controlling for it with night lights, then we may be under-estimating $\beta$. This could possibly be true only in tropical areas if they are relatively poor, whereas this relationship no longer holds in richer, temperate areas. This is clearly a possibility, although recall that this would only be a problem if we believe that districts are \textit{autarkic}, which may be an extreme assumption.
+
+\section{Solving for Labor Share and Real Income}\label{APP_solve}
+In section 4.1 we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (12) and (13) is as follows.
+
+Based on the district-level production functions from (1) total agricultural supply in province $I$ can be written as
+\begin{equation}
+Y_A = \sum_{i \in I} A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\beta}. \label{EQ_caL}
+\end{equation}
+We know each $L_{Ai}$ from (4). By a similar logic used for labor we can establish that the allocation of capital to any individual location $i$ is
+\begin{equation}
+    K_{Ai} = A_{i}^{1/\beta} X_i \frac{K_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}} \label{EQ_KaX}
+\end{equation}
+where $K_A$ is the aggregate allocation of capital to agriculture. Combine (11) and (\ref{EQ_KaX}) with the expression in (\ref{EQ_caL}) and we can solve for 
+\begin{equation}
+    Y_A = A_A \left(\frac{K_A}{L_A}\right)^{\alpha(1-\beta)} L_A^{1-\beta} \nonumber
+\end{equation}
+where 
+\begin{equation}
+    A_A = \left(\sum_{j\in I} A_{j}^{1/\beta}X_{j} \right)^\beta \nonumber
+\end{equation}
+is the measure of aggregate agricultural total factor productivity for the province. 
+
+With the assumption that land earns no return, and the share earned by capital is $\phi_K$ is both sectors, and for labor the share is $\phi_L$ in both sectors, it follows that the capital/labor ratio in both sectors is equal to the aggregate capital labor ratio,
+\begin{equation}
+    \frac{K_A}{L_A} = \frac{K_N}{L_N} = \frac{K}{L} = \frac{w}{r}\frac{\phi_K}{\phi_L}. \nonumber
+\end{equation}
+
+Using the equilibrium condition on wages across sectors from (2), we can solve for 
+\begin{equation}
+    \frac{p_A}{p_N} = \frac{Y_N}{L_N}\frac{L_A}{Y_A}.\label{EQ_papn}
+\end{equation}
+Noting that $Y_N = c_N L$ and $Y_A = c_A L$, we can rearrange this be
+\begin{equation}
+    \frac{p_A c_A}{p_N c_N} = \frac{L_A}{L_N}, \label{EQ_expend}
+\end{equation}
+which shows that the relative amount of labor employed in agriculture and non-agriculture is equal to the relative expenditures on those goods. With the adding up conditions $L_A + L_N = L$ and $p_Ac_A + p_N c_N = M$, it follows that in log terms
+\begin{equation}
+    \ln L_A/L = \ln p_A c_A/M. \label{EQ_pacaM}
+\end{equation}
+
+Turning to the demand function from (10), we can re-arrange that to
+\begin{equation}
+   (1-\epsilon) \ln p_A c_A/M = \ln \theta_A  + (\epsilon-\gamma)(\ln p_N - \ln p_A) - \epsilon \ln c_A. \nonumber
+\end{equation}
+Using the relationships in (\ref{EQ_papn}) and (\ref{EQ_pacaM}), as well as the fact that $c_A = (Y_A/L_A)(L_A/L)$, we can substitute here to find
+\begin{equation}
+    (1-\epsilon)\ln L_A/L = \ln \theta_A + (\epsilon-\gamma)\left(\ln Y_N/L_N - \ln Y_A/L_A \right) - \epsilon \left(\ln Y_A/L_A + \ln L_A/L \right). \nonumber
+\end{equation}
+Collecting terms we have
+\begin{equation}
+    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln Y_N/L_N - \gamma \ln Y_A/L_A. \nonumber
+\end{equation}
+Using the production functions in (9) and (\ref{EQ_caL}), we can write this as
+\begin{equation}
+    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln \left(A_N (K/L)^{\alpha}\right) - \gamma \ln \left(A_A (K/L)^{\alpha(1-\beta)} L_A^{-\beta}\right) - \gamma \beta \ln L + \gamma \beta \ln L, \nonumber
+\end{equation}
+where we've added and subtracted the term involving $L$. At this point, what remains is to separate the productivity and capital terms using the logs, and then straightforward algebra to arrive at
+\begin{equation}
+    \ln L_A/L = \ln \theta_A + \frac{\beta\gamma}{1-\beta\gamma} \ln L - \frac{\gamma}{1-\beta\gamma} \ln A_A + \frac{\gamma - \epsilon}{1-\beta\gamma} \ln A_N + \frac{\alpha(\beta\gamma - \epsilon)}{1-\beta\gamma} \ln K/L. \nonumber
+\end{equation}
+Exponentiating this, we arrive at (12) from the main text.
+
+For real income, in agricultural terms we have
+\begin{equation}
+    y = \frac{M}{p_A} = c_A + \frac{p_N}{p_A} c_N. \nonumber
+\end{equation}
+Using (\ref{EQ_expend}) we can write this as
+\begin{equation}
+    y = c_A + \frac{p_N c_N}{p_A c_A}c_A = c_A \left(1 + \frac{L_N}{L_A}\right) = c_A \frac{L}{L_A}. \nonumber
+\end{equation}
+Noting that $c_A = Y_A/L$, we have that
+\begin{equation}
+    y = \frac{Y_A}{L_A} = A_A (K/L)^{\alpha(1-\beta)} (L_A/L)^{-\beta} L^{-\beta}, \nonumber
+\end{equation}
+where the second equality follows from (\ref{EQ_caL}). At this point, we can use (12) to plug in for $L_A/L$ in the above equation, and solve for 
+\begin{equation}
+    \ln y = \frac{1}{1-\beta\gamma} \ln A_A - \frac{\beta}{1-\beta\gamma} \ln L + \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln A_N + \frac{\alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln K/L. \nonumber
+\end{equation}
+Exponentiating, we arrive at (13) in the main text.
+
+\section{Definitions of regions}
+
+\noindent\textbf{Regions:} Countries are included as follows:. 
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \input{tab_region_id.tex}
+\end{itemize}
+
+\noindent\textbf{For China-only regressions:} We exclude Tibet, Xinjiang, Gansu, and Qinghai entirely, given that their climates do not fit well into the temperate versus sub-tropical distinction we make in the regressions.
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \item \textbf{Temperate provinces}: Hebei, Heilongjiang, Jilin, Liaoning, Nei Mongol, Ningxia Hui, Shaanxi, Shanxi, Tianjin, Sichuan, Shandong, Yunnan
+    \item \textbf{Sub-tropical provinces}: Guangxi, Guangdong, Fujian, Jiangxi, Hunan, Guizhou, Chongqing, Hubei, Anhui, Zhejiang, Henan, Jiangsu, Hainan
+\end{itemize}
+
+\noindent\textbf{Russian provinces:} We split Russia into separate Asian and European sections for inclusion in the regions. That breakdown takes place at the province level
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \input{tab_russia_id.tex}
+\end{itemize}
+
+\section{Alternative Population Data}
+As mentioned in the main text, given possible issues with the HYDE data on population, we use two alternative sources of population data. These show that our results are not contingent on the particular data from HYDE.
+
+\subsection{GRUMP Data}
+We accessed both the gridded population map, and the urban extents grid. The GRUMP data is provided at 30 arc-second grids (rougly 1km squares), a higher resolution than the HYDE data (which has 5 arc-minute grids, or roughly 10km squares). We overlay the urban extents grid on the population map, and retrieve only the population count of grid cells that are not part of an urban extent. We then sum up the population count of grid cells within each district. The district definitions are from GADM, identical to those used with the HYDE data, so we can compare the counts directly.
+
+Because GRUMP counts zero rural residents in an area that is part of an urban extent, and all population in non-urban locations as rural, the variation in rural residents across districts is more severe than with HYDE. Some districts in GRUMP are entirely covered by urban extents, and so have zero rural residents. Hence the GRUMP data leads to 28,471 districts with data on rural density, compared to 35,451 using HYDE. For those 28,471 districts, the correlation of (log) rural density across the two datasets is 0.81, significant at less than 1\%. 
+
+The following table shows the results using the GRUMP data. The results are consistent with our baseline findings. The elasticity for wheat family suitable districts is about 0.20, while for rice family suitable areas it is only 0.115, a difference of about 0.10 that is significant at less than 1\%. Panel B shows that these results hold up if we restrict the sample due to urban size, country development, or the density of rural workers.
+
+The only discrepancy with the baseline results is in Panel A, columns (5) and (6), which distinguish samples by their harvested area. In this case, the estimated $\beta$ values are similar (statistically and practically). This appears to be due to a set of outliers in the GRUMP data that have very low reported rural density relative to the equivalent HYDE areas. We can identify these outliers by regressing the GRUMP (log) rural density on the HYDE (log) rural density, and looking for observations whose residuals from that regression are in the bottom 1\% (meaning GRUMP's estimate is well below the HYDE estimate). If we eliminate those from the GRUMP data, then the results for columns (5) and (6) are much closer to the baseline results. The underlying issue here is that these districts have many cells coded as ``urban'' by GRUMP, but HYDE's data indicates large rural populations. Without better information, we do not know if this is an error of HYDE's or GRUMP's methodologies.
+
+\subsection{IPUMS Data}
+We use 39 countries that have both geographic identifier data (the GEOLEV2 variable from IPUMS) as well as information on individual industry of employment. We create a 0/1 variable indicating whether an individual is an agricultural worker (meaning they are reported as in the workforce). We then aggregate this variable (weighted by their IPUMS provided sampling weight) across individuals within a geographic area to get a count of the total agricultural workers. Using a similar method, we are also able to count the number of urban residents, which allows us to measure the percent urban within a geographic area. We end up with a total of 8,393 geographic areas.
+
+Before we run regressions, the IPUMS data is useful in assessing how good of an approximation rural population (including workers and non-workers) is for the number of agricultural workers. The correlation of (log) rural residents and (log) agricultural workers across the areas is 0.91, significant at less than 1\%. There are a few outliers where the number of agricultural workers is high relative to rural residents, which likely represents agricultural processing work in urban areas, or urban farmers with small plots. Our results are not affected by excluding these outliers.
+
+The geographic areas provided by IPUMS in the GEOLEV2 variable are in many cases agglomerations of the districts we use from GADM. This is because IPUMS aggregates districts with fewer than 25000 observations (to protect anonymity) or districts whose boundaries have changed over time (so that the agglomerations are comparable over time for a given country). This means the IPUMS geographic areas are not directly comparable to our districts. Because the IPUMS agglomerations are much larger than districts, it is not practical to use province/state fixed effects, as most of these have only one or two IPUMS areas within them. Hence we run our regressions only with country fixed effects. Because the GEOLEV2 areas are different than the districts in our baseline specifications, we create new GEOLEV2 level versions of our caloric suitability index, night lights data, and other crop suitability measures. 
+
+The following table shows the results using the IPUMS data. For the main results using the suitability for wheat family and rice family crops, the results show a similar pattern to what we found in our baseline. The estimated $\beta$ in wheat-suitable areas is 0.213, compared to 0.025 in rice-suitable areas, and the difference is statistically significant. 
+
+In columns (3) and (4), the samples are selected on which crops we find deliver the maximum calories within an area. A slight modification is made here to the baseline selection criteria, because the IPUMS areas are so large. Column (3) includes areas that have any of their maximum calories derived from the wheat family, and \textit{none} from the rice family. Column (4) excludes areas where \textit{none} of the maximum calories from the wheat family, and includes areas with \textit{any} maximum calories derived from the rice family. Here, we again see that wheat family areas have an elasticity around 0.20, while the rice family elasticity is estimated to be zero, and the difference is statistically significant. In this case, we cannot reject the hypothesis that there is no land constraint in these rice-family dominated areas. In columns (5) and (6), based on actual harvested area, we again get results similar to our baseline specification using HYDE data, and again the rice family coefficient is estimated to be very small. 
+
+We cannot replicate the second panel of our baseline results, for several reasons. First, the areas from IPUMS are so large that they almost universally contain large cities, so there is no point in removing areas with large cities. Second, the 39 countries are dominated by poor countries, so eliminating ``rich'' countries does not change the results (it eliminates only the U.S., Spain, and Austria). 
+
+Finally, the 39 countries included from IPUMS are, with the census date listed: 
+\input{tab_ipums_countries.tex}
+
+\section{Province Specific Estimates}
+In the main paper we create sub-samples first, and estimate $\beta$ for each sub-sample, assuming that the $\beta$ is identical for all provinces (and districts) within the sub-sample. As an alternative, we can first estimate $\beta$ separately for each province, and then group those provinces into sub-samples based on crop, climate, or region. 
+
+The one limitation we have is that we cannot estimate separate $\beta$ values for provinces without sufficient districts within them. We 
+
+\section{Robustness Tables}
+Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, for sub-samples of districts distinguished by their suitability or production of different crops. 
 
 Here we list the baseline assumptions behind each table, rather than replicating the same footnotes over and over again. In each case, these are the baseline assumptions, and the individual table may change or drop the assumption, as will be noted in each table in bold. 
 
 Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.
 
+A list of tables is provided for convenience. The first table (A.1), replicates the baseline results for comparison purposes.
+
 \listoftables
 
 \addtab{Baseline results}{Baseline results}{tab_beta_crop_base.tex}{tab_beta_crop_sub_base.tex}
+
+\addtab{Using GRUMP Population Data}{Using GRUMP to measure rural density in place of HYDE.}{tab_beta_crop_grump.tex}{tab_beta_crop_sub_grump.tex}
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Using IPUMS Population Data}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
+ & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Wheat & Rice & Wheat/  & Rice  & Wheat  & Rice \\
+ & Only & Only &  No Rice & No Wheat & $>50\%$ & $>50\%$   \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_crop_ipums.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize Clustered standard errors at the country level are shown in parentheses. All regressions include country fixed effects, and controls for (log) night lights and urban percent. Agricultural worker density is from IPUMS, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction.}
+\end{table}
 
 \addtab{Conley SE cutoff of 1000km}{Use 1000km to form cutoffs for Conley standard errors}{tab_beta_crop_cut1000.tex}{tab_beta_crop_sub_cut1000.tex}
 
 \addtab{Province-level data}{Using provinces as the units of observation, with country fixed effects. Night lights and urban percent controls are at the province level.}{tab_beta_crop_province.tex}{tab_beta_crop_sub_province.tex}
 
-\addtab{Using cultivated area}{Rural density measured using rural population per hectare of cultivated land. Also includes a control for cultivated land as a percent of total land.}{tab_beta_crop_cult.tex}{tab_beta_crop_sub_cult.tex}
+\addtab{Using cultivated area to measure density}{Rural density measured using rural population per hectare of cultivated land. Also includes a control for cultivated land as a percent of total land.}{tab_beta_crop_cult.tex}{tab_beta_crop_sub_cult.tex}
 
 \addtab{Using population from 1900CE}{Rural density measured using population data from 1900CE from HYDE database.}{tab_beta_crop_pop1900.tex}{tab_beta_crop_sub_pop1900.tex}
 
 \addtab{Using population from 1950CE}{Rural density measured using population data from 1950CE from HYDE database.}{tab_beta_crop_pop1950.tex}{tab_beta_crop_sub_pop1950.tex}
 
-\addtab{Using log rural percent of population as a control}{Include log rural percent of the population as a control, consistent with a model of districts being autarkic.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
-
 \addtab{Dropping districts under 25th percentile in production}{Drops all districts below the 25th percentile of total tonnes of staple crops produced across all districts. Raw tonnes are used, unadjusted for calorie content.}{tab_beta_crop_prodsum25th.tex}{tab_beta_crop_sub_prodsum25th.tex}
+
+\addtab{Using log rural percent of population as a control}{Include log rural percent of the population as a control, consistent with a model of districts being autarkic.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
 
 
 \end{document}

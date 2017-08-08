@@ -55,6 +55,8 @@ foreach year in `years' {
 	label variable ln_rurd_cult_`year' "Log rural cult. density"
 }
 
+qui gen ln_grump_rurd = ln(grump_rur/shape_ha)
+label variable ln_grump_rurd "Log rural density"
 
 //////////////////////////////////////
 // Create CSI productivity variable
@@ -240,6 +242,18 @@ replace jv_china = 2 if name_0=="China" & inlist(name_1,"Guizhou","Chongqing","H
 replace jv_china = 2 if name_0=="China" & inlist(name_1,"Henan","Jiangsu","Hainan") // South
 // "Xizang", "Xinjiang Uygur" "Gansu", "Qinghai", - remove Tibet and Xinjiang from "North" ,"Yunnan"
 
+//////////////////////////////////////
+// Create indicator for inclusion in IPUMS data
+//////////////////////////////////////
+gen ipums_flag = .
+replace ipums_flag = 1 if inlist(name_0,"Argentina","Austria","Bolivia","Brazil","Burkina Faso")
+replace ipums_flag = 1 if inlist(name_0,"Cambodia","Cameroon","Chile","Colombia","Costa Rica")
+replace ipums_flag = 1 if inlist(name_0,"Ecuador","Egypt","El Salvador","Fiji","Ghana")
+replace ipums_flag = 1 if inlist(name_0,"Greece","Haiti","India","Iran","Iraq")
+replace ipums_flag = 1 if inlist(name_0,"Jordan","Kyrgyzstan","Malawi","Mexico","Morocco")
+replace ipums_flag = 1 if inlist(name_0,"Mozambique","Panama","Peru","Sierra Leone","South Africa")
+replace ipums_flag = 1 if inlist(name_0,"South Sudan","Spain","Sudan","Tanzania","Turkey")
+replace ipums_flag = 1 if inlist(name_0,"Uganda","United States","Venezuela","Zambia")
 
 save "$data/all_crops_data_`gadm'.dta", replace
 
@@ -350,5 +364,6 @@ twoway kdensity ln_rurd_2000 if jv_region==1, clcolor(black) ///
 	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(-5(1)4)
 graph export "$text/fig_dens_rurd.png", replace as(png)
 graph export "$text/fig_dens_rurd.eps", replace as(eps)
+	
 	
 // end

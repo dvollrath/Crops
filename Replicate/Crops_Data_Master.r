@@ -27,6 +27,8 @@ csidir  <- paste0(mdir,"/data/CropCSI") # Crop caloric suitability
 dmspdir <- paste0(mdir,"/data/DMSP/2000") # Night lights data
 kgdir   <- paste0(mdir,"/data/Koeppen-Geiger-GIS") # KG climate zones
 esdir   <- paste0(mdir,"/data/Earthstat") # Earthstat production data
+ipumdir <- paste0(mdir,"/data/IPUMS") # IPUMS data
+grumdir <- paste0(mdir,"/data/GRUMP") # IPUMS data
 datadir <- paste0(mdir,"/Replicate") # Control files
 
 ## Set crop list, input, and water conditions
@@ -60,7 +62,8 @@ setwd(refdir)
 #source(file.path(codedir,'Crops_Data_GAEZ_Suit.r')) # Suitability data
 #source(file.path(codedir,'Crops_Data_GAEZ_Cult.r')) # Cultivated area
 #source(file.path(codedir,'Crops_Data_KG_Count.r')) # KG zone data
-source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
+#source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
+source(file.path(codedir,'Crops_Data_GRUMP.r')) # Production data
 
 #######################################################################
 ## Call programs for pre-1500 processing
@@ -69,6 +72,16 @@ source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
 #source(file.path(codedir,'Crops_Data_Regions.r')) # Create region rasters
 #source(file.path(codedir,'Crops_Data_Pre1500.r')) # Create pre1500 rasters
 ## Re-call the CSI programs to process on pre-1500 data
-p1500 <- "_p1500" ## alternatives are "" for post-1500, "_p1500" for pre-1500
+#p1500 <- "_p1500" ## alternatives are "" for post-1500, "_p1500" for pre-1500
 #source(file.path(codedir,'Crops_Data_CSI_ByCrop.r')) # Caloric data
 #source(file.path(codedir,'Crops_Data_CSI_Max.r')) # Caloric data
+
+#######################################################################
+## Call programs for IPUMS
+## Create new zonal stats for crop productivity
+## based on IPUMS boundary maps
+#source(file.path(codedir,'Crops_Data_IPUMS_Ref.r'))
+#source(file.path(codedir,'Crops_Data_CSI_IPUMS.r'))
+#source(file.path(codedir,'Crops_Data_DMSP_IPUMS.r'))
+#source(file.path(codedir,'Crops_Data_Earthstat_IPUMS.r'))
+#source(file.path(codedir,'Crops_Data_GAEZ_IPUMS.r'))

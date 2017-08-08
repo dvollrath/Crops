@@ -9,7 +9,6 @@
 # 4. Get area of each zone by doing zonal stats on GADM raster (for QA)
 # 5. Get centroids of GADM1 and GADM2 polygons
 #
-# Intended to be called from Crops_SetDirectories.r
 #######################################################################
 
 # Create reference table of zone identifiers
