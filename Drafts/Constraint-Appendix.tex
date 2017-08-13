@@ -257,7 +257,7 @@ We accessed both the gridded population map, and the urban extents grid. The GRU
 
 Because GRUMP counts zero rural residents in an area that is part of an urban extent, and all population in non-urban locations as rural, the variation in rural residents across districts is more severe than with HYDE. Some districts in GRUMP are entirely covered by urban extents, and so have zero rural residents. Hence the GRUMP data leads to 28,471 districts with data on rural density, compared to 35,451 using HYDE. For those 28,471 districts, the correlation of (log) rural density across the two datasets is 0.81, significant at less than 1\%. 
 
-The following table shows the results using the GRUMP data. The results are consistent with our baseline findings. The elasticity for wheat family suitable districts is about 0.20, while for rice family suitable areas it is only 0.115, a difference of about 0.10 that is significant at less than 1\%. Panel B shows that these results hold up if we restrict the sample due to urban size, country development, or the density of rural workers.
+Table A.2 shows the results using the GRUMP data. The results are consistent with our baseline findings. The elasticity for wheat family suitable districts is about 0.20, while for rice family suitable areas it is only 0.115, a difference of about 0.10 that is significant at less than 1\%. Panel B shows that these results hold up if we restrict the sample due to urban size, country development, or the density of rural workers.
 
 The only discrepancy with the baseline results is in Panel A, columns (5) and (6), which distinguish samples by their harvested area. In this case, the estimated $\beta$ values are similar (statistically and practically). This appears to be due to a set of outliers in the GRUMP data that have very low reported rural density relative to the equivalent HYDE areas. We can identify these outliers by regressing the GRUMP (log) rural density on the HYDE (log) rural density, and looking for observations whose residuals from that regression are in the bottom 1\% (meaning GRUMP's estimate is well below the HYDE estimate). If we eliminate those from the GRUMP data, then the results for columns (5) and (6) are much closer to the baseline results. The underlying issue here is that these districts have many cells coded as ``urban'' by GRUMP, but HYDE's data indicates large rural populations. Without better information, we do not know if this is an error of HYDE's or GRUMP's methodologies.
 
@@ -268,7 +268,7 @@ Before we run regressions, the IPUMS data is useful in assessing how good of an 
 
 The geographic areas provided by IPUMS in the GEOLEV2 variable are in many cases agglomerations of the districts we use from GADM. This is because IPUMS aggregates districts with fewer than 25000 observations (to protect anonymity) or districts whose boundaries have changed over time (so that the agglomerations are comparable over time for a given country). This means the IPUMS geographic areas are not directly comparable to our districts. Because the IPUMS agglomerations are much larger than districts, it is not practical to use province/state fixed effects, as most of these have only one or two IPUMS areas within them. Hence we run our regressions only with country fixed effects. Because the GEOLEV2 areas are different than the districts in our baseline specifications, we create new GEOLEV2 level versions of our caloric suitability index, night lights data, and other crop suitability measures. 
 
-The following table shows the results using the IPUMS data. For the main results using the suitability for wheat family and rice family crops, the results show a similar pattern to what we found in our baseline. The estimated $\beta$ in wheat-suitable areas is 0.213, compared to 0.025 in rice-suitable areas, and the difference is statistically significant. 
+Table A.3 shows the results using the IPUMS data. For the main results using the suitability for wheat family and rice family crops, the results show a similar pattern to what we found in our baseline. The estimated $\beta$ in wheat-suitable areas is 0.213, compared to 0.025 in rice-suitable areas, and the difference is statistically significant. 
 
 In columns (3) and (4), the samples are selected on which crops we find deliver the maximum calories within an area. A slight modification is made here to the baseline selection criteria, because the IPUMS areas are so large. Column (3) includes areas that have any of their maximum calories derived from the wheat family, and \textit{none} from the rice family. Column (4) excludes areas where \textit{none} of the maximum calories from the wheat family, and includes areas with \textit{any} maximum calories derived from the rice family. Here, we again see that wheat family areas have an elasticity around 0.20, while the rice family elasticity is estimated to be zero, and the difference is statistically significant. In this case, we cannot reject the hypothesis that there is no land constraint in these rice-family dominated areas. In columns (5) and (6), based on actual harvested area, we again get results similar to our baseline specification using HYDE data, and again the rice family coefficient is estimated to be very small. 
 
@@ -280,7 +280,11 @@ Finally, the 39 countries included from IPUMS are, with the census date listed:
 \section{Province Specific Estimates}
 In the main paper we create sub-samples first, and estimate $\beta$ for each sub-sample, assuming that the $\beta$ is identical for all provinces (and districts) within the sub-sample. As an alternative, we can first estimate $\beta$ separately for each province, and then group those provinces into sub-samples based on crop, climate, or region. 
 
-The one limitation we have is that we cannot estimate separate $\beta$ values for provinces without sufficient districts within them. We 
+The one limitation we have is that we cannot estimate separate $\beta$ values for provinces without sufficient districts within them. We include a province if it has at least 8 districts, and run our baseline regression, including controls for night lights and the urban percentage. This gives us a total of 1,183 provinces. From those, we trim value of $\beta$ at the 1st and 99th percentiles, to eliminate severe outliers from the entire set. 
+
+Table A.11 shows the summary statistics of $\beta$ values from different sub-samples. Row 1 shows the values from all the provinces, with a mean $\beta$ of 0.21, and a median of 0.18. The next six rows replicate the sample selection criteria for our baseline results using crops. For provinces that are suitable for wheat (but not for rice) family crops, the mean $\beta$ is 0.23, with a median of 0.21. For rice-suitable provinces (but not for wheat), the mean is 0.17, with a median of 0.15. As one reads down the rows, this patten is repeated, with wheat family $\beta$ values tending to be about 0.06 higher than rice familiy values. 
+
+The lower portion of the table shows the statistics for individual sub-regions. This replicates the general results of our regional analysis in the main paper. Focusing on the medians, the values for the European regions are in the range 0.22-0.25, and this drops to 0.16 in the Asian regions. The temperate Americas is one discrepancy, with a median of only 0.10, similar to the median value from Tropical Africa, 0.09. Tropical Americas shows a value of 0.17, similar to southern Africa. North Africa has a higher median, consistent with the original results, of 0.31. 
 
 \section{Robustness Tables}
 Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, for sub-samples of districts distinguished by their suitability or production of different crops. 
@@ -333,5 +337,21 @@ A list of tables is provided for convenience. The first table (A.1), replicates 
 
 \addtab{Using log rural percent of population as a control}{Include log rural percent of the population as a control, consistent with a model of districts being autarkic.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
 
-
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Summary Statistics of Province-Specific $\beta$ Estiamtes}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXXXX}
+\midrule
+           &           &      &    & \multicolumn{5}{c}{Percentiles}\\ \cmidrule(lr){5-9}
+Sub-sample & Provinces & Mean & SD & 10th & 25th & 50th & 75th & 90th \\
+\midrule
+\input{tab_summ_province.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize For each province with more than 7 districts, we estimated a separate $\beta$ using our baseline specification. The table shows the summary statistics of those $\beta$ values for the given sub-sample. Prior to any summary statistics, all values of $\beta$ for the overall sample of provinces were trimmed at the 1st and 99th percentile to remove outliers.}
+\end{table}
 \end{document}

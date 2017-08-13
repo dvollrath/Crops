@@ -28,7 +28,7 @@ dmspdir <- paste0(mdir,"/data/DMSP/2000") # Night lights data
 kgdir   <- paste0(mdir,"/data/Koeppen-Geiger-GIS") # KG climate zones
 esdir   <- paste0(mdir,"/data/Earthstat") # Earthstat production data
 ipumdir <- paste0(mdir,"/data/IPUMS") # IPUMS data
-grumdir <- paste0(mdir,"/data/GRUMP") # IPUMS data
+grumdir <- paste0(mdir,"/data/GRUMP") # GRUMP population data
 datadir <- paste0(mdir,"/Replicate") # Control files
 
 ## Set crop list, input, and water conditions
@@ -63,7 +63,7 @@ setwd(refdir)
 #source(file.path(codedir,'Crops_Data_GAEZ_Cult.r')) # Cultivated area
 #source(file.path(codedir,'Crops_Data_KG_Count.r')) # KG zone data
 #source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
-source(file.path(codedir,'Crops_Data_GRUMP.r')) # Production data
+source(file.path(codedir,'Crops_Data_GRUMP.r')) # Population data
 
 #######################################################################
 ## Call programs for pre-1500 processing

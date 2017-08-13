@@ -33,6 +33,7 @@ csidir  <- paste0(mdir,"/data/CropCSI") # Crop caloric suitability
 dmspdir <- paste0(mdir,"/data/DMSP/2000") # Night lights data
 kgdir   <- paste0(mdir,"/data/Koeppen-Geiger-GIS") # KG climate zones
 esdir   <- paste0(mdir,"/data/Earthstat") # Earthstat production data
+grumdir <- paste0(mdir,"/data/GRUMP") # GRUMP population data
 datadir <- paste0(mdir,"/Replicate") # Control files
 ```
 
@@ -50,6 +51,13 @@ Once the "Crops_Data_Reference.r" script has been run once, you can comment out 
 
 The final two scripts called by "Crops_Data_Master.r" refer to pre-1500 versions of the data. We do not use this in the paper, but the scripts are available if you want to use them. "Crops_Data_Regions.r" creates separate rasters that define broad regions, and crops are coded as available pre-1500 or not by region (i.e. Europe, South America, etc..). "Crops_Data_Pre1500.r" creates new pre-1500 versions of select CSI and GAEZ crop files, setting values for productivity or suitability to zero if the crop was not available in that region prior to 1500.
 
+#### IPUMS data
+In addition to the geographic data, the raw IPUMS data must be prepared separately for use in the robustness regressions. The script "Crops_Data_IPUMS.do" takes in the raw IPUMS extracts, and collapses those to summary measures of population for each district (denoted by GEOLEV2 variable) provided by IPUMS. This should be run first. Warning, this script takes hours to run, as it is collapsing millions of records from each extract.
+
+With that run, the geography scripts in R can be run for the IPUMS districts. These separate scripts are necessary as IPUMS uses a different definition of districts than GADM. The final section of "Crops_Data_Master.r" shows the order for these scripts. 
+
+Once those scripts have been run, then "Crops_Reg_IPUMS_Prep.do" can be run, which merges the collapsed population data with the geographic data. This script also runs the regressions for the IPUMS data.
+
 ### Data Sources
 You can see the organization of the folders for the data in the "Crops_Data_Reference.r" script. We have not posted the full data because it is available freely, and because the raw data takes up 25 GB of space. The source of the data can be found at:
 
@@ -59,7 +67,8 @@ You can see the organization of the folders for the data in the "Crops_Data_Refe
 4. HYDE: From [here](http://themasites.pbl.nl/tridion/en/themasites/hyde/download/index-2.html), you click on the link to download data, which takes you to an FTP server. Use guest to login. Data are organized by year, with folders of the name "YYYYAD_pop". 
 5. DMSP: From [here](https://ngdc.noaa.gov/eog/dmsp/downloadV4composites.html). We use the link for 2000/F15 data.
 6. Koeppen-Geiger-GIS: From [here](http://koeppen-geiger.vu-wien.ac.at/shifts.htm), where you can find GIS shapefiles for the 1976-2000 observed classification towards the bottom of the page.
-7. Earthstat: From [here](http://www.earthstat.org), go to data downloads and get the zip file for "major crops" from the "Harvested Area and Yield for 175 Crops" section. 
+7. Earthstat: From [here](http://www.earthstat.org), go to data downloads and get the zip file for "major crops" from the "Harvested Area and Yield for 175 Crops" section.
+8. IPUMS: From [here](https://international.ipums.org/international/), we downloaded the "spatially harmonized second-level geography" shape files (see the Geography and GIS page). We then created an extract of population data for the 39 countries that have data at this second level (see the Appendix to the paper for the list of 39 countries). 
 
 **GAEZ data**. As noted, this is somewhat annoying to access. We use the following sets of data
 
@@ -118,3 +127,5 @@ We do a validation check using the Acemoglu and Johnson dataset from "Disease an
 
 The code "Crops_Reg_Mortality.do" uses this data, after estimating separate elasticities for each country. You will only have to edit the directory locations in that do-file to reproduce Table 5.
 
+## Replication of province-level estimates
+As part of the appendix, we run separate estimates of the land elasticity for each province, and then look at the summary statistics of the elasticities by sub-sample, to confirm the variation we see in the baseline results. The script for this analysis is "Crops_Reg_Provinces.do".

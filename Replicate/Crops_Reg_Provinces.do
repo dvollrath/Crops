@@ -38,7 +38,7 @@ levelsof state_id, local(levels) // get identifiers for provinces
 foreach x of local levels { // for each province
 	di "Processing province id " (`x')
 	count if state_id == `x'
-	if r(N) > 5 {
+	if r(N) > 7 {
 		qui reg ln_csi_yield ln_rurd_`year' `cntl' if state_id==`x'
 		qui replace beta = _b[ln_rurd_`year'] if state_id==`x'
 		qui replace se = _se[ln_rurd_`year'] if state_id==`x'
@@ -76,13 +76,17 @@ replace dry_area = 1 if (barley_harvarea + buckwheat_harvarea + oats_harvarea + 
 gen wet_area = 0
 replace wet_area = 1 if (cassava_harvarea + cowpea_harvarea + millet_harvarea + sweetpotato_harvarea + rice_harvarea + yam_harvarea)>.5*harvarea_sum
 
+// Drop beta values that are outliers
+qui summ beta, det
+drop if beta>r(p99) & beta<r(p1)
+
 // Write table of summary statistics for province-level results
 capture file close f_result
 file open f_result using "$output/tab_summ_province.tex", write replace
 
 qui summ beta, det
 file write f_result "All provinces &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
-			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
+			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\ \\" _n
 qui summ beta if dry_suit==1 & wet_suit==0, det
 file write f_result "Wheat Suitable &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
@@ -100,26 +104,49 @@ file write f_result "Wheat area>50\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 qui summ beta if dry_area==0 & wet_area==1, det
 file write f_result "Rice area>50\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\ \\" _n
+
+capture label drop long
+label define long 1 "Northwest Europe"
+label define long 2 "Eastern Europe", add
+label define long 3 "Southern Europe", add
+label define long 4 "South and S. East Asia", add
+label define long 5 "Central and West. Asia", add
+label define long 6 "Temperate Americas", add
+label define long 7 "Tropical Americas", add
+label define long 8 "Tropical Africa", add
+label define long 9 "Southern Africa", add
+label define long 10 "Northern Africa", add
+label values jv_subregion long	
+			
+levelsof jv_subregion, local(regions)
+foreach r of local regions {
+	local lab: label long `r'
+	qui summ beta if jv_subregion==`r', det
+	file write f_result "`lab' & " %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 
+}
+			
 file close f_result		
 
 // Generate betas by sub-sample for dot-plot
+drop if beta<-.5 | beta>1
 capture drop beta?
 qui summ beta, det
-gen beta0 = beta if beta<r(p99) & beta>r(p1)
+gen beta0 = beta
 label variable beta0 "All provinces"
-gen beta1 = beta if dry_suit==1 & wet_suit==0 & beta<r(p99) & beta>r(p1)
+gen beta1 = beta if dry_suit==1 & wet_suit==0
 label variable beta1 "Wheat suit"
-gen beta2 = beta if dry_suit==0 & wet_suit==1 & beta<r(p99) & beta>r(p1)
+gen beta2 = beta if dry_suit==0 & wet_suit==1
 label variable beta2 "Rice suit"
-gen beta3 = beta if dry_max==1 & wet_max==0 & beta<r(p99) & beta>r(p1)
+gen beta3 = beta if dry_max==1 & wet_max==0
 label variable beta3 "Wheat cals"
-gen beta4 = beta if dry_max==0 & wet_max==1 & beta<r(p99) & beta>r(p1)
+gen beta4 = beta if dry_max==0 & wet_max==1
 label variable beta4 "Rice cals"
-gen beta5 = beta if dry_area==1 & wet_area==0 & beta<r(p99) & beta>r(p1)
+gen beta5 = beta if dry_area==1 & wet_area==0
 label variable beta5 "Wheat area"
-gen beta6 = beta if dry_area==0 & wet_area==1 & beta<r(p99) & beta>r(p1)
+gen beta6 = beta if dry_area==0 & wet_area==1
 label variable beta6 "Rice area"
 
 dotplot beta?, ///
@@ -132,7 +159,7 @@ graph export "$output/fig_beta_province.eps", replace as(eps)
 // Generate other figures of beta versus density, beta versus SD of CSI		
 qui summ beta, det	
 capture drop point
-qui gen point = 1 if beta<r(p99) & beta>r(p1)
+qui gen point = 1
 capture drop ln_rurd
 qui gen ln_rurd = ln(rurc_`year'/shape_ha)
 scatter beta ln_rurd if point==1, msymbol(oh) mcolor(black) ///
