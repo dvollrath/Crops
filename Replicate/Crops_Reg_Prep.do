@@ -337,6 +337,16 @@ foreach v in rurd_2000 csi_yield urb_perc_2000 ln_light_mean {
 }
 file close f_result
 
+capture file close f_result
+file open f_result using "$text/tab_summ_counts.tex", write replace
+qui count
+file write f_result "{\newcommand{\districts}{" %8.0fc (r(N)) "}" _n
+qui tabulate state_id
+file write f_result "{\newcommand{\provinces}{" %8.0fc (r(r)) "}" _n
+qui tabulate country_id
+file write f_result "{\newcommand{\countries}{" %8.0fc (r(r)) "}" _n
+file close f_result
+
 //////////////////////////////////////
 // Create density figures for yield/rurd
 //////////////////////////////////////
