@@ -103,10 +103,9 @@ What we do:
 The elasticity determines the degree of decreasing returns to scale for labor/capital in agriculture. 
 
 \begin{itemize}
-  \item \textbf{Theory}: The higher the elasticity, the more sensitive are $y$ and $L_A/L$ to shocks in population/productivity. Good if pop falls or prod goes up.
+  \item \textbf{Theory}: The higher the elasticity, the more sensitive are $y$ and $L_A/L$ to shocks in population/productivity.
   \item \textbf{Evidence}: Using epidemiological transition after WWII a la Acemoglu and Johnson (2007), countries with high elasticities had more severe negative effect of rising life expectancy
   \item \textbf{Speculation}: Plays a part in explaining why temperate areas in Europe were able to accelerate development relative to Asia? 
-
 \end{itemize}
 
 \end{frame}
@@ -127,36 +126,16 @@ Y_{i} = A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\be
 \end{frame}
 
 \begin{frame}{Agricultural Labor Allocation}
-Assume that labor/capital are mobile across districts \textit{within} province (but not nec. \textit{across} provinces), and you can solve for
+Assume that labor and capital are mobile across districts \textit{within} province (but not nec. \textit{across} provinces), and you can solve for
 \begin{equation}
-\ln L_{Ai}/X_i = \frac{1}{\beta} \ln A_{i} + \ln \Gamma, \label{EQ_est}
+\ln L_{Ai}/X_i = \frac{1}{\beta} \ln A_{i} + \ln \frac{L_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}}, \label{EQ_est}
 \end{equation}
-where
-\begin{equation}
-    \Gamma = \frac{L_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}}.
-\end{equation}
-is a \textit{province-specific} term. 
+where second term is \textit{province-specific}. 
 
 \begin{itemize}
   \item $\beta$ can be estimated from elasticity of $L_{Ai}/X_i$ w.r.t. $A_i$. 
   \item $\beta$ large (tight), $1/\beta$ small, ag. workers spread evenly w/in province
   \item $\beta$ small (loose), $1/\beta$ large, ag. workers concentrated on high $A_i$
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Agricultural Labor Allocation}\label{model}
-Take logs $L_{Ai}/X_i$ expression
-\begin{equation}
-\ln L_{Ai}/X_i = \frac{1}{\beta} \ln A_{i} + \ln \Gamma, \label{EQ_est}
-\end{equation}
-where
-\begin{equation}
-    \Gamma = \frac{L_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}}.
-\end{equation}
-is a \textit{province-specific} term. 
-
-\begin{itemize}
-  \item $\Gamma$ is constant for all districts w/in province
   \item Ag labor relative to total labor ($L_A/L$) does not enter
   \item Expression is not unique to heaviliy agricultural provinces (or eras)
 \end{itemize}
@@ -174,7 +153,7 @@ Re-arranging the prior expression and adding some notation:
 
 \begin{itemize}
   \item District $i$, region/state/province $s$, country $c$
-  \item $\gamma_{sc}$, province/country FE, pick up $\Gamma$ term
+  \item $\gamma_{sc}$, province/country FE, pick up province-specific term
   \item $\mathbf{Z}_{isc}$ are additional controls
   \item $\epsilon_{isc}$ is error term
 \end{itemize}
@@ -208,7 +187,7 @@ $L_{Aisc}/X_{isc}$ data
 \begin{itemize}
   \item Trim above 99th and below 1st percentiles
   \item Drop if fewer than 100 total rural residents
-  \item 35,451 total districts
+  \item 35,451 total districts from around world
 \end{itemize}
 \end{frame}
 
@@ -230,8 +209,8 @@ $A_{isc}$ is built from Galor and {\"O}zak (2016) caloric suitability index
   \item Data from GAEZ on agro-climatic possible yield (in raw tons) for each crop
   \item Combine with nutritional information by crop (total calories per raw ton)
   \item For each grid cell, determine max calories across all crops
-  \item Total max calories across grid cells in district, divide by total area
-  \item As in Galor and {\"O}zak, holds technology assumptions constant
+  \item Sum max calories across grid cells in district, divide by total area
+  \item Holds technology assumptions constant
   \item Trim above 99th and below 1st percentile
 \end{itemize}
 \hfill \hyperlink{stats}{\beamerbutton{Summary}}
@@ -285,8 +264,8 @@ Define the following:
 \end{itemize}
 Create sub-samples of districts based on: 
 \begin{itemize}
-  \item GAEZ suitability indices for a crop family (0 to 100)
-  \item Source of maximum calories in our $A_{isc}$ measure
+  \item GAEZ suitability indices for a crop family (0 to 100), OR
+  \item Source of maximum calories in our $A_{isc}$ measure, OR
   \item Actual harvested area for a crop family
 \end{itemize}
 Notes:
@@ -488,7 +467,7 @@ for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life ex
   \item Estimate Malthusian constraint from variation in rural density within provinces
   \item Constraint is ``tight'' (0.20-0.30) in temperate areas (N. China, Europe, US/Canada, S. Africa) suitable for wheat family crops
   \item Constraint is ``loose'' (0.10-0.15) in tropical areas (S. China, SE Asia, C. Africa, S/C America) suitable for rice family crops
-  \item Constraint dictates the sensitivity of $L_A/L$ and living standards to population and productivity
+  \item Constraint affects the sensitivity of $L_A/L$ and living standards to population and productivity
 \end{itemize}
 \end{frame}
 
