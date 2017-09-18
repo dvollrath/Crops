@@ -40,9 +40,9 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 // Call programs given controls
 //////////////////////////////////////
 // Base results
-reset // reset all globals to baseline
-global tag = "base" // name the set of results (files, figures)
-do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//reset // reset all globals to baseline
+//global tag = "base" // name the set of results (files, figures)
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 //do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
 //do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
@@ -75,14 +75,24 @@ do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 // 1900 population results
 //reset
 //global year 1900
+//global rurdvar ln_rurd_1900 // rural density per unit of total land in 2000
+//global cntl urb_perc_1900 ln_light_mean // urban percent and light mean
 //global tag = "pop1900"
 //do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 
 // 1950 population results
 //reset
 //global year 1950
+//global rurdvar ln_rurd_1950 // rural density per unit of total land in 2000
+//global cntl urb_perc_1950 ln_light_mean // urban percent and light mean
 //global tag = "pop1950"
 //do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// Remove districts either very large or very small
+reset
+global drop = "ln_area>13.1086" // drop if outside 10th/90th pctile in size
+global tag = "size"
+do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 
 // Remove districts with few harvest hectares
 //reset
