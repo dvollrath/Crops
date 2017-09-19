@@ -74,7 +74,7 @@
 \end{tabularx}
 }
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize \textbf{#2}
+\vspace{-.5cm}\singlespacing {\footnotesize #2
 }
 \end{table}
 }
@@ -286,19 +286,13 @@ Table A.11 shows the summary statistics of $\beta$ values from different sub-sam
 The lower portion of the table shows the statistics for individual sub-regions. This replicates the general results of our regional analysis in the main paper. Focusing on the medians, the values for the European regions are in the range 0.22-0.25, and this drops to 0.16 in the Asian regions. The temperate Americas is one discrepancy, with a median of only 0.10, similar to the median value from Tropical Africa, 0.09. Tropical Americas shows a value of 0.17, similar to southern Africa. North Africa has a higher median, consistent with the original results, of 0.31. 
 
 \section{Robustness Tables}
-Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, for sub-samples of districts distinguished by their suitability or production of different crops. 
-
-Here we list the baseline assumptions behind each table, rather than replicating the same footnotes over and over again. In each case, these are the baseline assumptions, and the individual table may change or drop the assumption, as will be noted in each table in bold. 
-
-Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.
-
-A list of tables is provided for convenience. The first table (A.1), replicates the baseline results for comparison purposes.
+Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, temperate and tropical districts. A list of tables is provided for convenience. The first table (A.1), replicates the baseline results for comparison purposes.
 
 \listoftables
 
-\addtab{Baseline results}{Baseline results}{tab_beta_crop_base.tex}{tab_beta_crop_sub_base.tex}
+\addtab{Baseline results}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_base.tex}{tab_beta_crop_sub_base.tex}
 
-\addtab{Using GRUMP Population Data}{Using GRUMP to measure rural density in place of HYDE.}{tab_beta_crop_grump.tex}{tab_beta_crop_sub_grump.tex}
+\addtab{Using GRUMP Population Data}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from the GRUMP database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_grump.tex}{tab_beta_crop_sub_grump.tex}
 
 \clearpage
 \begin{table}[!htb]
@@ -322,23 +316,23 @@ A list of tables is provided for convenience. The first table (A.1), replicates 
 \vspace{-.5cm}\singlespacing {\footnotesize Clustered standard errors at the country level are shown in parentheses. All regressions include country fixed effects, and controls for (log) night lights and urban percent. Agricultural worker density is from IPUMS, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction.}
 \end{table}
 
-\addtab{Conley SE cutoff of 1000km}{Use 1000km to form cutoffs for Conley standard errors}{tab_beta_crop_cut1000.tex}{tab_beta_crop_sub_cut1000.tex}
+\addtab{Conley SE cutoff of 1000km}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 1000km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_cut1000.tex}{tab_beta_crop_sub_cut1000.tex}
 
-\addtab{Province-level data}{Using provinces as the units of observation, with country fixed effects. Night lights and urban percent controls are at the province level.}{tab_beta_crop_province.tex}{tab_beta_crop_sub_province.tex}
+\addtab{Province-level data}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include country fixed effects, a constant, and controls for the province-level urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_province.tex}{tab_beta_crop_sub_province.tex}
 
-\addtab{Using cultivated area to measure density}{Rural density measured using rural population per hectare of cultivated land. Also includes a control for cultivated land as a percent of total land.}{tab_beta_crop_cult.tex}{tab_beta_crop_sub_cult.tex}
+\addtab{Using cultivated area to measure density}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate, the log density of district nighttime lights, and the percent of a district that is cultivated. Rural density is from HYDE database, and is measured as rural population per hectare of cultivated land (from the GAEZ). Caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_cult.tex}{tab_beta_crop_sub_cult.tex}
 
-\addtab{Using population from 1900CE}{Rural density measured using population data from 1900CE from HYDE database.}{tab_beta_crop_pop1900.tex}{tab_beta_crop_sub_pop1900.tex}
+\addtab{Using population from 1900CE}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population for 1900CE is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_pop1900.tex}{tab_beta_crop_sub_pop1900.tex}
 
-\addtab{Using population from 1950CE}{Rural density measured using population data from 1950CE from HYDE database.}{tab_beta_crop_pop1950.tex}{tab_beta_crop_sub_pop1950.tex}
+\addtab{Using population from 1950CE}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population from 1950CE is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_pop1950.tex}{tab_beta_crop_sub_pop1950.tex}
 
-\addtab{Dropping districts under 25th percentile in production}{Drops all districts below the 25th percentile of total tonnes of staple crops produced across all districts. Raw tonnes are used, unadjusted for calorie content.}{tab_beta_crop_prodsum25th.tex}{tab_beta_crop_sub_prodsum25th.tex}
+\addtab{Dropping districts under 25th percentile in production}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. All districts below the 25th percentile of total tonnes of staple crops produced across all districts are dropped. Raw tonnes are used, unadjusted for calorie content.}{tab_beta_crop_prodsum25th.tex}{tab_beta_crop_sub_prodsum25th.tex}
 
-\addtab{Using log rural percent of population as a control}{Include log rural percent of the population as a control, consistent with a model of districts being autarkic.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
+\addtab{Using log rural percent of population as a control}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate, the log density of district nighttime lights, and the log rural percent of the population. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
 
-\addtab{Dropping districts over 90th percentile in absoltue size}{Drop districts over 493,000 hectares (the 90th percentile).}{tab_beta_crop_size.tex}{tab_beta_crop_sub_size.tex}
+\addtab{Dropping districts over 90th percentile in absoltue size}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts over 493,000 hectares (the 90th percentile) are dropped.}{tab_beta_crop_size.tex}{tab_beta_crop_sub_size.tex}
 
-\addtab{Dropping provinces with fewer than 10 districts}{Only provinces with 10 or more districts within them.}{tab_beta_crop_district.tex}{tab_beta_crop_sub_district.tex}
+\addtab{Dropping provinces with fewer than 10 districts}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts from provinces with fewer than 10 total districts are dropped.}{tab_beta_crop_district.tex}{tab_beta_crop_sub_district.tex}
 
 
 \clearpage

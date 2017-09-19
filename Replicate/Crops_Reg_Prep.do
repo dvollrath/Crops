@@ -32,7 +32,7 @@ use "$data/all_crops_collapse_`gadm'.dta", clear
 //////////////////////////////////////
 gen country_id = id_0
 egen state_id = group(id_0 id_1)
-by state_id: egen district_count = count(id_2) // create count of districts in a state
+bysort state_id: egen district_count = count(id_2) // create count of districts in a state
 
 //////////////////////////////////////
 // HYDE Population Data Prep
@@ -378,5 +378,5 @@ twoway kdensity ln_rurd_2000 if jv_region==1, clcolor(black) ///
 graph export "$text/fig_dens_rurd.png", replace as(png)
 graph export "$text/fig_dens_rurd.eps", replace as(eps)
 	
-	
+
 // end

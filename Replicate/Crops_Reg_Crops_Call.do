@@ -57,7 +57,7 @@ estout reg_crop_* using "$output/tab_beta_crop_$tag.tex", /// write the region r
 coefplot reg_crop_1 || reg_crop_2 || reg_crop_3 || reg_crop_4 || reg_crop_5 || reg_crop_6, ///
 	keep(rurd_reg) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
-	bylabels("Wheat(only) suitable" "Rice(only) suitable" "Wheat max calories >50%" "Rice max calories >50%" "Wheat harv. area >50%" "Rice harv. area >50%")
+	bylabels("Temperate (suitability)" "Tropical (suitability)" "Temperate (calories)" "Tropical (calories)" "Tempreate (harvested)" "Tropical (harvested)")
 graph export "$output/fig_coef_crop_$tag.png", replace as(png)
 graph export "$output/fig_coef_crop_$tag.eps", replace as(eps)
 
@@ -67,7 +67,7 @@ scatter ln_csi_yield ln_rurd_2000 if suit_whe>0 & suit_rcw==0 & ln_csi_yield>0, 
 	|| lfit ln_csi_yield ln_rurd_2000 if suit_whe==0 & suit_rcw>0, clcolor(green) ///
 	xtitle("Log rural density, 2000CE") ytitle("Log caloric yield") ///
 	ylabel(6(1)11, angle(0) nogrid) graphregion(color(white)) xlabel(-5(1)2) ///
-	legend(ring(0) pos(10) label(1 "Wheat/No Rice (Black)") label(2 "Fitted") label(3 "Rice/No Wheat (Green)") label(4 "Fitted"))
+	legend(ring(0) pos(10) label(1 "Temperate (Black)") label(2 "Fitted") label(3 "Tropical (Green)") label(4 "Fitted"))
 graph export "$output/fig_beta_crop.png", replace as(png)
 graph export "$output/fig_beta_crop.eps", replace as(eps)
 
@@ -115,7 +115,7 @@ estout reg_sub_* using "$output/tab_beta_crop_sub_$tag.tex", /// write the regio
 coefplot reg_sub_1 || reg_sub_2 || reg_sub_3 || reg_sub_4 || reg_sub_5 || reg_sub_6, ///
 	keep(rurd_reg) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
-	bylabels("<25K Urban: Wheat" "<25K Urban: Rice" "Poor Countries: Wheat" "Poor Countries: Rice" "High density: Wheat" "High density: Rice")
+	bylabels("<25K Urban: Temperate" "<25K Urban: Tropical" "Poor Countries: Temperate" "Poor Countries: Tropical" "High density: Temperate" "High density: Tropical")
 graph export "$output/fig_coef_crop_sub_$tag.png", replace as(png)
 graph export "$output/fig_coef_crop_sub_$tag.eps", replace as(eps)
 

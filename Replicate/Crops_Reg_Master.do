@@ -40,9 +40,9 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 // Call programs given controls
 //////////////////////////////////////
 // Base results
-//reset // reset all globals to baseline
-//global tag = "base" // name the set of results (files, figures)
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+reset // reset all globals to baseline
+global tag = "base" // name the set of results (files, figures)
+do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 //do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
 //do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
@@ -89,10 +89,10 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 //do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 
 // Remove provinces with few districts
-reset
-global drop = "district_count<10" // drop if fewer than 8 districts
-global tag = "district"
-do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//reset
+//global drop = "district_count<10" // drop if fewer than 8 districts
+//global tag = "district"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 
 // Remove districts either very large or very small
 //reset
