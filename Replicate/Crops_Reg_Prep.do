@@ -32,6 +32,7 @@ use "$data/all_crops_collapse_`gadm'.dta", clear
 //////////////////////////////////////
 gen country_id = id_0
 egen state_id = group(id_0 id_1)
+by state_id: egen district_count = count(id_2) // create count of districts in a state
 
 //////////////////////////////////////
 // HYDE Population Data Prep
@@ -101,8 +102,10 @@ replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo | suit_r
 
 gen dry_max = 0
 replace dry_max = 1 if (barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells)>.33*count
+gen dry_cells = barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells
 gen wet_max = 0
 replace wet_max = 1 if (cassava_cells + cowpea_cells + pearlmillet_cells + sweetpotato_cells + wetrice_cells + yams_cells)>.33*count
+gen wet_cells = cassava_cells + cowpea_cells + pearlmillet_cells + sweetpotato_cells + wetrice_cells + yams_cells
 
 egen harvarea_sum = rowtotal(*_harvarea)
 gen dry_area = 0

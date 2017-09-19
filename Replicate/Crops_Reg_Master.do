@@ -88,11 +88,17 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 //global tag = "pop1950"
 //do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 
-// Remove districts either very large or very small
+// Remove provinces with few districts
 reset
-global drop = "ln_area>13.1086" // drop if outside 10th/90th pctile in size
-global tag = "size"
+global drop = "district_count<10" // drop if fewer than 8 districts
+global tag = "district"
 do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+
+// Remove districts either very large or very small
+//reset
+//global drop = "ln_area>13.1086" // drop if outside 10th/90th pctile in size
+//global tag = "size"
+//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 
 // Remove districts with few harvest hectares
 //reset

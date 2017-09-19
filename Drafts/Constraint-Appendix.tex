@@ -55,19 +55,18 @@
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
- & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Wheat & Rice & Wheat  & Rice  & Wheat  & Rice \\
- & Only & Only &  $>33\%$ & $>33\%$ & $>50\%$ & $>50\%$   \\
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Regions defined by:} \\ \\
+ & \multicolumn{2}{c}{Suitability:} & \multicolumn{2}{c}{Max calories:} & \multicolumn{2}{c}{Harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
 \input{#3}
 \midrule
 \\
-\multicolumn{7}{l}{Panel B: Samples with other restrictions (using suitability to distinguish crop families)} \\ \\
+\multicolumn{7}{l}{Panel B: With other restrictions (using suitability to define temperate/tropical)} \\ \\
  & \multicolumn{2}{c}{Urban Pop. $<25K$:} & \multicolumn{2}{c}{Ex. Europe/N. Amer.:} & \multicolumn{2}{c}{Rural dens. $>$ 25th P'tile:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
-  & Wheat Only& Rice Only & Wheat Only& Rice Only& Wheat Only& Rice Only\\
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
 \input{#4}
@@ -99,7 +98,7 @@
 
 \vspace{2in} \noindent \textsc{Online Appendix} \hrulefill
 
-\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here. Also included are definitions of countries included in regions used in paper. 
+\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here. Also included are definitions of countries included in regions used in paper, as well as additional theoretical work related to the model.
 \vspace{.1in} \hrule
 
 \end{titlepage}
@@ -339,10 +338,13 @@ A list of tables is provided for convenience. The first table (A.1), replicates 
 
 \addtab{Dropping districts over 90th percentile in absoltue size}{Drop districts over 493,000 hectares (the 90th percentile).}{tab_beta_crop_size.tex}{tab_beta_crop_sub_size.tex}
 
+\addtab{Dropping provinces with fewer than 10 districts}{Only provinces with 10 or more districts within them.}{tab_beta_crop_district.tex}{tab_beta_crop_sub_district.tex}
+
+
 \clearpage
 \begin{table}[!htb]
 \begin{center}
-\caption{Summary Statistics of Province-Specific $\beta$ Estiamtes}
+\caption{Summary Statistics of Province-Specific $\beta$ Estimates}
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXXXX}
 \midrule

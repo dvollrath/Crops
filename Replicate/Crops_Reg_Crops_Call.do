@@ -32,11 +32,11 @@ drop if $drop // drop based on passed condition
 	estimates store reg_crop_2
 	
 	// Wheat family is dominant in max calories
-	est_ref if dry_max==1 & wet_max==0
+	est_ref if dry_max==1 & wet_cells==0
 	estimates store reg_crop_3
 
 	// Rice family is dominant in max calories
-	est_reg if dry_max==0 & wet_max==1
+	est_reg if dry_cells==0 & wet_max==1
 	estimates store reg_crop_4
 
 	// Wheat family is dominant in actual crop area
@@ -51,7 +51,7 @@ drop if $drop // drop based on passed condition
 estout reg_crop_* using "$output/tab_beta_crop_$tag.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_country N_obs r2_a, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta^{Wheat}$" "Countries" "Observations" "Adjusted R-square")) ///
+	stats(p_zero p_diff N_country N_obs r2_a, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta_{Temp}$" "Countries" "Observations" "Adjusted R-square")) ///
 	keep(rurd_reg) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
 coefplot reg_crop_1 || reg_crop_2 || reg_crop_3 || reg_crop_4 || reg_crop_5 || reg_crop_6, ///
@@ -109,7 +109,7 @@ graph export "$output/fig_beta_crop.eps", replace as(eps)
 estout reg_sub_* using "$output/tab_beta_crop_sub_$tag.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_country N_obs r2_a, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta^{Wheat}$" "Countries" "Observations" "Adjusted R-square")) ///
+	stats(p_zero p_diff N_country N_obs r2_a, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta_{Temp}$" "Countries" "Observations" "Adjusted R-square")) ///
 	keep(rurd_reg) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
 coefplot reg_sub_1 || reg_sub_2 || reg_sub_3 || reg_sub_4 || reg_sub_5 || reg_sub_6, ///
