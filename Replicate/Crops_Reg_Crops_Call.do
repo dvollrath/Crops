@@ -61,6 +61,7 @@ coefplot reg_crop_1 || reg_crop_2 || reg_crop_3 || reg_crop_4 || reg_crop_5 || r
 graph export "$output/fig_coef_crop_$tag.png", replace as(png)
 graph export "$output/fig_coef_crop_$tag.eps", replace as(eps)
 
+/*
 scatter ln_csi_yield ln_rurd_2000 if suit_whe>0 & suit_rcw==0 & ln_csi_yield>0, msymbol(p) mcolor(black) ///
 	|| lfit ln_csi_yield ln_rurd_2000 if suit_whe>0 & suit_rcw==0 & ln_csi_yield>0, clcolor(black) ///
 	|| scatter ln_csi_yield ln_rurd_2000 if suit_whe==0 & suit_rcw>0, msymbol(p) mcolor(green) ///
@@ -70,7 +71,7 @@ scatter ln_csi_yield ln_rurd_2000 if suit_whe>0 & suit_rcw==0 & ln_csi_yield>0, 
 	legend(ring(0) pos(10) label(1 "Temperate (Black)") label(2 "Fitted") label(3 "Tropical (Green)") label(4 "Fitted"))
 graph export "$output/fig_beta_crop.png", replace as(png)
 graph export "$output/fig_beta_crop.eps", replace as(eps)
-
+*/
 
 //////////////////////////////////////
 // Crop regressions - alternatives

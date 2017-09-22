@@ -379,4 +379,24 @@ graph export "$text/fig_dens_rurd.png", replace as(png)
 graph export "$text/fig_dens_rurd.eps", replace as(eps)
 	
 
+qui reg ln_csi_yield urb_perc_2000 ln_light_mean i.state_id if dry_suit==1 & wet_suit==0
+predict csi_res_temp, res
+qui reg ln_rurd_2000 urb_perc_2000 ln_light_mean i.state_id if dry_suit==1 & wet_suit==0
+predict rurd_res_temp, res
+
+qui reg ln_csi_yield urb_perc_2000 ln_light_mean i.state_id if dry_suit==0 & wet_suit==1
+predict csi_res_trop, res
+qui reg ln_rurd_2000 urb_perc_2000 ln_light_mean i.state_id if dry_suit==0 & wet_suit==1
+predict rurd_res_trop, res
+
+scatter csi_res_temp rurd_res_temp if dry_suit==1 & wet_suit==0, msymbol(oh) msize(tiny) mcolor(black) ///
+	|| lfit csi_res_temp rurd_res_temp if dry_suit==1 & wet_suit==0, clcolor(black) ///
+	|| scatter csi_res_trop rurd_res_trop if dry_suit==0 & wet_suit==1, msymbol(sh) msize(tiny) mcolor(green) ///
+	|| lfit csi_res_trop rurd_res_trop if dry_suit==0 & wet_suit==1, clcolor(green) ///
+	xtitle("Residual log rural density, 2000CE") ytitle("Residual log caloric yield") ///
+	ylabel(, angle(0) nogrid) graphregion(color(white)) xlabel(-5(1)5) ///
+	legend(ring(0) pos(10) label(1 "Temperate (Black)") label(2 "Fitted") label(3 "Tropical (Green)") label(4 "Fitted"))
+graph export "$text/fig_beta_crop.png", replace as(png)
+graph export "$text/fig_beta_crop.eps", replace as(eps)	
+	
 // end
