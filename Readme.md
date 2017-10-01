@@ -59,7 +59,9 @@ With that run, the geography scripts in R can be run for the IPUMS districts. Th
 Once those scripts have been run, then "Crops_Reg_IPUMS_Prep.do" can be run, which merges the collapsed population data with the geographic data. This script also runs the regressions for the IPUMS data.
 
 ### Data Sources
-You can see the organization of the folders for the data in the "Crops_Data_Reference.r" script. We have not posted the full data because it is available freely, and because the raw data takes up 25 GB of space. The source of the data can be found at:
+You can see the organization of the folders for the data in the "Crops_Data_Reference.r" script. All the data we use is public, and freely downloaded from the original sources. To facilitate an exact replication, you can access our files [here](https://www.dropbox.com/sh/6oqe37kzubrf5p4/AAB-E7Rq7CULkP_WzO3z4Pkia?dl=0). Note that the full set of data is around 25GB.
+
+The original sources of the data can be found at the following links:
 
 1. CropCSI: From Ozak and Galor (2016). See [here](https://ozak.github.io/Caloric-Suitability-Index/), and look for the "Caloric Suitability for Individual Crops" link towards the bottom of the page.
 2. GADM: From [here](http://www.gadm.org), and see their download section.
