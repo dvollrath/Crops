@@ -90,8 +90,8 @@ What is the elasticity (i.e. how tight) of agricultural output with respect to l
 What we do: 
 \begin{itemize}
   \item Estimate the elasticity using district-level variation in rural density
-  \item Estimate separately for different climate zones, crop suitability, etc..
-  \item Show elasticity is 2x higher for temperate zone/crops vs. tropics
+  \item Estimate separately for different climate zones, agric. type, etc..
+  \item Show elasticity is 2x higher for temperate zone vs. tropics
   \item Show differences are robust w.r.t. data sources, measurement error
 \end{itemize}
 
@@ -166,7 +166,6 @@ We moved productivity, $A_{isc}$ and agric. density $L_{Aisc}/X_{isc}$ to opposi
 \end{equation}
 
 \begin{itemize}
-  \item Not a causal statement, a structural estimate
   \item Estimating $1/\beta$ $\Rightarrow$ very sensitive to small differences in $\beta$
 \end{itemize}
 \end{frame}
@@ -197,11 +196,11 @@ $L_{Aisc}/X_{isc}$ data
 \end{center}
 \end{frame}
 
-\begin{frame}{Agricultural Density Data}
-\begin{center}
-\includegraphics[scale=.5]{fig_rurd_map.png}
-\end{center}
-\end{frame}
+%\begin{frame}{Agricultural Density Data}
+%\begin{center}
+%\includegraphics[scale=.5]{fig_rurd_map.png}
+%\end{center}
+%\end{frame}
 
 \begin{frame}{Agricultural Productivity Data}\label{data}
 $A_{isc}$ is built from Galor and {\"O}zak (2016) caloric suitability index
@@ -224,13 +223,13 @@ $A_{isc}$ is built from Galor and {\"O}zak (2016) caloric suitability index
 \end{center}
 \end{frame}
 
-\begin{frame}{Agricultural Productivity Data}
-Grid cells take values of their district. Shown by percentiles.
-\vspace{-.5in}
-\begin{center}
-\includegraphics[scale=.5]{fig_csi_yield_map.png}
-\end{center}
-\end{frame}
+%\begin{frame}{Agricultural Productivity Data}
+%Grid cells take values of their district. Shown by percentiles.
+%\vspace{-.5in}
+%\begin{center}
+%\includegraphics[scale=.5]{fig_csi_yield_map.png}
+%\end{center}
+%\end{frame}
 
 \begin{frame}{Control Variables}
 Henderson et al (2016) on spatial distribution of economic activity
@@ -250,47 +249,42 @@ Include two controls at the district level in $\mathbf{Z}_{isc}$ for urban/econo
 
 \section{Results}
 
-\begin{frame}{Raw Correlation for Rice/Wheat}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{fig_beta_crop.eps}
-\end{center}
-\end{frame}
+%\begin{frame}{Raw Correlation for Temperate/Tropical}
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{fig_beta_crop.eps}
+%\end{center}
+%\end{frame}
 
-\begin{frame}{Results by Crop Family}
+\begin{frame}{``Temperate'' versus ``Tropical''}
 Define the following:
 \begin{itemize}
-  \item \textbf{Wheat family}: barley, buckwheat, rye, oats, white potatoes, wheat
-  \item \textbf{Rice family}: cassava, cowpeas, pearl millet, sweet potatoes, paddy rice, yams
+  \item \textbf{Temperate}: suitable for barley, buckwheat, rye, oats, white potatoes, and/or wheat but zero suitability for Tropical crops
+  \item \textbf{Tropical}: suitable for cassava, cowpeas, pearl millet, sweet potatoes, paddy rice, and/or yams but zero suitability for Temperate crops
 \end{itemize}
-Create sub-samples of districts based on: 
+Measure suitability several ways
 \begin{itemize}
-  \item GAEZ suitability indices for a crop family (0 to 100), OR
+  \item GAEZ suitability indices (0 to 100), OR
   \item Source of maximum calories in our $A_{isc}$ measure, OR
-  \item Actual harvested area for a crop family
-\end{itemize}
-Notes:
-\begin{itemize}
-  \item \textbf{Not} estimating a crop-specific production function
-  \item Allowing for variation of elasticity within countries
+  \item Actual harvested area
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Results by Crop}\label{crop}
+\begin{frame}{Results by Temperate/Tropical}\label{crop}
 \begin{center}
 \includegraphics[width=.8\textwidth]{fig_coef_crop_base.eps}
 \end{center}
 \hfill \hyperlink{cropreg}{\beamerbutton{Table}}
 \end{frame}
 
-\begin{frame}{Results by Crop}
+\begin{frame}{Results by Temperate/Tropical}
 \begin{center}
 \includegraphics[width=.8\textwidth]{fig_coef_crop_sub_base.eps}
 \end{center}
 \end{frame}
 
 \begin{frame}{Results by Climate Zone}
-Crop suitability based in part on climate conditions. 
+Look at specific climate factors, rather than agricultural crops grown
 \begin{itemize}
   \item Create samples based on K{\"o}ppen-Geiger zones
   \item Three layers: Climate, Precipitation, Temperature
@@ -314,21 +308,21 @@ Crop suitability based in part on climate conditions.
 \hfill \hyperlink{subregiontab}{\beamerbutton{Table}}
 \end{frame}
 
-\begin{frame}{Explanations?}
-Evidence suggests:
-\begin{itemize}
-  \item Tight constraints: wheat family, temperate/snow, warm/cool summers
-  \item Loose constraints: rice family, equatorial/arid, hot summer/arid
-\end{itemize}
+%\begin{frame}{Explanations?}
+%Evidence suggests:
+%\begin{itemize}
+%  \item Tight constraints: wheat family, temperate/snow, warm/cool summers
+%  \item Loose constraints: rice family, equatorial/arid, hot summer/arid
+%\end{itemize}
+%
+%\vspace{.2cm} Why looser constraints some areas?
+%\begin{itemize}
+%  \item Positive(?): Multiple cropping, longer growing periods, more sun, more rain during growing periods $\Rightarrow$ land area isn't binding?
+%  \item Negative(?): Soil leaching, lack of frost $\Rightarrow$ land is less useful?
+%\end{itemize}
 
-\vspace{.2cm} Why looser constraints some areas?
-\begin{itemize}
-  \item Positive(?): Multiple cropping, longer growing periods, more sun, more rain during growing periods $\Rightarrow$ land area isn't binding?
-  \item Negative(?): Soil leaching, lack of frost $\Rightarrow$ land is less useful?
-\end{itemize}
-
-\vspace{.2cm} Working on new project that uses actual crop yields to back out elasticities \textit{by crop} within a given grid cell, with constant climate conditions
-\end{frame}
+%\vspace{.2cm} Working on new project that uses actual crop yields to back out elasticities \textit{by crop} within a given grid cell, with constant climate conditions
+%\end{frame}
 
 \begin{frame}{Robustness and questions}\label{robustness}
 \begin{itemize}
@@ -395,7 +389,7 @@ Acemoglu and Johnson (2007) analysis of epidemiological transition:
   \item WHO (and other) interventions lower mortality rates from many tropical diseases
   \item They find higher resulting population was negative for income per capita
   \item According to our theory, the negative effect should be \textit{bigger} for places with \textit{tighter} land constraints
-  \item Divide countries in AJ into ``loose'' and ``tight'' groups based on country-specific elasticities, run AJ analysis separately for those groups
+  \item We divide countries in AJ into ``loose'' and ``tight'' groups based on country-specific elasticities, run AJ analysis separately for those groups
 \end{itemize}
 
 Run panel regressions of form
@@ -464,10 +458,11 @@ for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life ex
 
 \begin{frame}{Conclusion}
 \begin{itemize}
-  \item Estimate Malthusian constraint from variation in rural density within provinces
-  \item Constraint is ``tight'' (0.20-0.30) in temperate areas (N. China, Europe, US/Canada, S. Africa) suitable for wheat family crops
-  \item Constraint is ``loose'' (0.10-0.15) in tropical areas (S. China, SE Asia, C. Africa, S/C America) suitable for rice family crops
+  \item Estimate Malthusian constraint - elasticity of agricultural output w.r.t. land - from variation in rural density within provinces
+  \item Constraint is ``tight'' (0.20-0.30) in temperate areas (N. China, Europe, US/Canada, S. Africa)
+  \item Constraint is ``loose'' (0.10-0.15) in tropical areas (S. China, SE Asia, C. Africa, S/C America)
   \item Constraint affects the sensitivity of $L_A/L$ and living standards to population and productivity
+  \item Evidence from epidemiological transition is consistent with our findings and theory
 \end{itemize}
 \end{frame}
 
