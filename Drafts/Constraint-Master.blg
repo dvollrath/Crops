@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Constraint-Master.aux
+The style file: aea.bst
+Database file #1: /Users/dietz/Dropbox/Tools/dvbib.bib.bib
+Warning--empty journal in grump2011
+Warning--empty booktitle in Wiebe2003Resource-Qualit
+You've used 75 entries,
+            2695 wiz_defined-function locations,
+            1085 strings with 17766 characters,
+and the built_in function-call counts, 447136 in all, are:
+= -- 74829
+> -- 4602
+< -- 3
++ -- 36189
+- -- 1434
+* -- 40023
+:= -- 87314
+add.period$ -- 530
+call.type$ -- 75
+change.case$ -- 975
+chr.to.int$ -- 73
+cite$ -- 77
+duplicate$ -- 1125
+empty$ -- 3099
+format.name$ -- 1452
+if$ -- 80446
+int.to.chr$ -- 7
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 232
+num.names$ -- 828
+pop$ -- 72
+preamble$ -- 1
+purify$ -- 1125
+quote$ -- 0
+skip$ -- 985
+stack$ -- 0
+substring$ -- 107596
+swap$ -- 473
+text.length$ -- 1053
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 282
+warning$ -- 2
+while$ -- 1853
+width$ -- 0
+write$ -- 381
+(There were 2 warnings)
