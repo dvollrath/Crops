@@ -1,0 +1,11 @@
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Model}{4}{0}{2}
+\beamer@sectionintoc {3}{Regression Setup}{8}{0}{3}
+\beamer@sectionintoc {4}{Results}{17}{0}{4}
+\beamer@sectionintoc {5}{Implications}{26}{0}{5}
+\beamer@sectionintoc {6}{Conclusion}{37}{0}{6}
+\beamer@sectionintoc {7}{Appendix Slides}{38}{0}{7}
+\beamer@subsectionintoc {7}{1}{Additional information}{38}{1}{7}
+\beamer@subsectionintoc {7}{2}{Main results}{41}{1}{7}
+\beamer@subsectionintoc {7}{3}{Robustness checks}{49}{1}{7}

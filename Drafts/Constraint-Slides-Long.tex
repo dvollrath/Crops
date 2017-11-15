@@ -103,9 +103,9 @@ What we do:
 The elasticity determines the degree of decreasing returns to scale for labor/capital in agriculture. 
 
 \begin{itemize}
-  \item \textbf{Theory}: The higher the elasticity, the more sensitive are $y$ and $L_A/L$ to shocks in population/productivity.
+  \item \textbf{Theory}: The higher the elasticity, the more sensitive are real income and the agric. labor share to shocks in population/productivity.
   \item \textbf{Evidence}: Using epidemiological transition after WWII a la Acemoglu and Johnson (2007), countries with high elasticities had more severe negative effect of rising life expectancy
-  \item \textbf{Speculation}: Informative about historical development (Asia vs. Europe) and contemporary development (delayed development in tropics?)
+  \item \textbf{Speculation}: Informative about historical development (Asia vs. Europe) and contemporary development (delayed development in tropics?). Geography as mediator, not cause.
 \end{itemize}
 
 \end{frame}
@@ -125,8 +125,38 @@ Y_{i} = A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\be
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Mobile Factors}
+The wage and return to capital in each district are given by 
+\begin{eqnarray}
+    w = \phi_L \frac{Y_i}{L_{Ai}} \\ \nonumber
+    r = \phi_K \frac{Y_i}{K_{Ai}} \label{EQ_factorprices}
+\end{eqnarray}
+\begin{itemize}
+  \item $\phi_L$ and $\phi_K$ are shares of output 
+  \item Shares need not equal elasticities
+  \item Shares are identical \textit{within} province (but not nec. \textit{across} provinces)
+  \item Capital and labor are mobile \textit{within} province (but not nec. \textit{across} provinces)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Solving for Labor Allocations}
+Given mobility of labor and capital within province,
+\begin{equation}
+    \frac{K_{Ai}}{L_{Ai}} = \frac{w}{r}\frac{\phi_K}{\phi_L}.
+\end{equation}
+Adding up condition for agricultural labor within province
+\begin{equation}
+\sum_{i\in I} L_{Ai} = L_A.
+\end{equation}
+Solve for allocation of labor (relative to land) to district $i$
+\begin{equation}
+\frac{L_{Ai}}{X_i} = A_{i}^{1/\beta}\frac{L_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}}. \label{EQ_LaX}
+\end{equation}
+\end{frame}
+
+
 \begin{frame}{Agricultural Labor Allocation}
-Assume that labor and capital are mobile across districts \textit{within} province (but not nec. \textit{across} provinces), and you can solve for
+In log terms:
 \begin{equation}
 \ln L_{Ai}/X_i = \frac{1}{\beta} \ln A_{i} + \ln \frac{L_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}}, \label{EQ_est}
 \end{equation}
@@ -148,21 +178,22 @@ where second term is \textit{province-specific}.
 \begin{frame}{Using as a Specification}
 Re-arranging the prior expression and adding some notation:
 \begin{equation}
-  \ln A_{isc} = \alpha + \beta \ln L_{Aisc}/X_{isc} + \gamma_{sc} + \delta' \mathbf{Z}_{isc} + \epsilon_{isc}. \label{EQ_regress}
+  \ln A_{isg} = \alpha_g + \beta_g \ln L_{Aisg}/X_{isg} + \gamma_{s} + \delta_g' \mathbf{Z}_{isg} + \epsilon_{isg}. \label{EQ_regress}
 \end{equation}
 
 \begin{itemize}
-  \item District $i$, region/state/province $s$, country $c$
-  \item $\gamma_{sc}$, province/country FE, pick up province-specific term
-  \item $\mathbf{Z}_{isc}$ are additional controls
-  \item $\epsilon_{isc}$ is error term
+  \item District $i$, region/state/province $s$
+  \item $g$ indicates a geographic area (e.g. temperate)
+  \item $\gamma_{s}$, province FE, picks up province-specific term
+  \item $\mathbf{Z}_{isg}$ are additional controls
+  \item $\epsilon_{isg}$ is error term
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Using as a Specification}
-We moved productivity, $A_{isc}$ and agric. density $L_{Aisc}/X_{isc}$ to opposite sides:
+We moved productivity, $A_{isg}$ and agric. density $L_{Aisg}/X_{isg}$ to opposite sides:
 \begin{equation}
-  \ln A_{isc} = \alpha + \beta \ln L_{Aisc}/X_{isc} + \gamma_{sc} + \delta' \mathbf{Z}_{isc} + \epsilon_{isc}. \label{EQ_regress}
+  \ln A_{isg} = \alpha_g + \beta_g \ln L_{Aisg}/X_{isg} + \gamma_{s} + \delta_g' \mathbf{Z}_{isg} + \epsilon_{isg}. \label{EQ_regress}
 \end{equation}
 
 \begin{itemize}
@@ -171,18 +202,18 @@ We moved productivity, $A_{isc}$ and agric. density $L_{Aisc}/X_{isc}$ to opposi
 \end{frame}
 
 \begin{frame}{Agricultural Density Data}
-$L_{Aisc}$ comes from HYDE 3.1 database (Goldewijk et al, 2011)
+$L_{Aisg}$ comes from HYDE 3.1 database (Goldewijk et al, 2011)
 \begin{itemize}
   \item Population counts for 5 degree grid-cells built from administrative data
   \item We aggregate data back to administrative level (e.g. districts)
   \item Rural population data (not agricultural)
   \item Main samples based on year 2000
 \end{itemize}
-$X_{isc}$ calculated as area of a given district
+$X_{isg}$ calculated as area of a given district
 \begin{itemize}
   \item Measure of possible agricultural land
 \end{itemize}
-$L_{Aisc}/X_{isc}$ data 
+$L_{Aisg}/X_{isg}$ data 
 \begin{itemize}
   \item Trim above 99th and below 1st percentiles
   \item Drop if fewer than 100 total rural residents
@@ -196,14 +227,14 @@ $L_{Aisc}/X_{isc}$ data
 \end{center}
 \end{frame}
 
-%\begin{frame}{Agricultural Density Data}
-%\begin{center}
-%\includegraphics[scale=.5]{fig_rurd_map.png}
-%\end{center}
-%\end{frame}
+\begin{frame}{Agricultural Density Data}
+\begin{center}
+\includegraphics[scale=.5]{fig_rurd_map.png}
+\end{center}
+\end{frame}
 
 \begin{frame}{Agricultural Productivity Data}\label{data}
-$A_{isc}$ is built from Galor and {\"O}zak (2016) caloric suitability index
+$A_{isg}$ is built from Galor and {\"O}zak (2016) caloric suitability index
 \begin{itemize}
   \item Data from GAEZ on agro-climatic possible yield (in raw tons) for each crop
   \item Combine with nutritional information by crop (total calories per raw ton)
@@ -223,23 +254,23 @@ $A_{isc}$ is built from Galor and {\"O}zak (2016) caloric suitability index
 \end{center}
 \end{frame}
 
-%\begin{frame}{Agricultural Productivity Data}
-%Grid cells take values of their district. Shown by percentiles.
-%\vspace{-.5in}
-%\begin{center}
-%\includegraphics[scale=.5]{fig_csi_yield_map.png}
-%\end{center}
-%\end{frame}
+\begin{frame}{Agricultural Productivity Data}
+Grid cells take values of their district. Shown by percentiles.
+\vspace{-.5in}
+\begin{center}
+\includegraphics[scale=.5]{fig_csi_yield_map.png}
+\end{center}
+\end{frame}
 
 \begin{frame}{Control Variables}
 Henderson et al (2016) on spatial distribution of economic activity
 \begin{itemize}
   \item Urban activity correlated with (caused by?) high agricultural productivity (in some places)
   \item Low rural density because of urban activity
-  \item $Corr(\epsilon_{isc},\ln L_{isc}/X_{isc})<0$
+  \item $Corr(\epsilon_{isg},\ln L_{isg}/X_{isg})<0$
 \end{itemize}
 
-Include two controls at the district level in $\mathbf{Z}_{isc}$ for urban/economic activity:
+Include two controls at the district level in $\mathbf{Z}_{isg}$ for urban/economic activity:
 \begin{itemize}
   \item Night lights density: follows Henderson et al (2016) using Global Radiance Calibrated data
   \item Urban percent of population: from HYDE
@@ -249,14 +280,8 @@ Include two controls at the district level in $\mathbf{Z}_{isc}$ for urban/econo
 
 \section{Results}
 
-%\begin{frame}{Raw Correlation for Temperate/Tropical}
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{fig_beta_crop.eps}
-%\end{center}
-%\end{frame}
-
 \begin{frame}{``Temperate'' versus ``Tropical''}
-Define the following:
+How do we define the geographic types $g$?
 \begin{itemize}
   \item \textbf{Temperate}: suitable for barley, buckwheat, rye, oats, white potatoes, and/or wheat but zero suitability for Tropical crops
   \item \textbf{Tropical}: suitable for cassava, cowpeas, pearl millet, sweet potatoes, paddy rice, and/or yams but zero suitability for Temperate crops
@@ -264,11 +289,17 @@ Define the following:
 Measure suitability several ways
 \begin{itemize}
   \item GAEZ suitability indices (0 to 100), OR
-  \item Source of maximum calories in our $A_{isc}$ measure, OR
+  \item Source of maximum calories in our $A_{isg}$ measure, OR
   \item Actual harvested area
 \end{itemize}
-
+Definition of geographic type is specific to a province, not a country, so heterogeneity of $\beta$ within country
 \end{frame}
+
+%\begin{frame}{Raw Correlation for Temperate/Tropical}
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{fig_beta_crop.eps}
+%\end{center}
+%\end{frame}
 
 \begin{frame}{Results by Temperate/Tropical}\label{crop}
 \begin{center}
@@ -284,7 +315,7 @@ Measure suitability several ways
 \end{frame}
 
 \begin{frame}{Results by Climate Zone}
-Look at specific climate factors, rather than agricultural crops grown
+Define $g$ by looking at specific climate factors, rather than crops grown
 \begin{itemize}
   \item Create samples based on K{\"o}ppen-Geiger zones
   \item Three layers: Climate, Precipitation, Temperature
@@ -301,33 +332,36 @@ Look at specific climate factors, rather than agricultural crops grown
 \hfill \hyperlink{climatereg}{\beamerbutton{Table}}
 \end{frame}
 
-\begin{frame}{Results by Sub-Region}\label{subregion}
+\begin{frame}{Results by Political Region}
+Define $g$ by grouping countries based on common usage
+\begin{itemize}
+  \item Assumes homogeneity of $\beta$ for provinces within countries
+  \item General overlap of geographies and these political regions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Results by Region}\label{subregion}
 \begin{center}
 \includegraphics[width=.8\textwidth]{fig_coef_subregion_base.eps}
 \end{center}
 \hfill \hyperlink{subregiontab}{\beamerbutton{Table}}
 \end{frame}
 
-%\begin{frame}{Explanations?}
-%Evidence suggests:
-%\begin{itemize}
-%  \item Tight constraints: wheat family, temperate/snow, warm/cool summers
-%  \item Loose constraints: rice family, equatorial/arid, hot summer/arid
-%\end{itemize}
-%
-%\vspace{.2cm} Why looser constraints some areas?
-%\begin{itemize}
-%  \item Positive(?): Multiple cropping, longer growing periods, more sun, more rain during growing periods $\Rightarrow$ land area isn't binding?
-%  \item Negative(?): Soil leaching, lack of frost $\Rightarrow$ land is less useful?
-%\end{itemize}
+\begin{frame}{Explanations?}
+Why looser constraints in tropics compared to temperate areas?
+\begin{itemize}
+  \item Positive(?): Multiple cropping, longer growing periods, more sun, more rain during growing periods $\Rightarrow$ land area isn't binding?
+  \item Negative(?): Soil leaching, lack of frost $\Rightarrow$ land is less useful?
+  \item Neutral(?): Crops have unique requirements for labor inputs versus land inputs?
+\end{itemize}
 
-%\vspace{.2cm} Working on new project that uses actual crop yields to back out elasticities \textit{by crop} within a given grid cell, with constant climate conditions
-%\end{frame}
+\vspace{.2cm} Working on new project that uses actual crop yields to back out elasticities \textit{by crop} within a given grid cell, holding geographic conditions constant.
+\end{frame}
 
 \begin{frame}{Robustness and questions}\label{robustness}
 \begin{itemize}
   \item Use province level data (with country FE) \hyperlink{regprov}{\beamerbutton{Results}}
-  \item Use rural density from 1900 from HYDE \hyperlink{reg1900}{\beamerbutton{Results}}
+  \item Use rural density for 1900 from HYDE \hyperlink{reg1900}{\beamerbutton{Results}}
   \item Use IPUMS for agricultural population \hyperlink{ipums}{\beamerbutton{Results}}
   \item Use GRUMP for population data \hyperlink{grump}{\beamerbutton{Results}}
   \item Estimate $\beta$ for individual provinces \hyperlink{prov}{\beamerbutton{Results}}
@@ -345,14 +379,61 @@ Look at specific climate factors, rather than agricultural crops grown
 \section{Implications}
 
 \begin{frame}{Back to the model}\label{extend}
-Summarizing:
+Aggregate production of agricultural good
+\begin{equation}
+    Y_A = A_A \left(\frac{K_A}{L_A}\right)^{\alpha(1-\beta)} L_A^{1-\beta}, \label{EQ_caL_solve}
+\end{equation}
+where 
+\begin{equation}
+    A_A = \left(\sum_{j\in I} A_{j}^{1/\beta}X_{j} \right)^\beta \nonumber
+\end{equation}
+and non-agricultural good
+\begin{equation}
+    Y_N = A_N \left(\frac{K_N}{L_N}\right)^{\alpha} L_N. \label{EQ_YN}
+\end{equation}
+\end{frame}
+
+\begin{frame}{Factor shares and mobility}
+Land earns zero return
 \begin{itemize}
-  \item Preferences for ag/non-ag goods (Boppart, 2014). $\epsilon > \gamma$ are parameters ensuring income elasticity for ag is less than one, and ag/non-ag are substitutes. This ensures that productivity improvements in any sector drive down ag labor share.
-  \item Non-ag sector is CD with capital and labor only. Ag sector is as described.
-  \item Static. Not thinking about transition paths, just steady states.
-  \item Focus on ag labor share ($L_A/L$) and real income per capita, $y$
+  \item No effect of $\beta$ on factor share
+  \item Let $\phi_L$ and $\phi_K$ be factor shares of labor and capital in both sectors
 \end{itemize}
 
+\vspace{2mm} Mobility of labor between sectors
+\begin{equation}
+    p_A \phi_L \frac{Y_A}{L_A} = p_N \phi_L \frac{Y_N}{L_N}. \label{EQ_mobility}
+\end{equation}
+where $p_A$ and $p_N$ are nominal prices of agric. and non-agric.
+
+\vspace{2mm} Mobility of capital implies $K_A/L_A = K_N/L_N = K/L$.
+
+\end{frame}
+
+\begin{frame}{Preferences}
+Following Boppart (2014), there exists a utility function such that
+\begin{equation}
+    \ln c_A = \ln \theta_A + (1-\epsilon) \ln M + (\gamma - 1) \ln p_A + (\epsilon - \gamma) \ln p_N \label{EQ_ca_demand}
+\end{equation}
+is the demand for $c_A$.
+\begin{itemize}
+  \item $\theta_A$ is a preference parameter
+  \item $M$ is nominal income
+  \item $0 < \epsilon < 1$ to capture Engel's Law
+  \item $\epsilon > \gamma$ means willingness to substitute between $c_A$ and $c_N$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Solving}
+Agricultural labor share is
+\begin{equation}
+  \frac{L_A}{L} = \theta_A \left(\frac{L^{\beta\gamma}}{A_A^{\gamma} A_N^{\epsilon - \gamma} \hat{k}^{\alpha(\epsilon - \beta\gamma)}}\right)^{\frac{1}{1-\beta\gamma}} \label{EQ_LAL}
+\end{equation}
+while real income (in agricultural terms, $M/p_A$)
+\begin{equation}
+  y = \left(\frac{A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}}{L^{\beta}} \right)^{\frac{1}{1-\beta\gamma}} \label{EQ_y}
+\end{equation}
+where $\hat{k} = (\phi_K K/\phi_L L)$, and $\Omega = \alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)$
 \end{frame}
 
 \begin{frame}{Elasticities}
@@ -392,11 +473,24 @@ Acemoglu and Johnson (2007) analysis of epidemiological transition:
   \item We divide countries in AJ into ``loose'' and ``tight'' groups based on country-specific elasticities, run AJ analysis separately for those groups
 \end{itemize}
 
-Run panel regressions of form
+
+
+\end{frame}
+
+\begin{frame}{Empirical implications:}
+Estimate $\beta$ separately for each country in Acemoglu and Johnson sample (assumes $\beta$ is homogenous within country). Divide into two groups based on those estimated $\beta$ values.
+\begin{itemize}
+  \item ``Loose'': below-median $\beta$
+  \item ``Tight'': above-median $\beta$
+\end{itemize}
+
+\vspace{.25in}\noindent Run panel regressions separately for both groups of form
 \begin{equation}
     y_{it} = \alpha + \theta x_{it} + \gamma_i + \delta_t + \epsilon_{it}
 \end{equation}
 for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life expect, or (log) population size. $y_{it}$ is (log) GDP per capita, (log) GDP per worker, or (log) population.
+
+\vspace{.25in}\noindent Prediction is that $\theta_{Tight} > \theta_{Loose}$.
 
 \end{frame}
 
@@ -463,6 +557,7 @@ for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life ex
   \item Constraint is ``loose'' (0.10-0.15) in tropical areas (S. China, SE Asia, C. Africa, S/C America)
   \item Constraint affects the sensitivity of $L_A/L$ and living standards to population and productivity
   \item Evidence from epidemiological transition is consistent with our findings and theory
+  \item Implications for the study of historical and contemporary development
 \end{itemize}
 \end{frame}
 
@@ -473,10 +568,10 @@ for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life ex
 \begin{frame}{Interaction Regression}\label{interaction}
 Combine a given sample with the reference sample (denoted by $Ref$). Run the following regression with interaction terms
 \begin{eqnarray}
-    \ln A_{isc} = \beta \ln L_{Aisc}/X_{isc} + (\beta^{Ref} - \beta) \ln L_{Aisc}/X_{isc} \times I(Ref) \\ \nonumber
-    + \gamma_{sc} + \delta' \mathbf{Z}_{isc} + (\delta^{Ref} - \delta)'\mathbf{Z}_{isc} \times I(Ref) + \epsilon_{isc}. \label{EQ_interaction}
+    \ln A_{isg} = \beta \ln L_{Aisg}/X_{isg} + (\beta^{Ref}_g - \beta_g) \ln L_{Aisg}/X_{isg} \times I(Ref) \\ \nonumber
+    + \gamma_{s} + \delta_g' \mathbf{Z}_{isg} + (\delta^{Ref}_g - \delta_g)'\mathbf{Z}_{isg} \times I(Ref) + \epsilon_{isg}. \label{EQ_interaction}
 \end{eqnarray}
-where $I(Ref)$ is an indicator for the reference region. Our hypothesis test is $H_0: \beta^{Ref} - \beta = 0$, the coefficient on the interaction term for rural density. 
+where $I(Ref)$ is an indicator for the reference region. Our hypothesis test is $H_0: \beta^{Ref}_g - \beta_g = 0$, the coefficient on the interaction term for rural density. 
 
 \hfill \hyperlink{testing}{\beamerbutton{Return}}
 \end{frame}

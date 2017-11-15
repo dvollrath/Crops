@@ -63,7 +63,7 @@ setwd(refdir)
 #source(file.path(codedir,'Crops_Data_GAEZ_Cult.r')) # Cultivated area
 #source(file.path(codedir,'Crops_Data_KG_Count.r')) # KG zone data
 #source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
-source(file.path(codedir,'Crops_Data_GRUMP.r')) # Population data
+#source(file.path(codedir,'Crops_Data_GRUMP.r')) # Population data
 
 #######################################################################
 ## Call programs for pre-1500 processing
