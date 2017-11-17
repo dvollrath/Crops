@@ -60,7 +60,7 @@ qui gen ln_grump_rurd = ln(grump_rur/shape_ha)
 label variable ln_grump_rurd "Log rural density"
 
 //////////////////////////////////////
-// Create CSI productivity variable
+// Create CSI productivity variables
 //////////////////////////////////////
 gen ln_csi_cals = ln(cals) // log total calories, using max crop in each cell
 label variable ln_csi_cals "Log max cal"
@@ -69,6 +69,10 @@ label variable ln_csi_meanyld "Log mean yield of calories"
 gen ln_area = ln(shape_ha) // log of zone area
 gen ln_csi_yield = ln_csi_cals - ln_area // log yield per area
 label variable ln_csi_yield "Log caloric yield"
+
+foreach c in barley buckwheat rye oat whitepotato wheat cassava cowpea pearlmillet sweetpotato wetrice yams {
+	gen ln_`c'_yield = ln(`c'_only_cals) - ln_area
+}
 
 //////////////////////////////////////
 // Create and adjust night lights data

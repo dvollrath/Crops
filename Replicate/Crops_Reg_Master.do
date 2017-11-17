@@ -40,9 +40,9 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 // Call programs given controls
 //////////////////////////////////////
 // Base results
-reset // reset all globals to baseline
-global tag = "base" // name the set of results (files, figures)
-do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//reset // reset all globals to baseline
+//global tag = "base" // name the set of results (files, figures)
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 //do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
 //do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
@@ -50,27 +50,27 @@ do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 //reset
 //global cutoff 1000
 //global tag = "cut1000"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Province level results
 //reset
 //global level gadm1
 //global tag = "province"
 //global fe country_id
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Autarkic districts
 //reset
 //global cntl urb_perc_2000 ln_light_mean ln_rur_perc_2000
 //global tag = "autarky"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Cultivated area
 //reset
 //global rurdvar ln_rurd_cult_2000
 //global cntl urb_perc_2000 ln_light_mean ln_cult_area_perc
 //global tag = "cult"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // 1900 population results
 //reset
@@ -78,7 +78,7 @@ do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 //global rurdvar ln_rurd_1900 // rural density per unit of total land in 2000
 //global cntl urb_perc_1900 ln_light_mean // urban percent and light mean
 //global tag = "pop1900"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // 1950 population results
 //reset
@@ -86,34 +86,43 @@ do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
 //global rurdvar ln_rurd_1950 // rural density per unit of total land in 2000
 //global cntl urb_perc_1950 ln_light_mean // urban percent and light mean
 //global tag = "pop1950"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Remove provinces with few districts
 //reset
 //global drop = "district_count<10" // drop if fewer than 8 districts
 //global tag = "district"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Remove districts either very large or very small
 //reset
 //global drop = "ln_area>13.1086" // drop if outside 10th/90th pctile in size
 //global tag = "size"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Remove districts with few harvest hectares
 //reset
 //global drop = "prod_sum<2792" // drop if below 25th percentile in total production
 //global tag = "prodsum25th"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // HYDE Data, using IPUMS countries for comparison
 //reset // reset all globals to baseline
 //global drop "ipums_flag~=1" // exclude countries without IPUMS data
 //global tag = "ipumsflag" // name the set of results (files, figures)
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // GRUMP population data
 //reset
 //global rurdvar ln_grump_rurd
 //global tag = "grump"
-//do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
+
+////////////////////////////////////////////////////////////////////////////
+// Call separate program to run using separate crop productivity data 
+// - This should stay last as it has to manipulate globals directly
+////////////////////////////////////////////////////////////////////////////
+reset
+global tag = "base"
+di "$tag"
+do "$code/Crops_Reg_ByCrop_Call.do"
