@@ -40,11 +40,11 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 // Call programs given controls
 //////////////////////////////////////
 // Base results
-//reset // reset all globals to baseline
-//global tag = "base" // name the set of results (files, figures)
-//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
-//do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
-//do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
+reset // reset all globals to baseline
+global tag = "base" // name the set of results (files, figures)
+do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
+do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
+do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
 // Change cutoff for SE
 //reset
