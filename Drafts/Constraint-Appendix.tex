@@ -84,7 +84,9 @@
 
 \begin{document}
 \begin{titlepage}
-\vspace{2in} \noindent {\large \today}
+\hfill \textsc{FOR ONLINE PUBLICATION}
+
+\vspace{1in} \noindent {\large \today}
 
 \vspace{.5in} \noindent {\Large \textbf{\strut How Tight are Malthusian Constraints?}}
 
@@ -264,6 +266,22 @@ Including the log of $L_{Ai}/L_i$ explicitly as a control is possible, and the r
 
 The results in Table A.11 may still be biased, however, if the night lights proxy does not pick up the variation in consumption or the capital/labor ratio. If the capital/labor ratio is positively related to the rural density, then we would be under-estimating the true value of $\beta$. The small estimated values of $\beta$ in tropical areas may be because of this relationship, although it is not clear why rural density would be positively related to capital/labor ratios only in tropical areas. Alternatively, if consumption of agricultural goods is negatively related to rural density, and we are not controlling for it with night lights, then we may be under-estimating $\beta$. This could possibly be true only in tropical areas if they are relatively poor, whereas this relationship no longer holds in richer, temperate areas. This is clearly a possibility, although recall that this would only be a problem if we believe that districts are \textit{autarkic}, which may be an extreme assumption.
 
+\section{Adding Malthusian fertility responses}
+Our main model is static, taking the size of population (and capital) as given. By adding in a simple Malthusian fertility response, one can establish several results related to population density and the land elasticity. 
+
+Without specifying a particular utility function, let population growth from $t$ to $t+1$ be a function of income per capita in $t$
+\begin{equation}
+    n_{t+1} = y_t^{\theta}
+\end{equation}
+where $0<\theta<1$ so that population growth is a concave function of income per capita. This delivers, using equation (11) from the main text, 
+\begin{equation}
+    L_{t+1} = n_{t+1} L_t = \left(A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}\right)^{\frac{\theta}{1-\beta\gamma}} L_t^{\frac{1-\beta(\theta+\gamma)}{1-\beta\gamma}}.
+\end{equation}
+Examining the exponent on $L_t$, it is clear that this is less than one, making $L_{t+1}$ a concave function of $L_t$, and thus we have a stable steady state for population. Solving for that steady state by setting $L_{t+1} = L_t$ we have
+\begin{equation}
+    L^{\ast} = \left(A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}\right)^{\frac{1}{\beta}}.
+\end{equation}
+From this, one can see the influence of agricultural productivity on population, and hence on population density. Note that the elasticity of steady state population with respect to $A_A$ depends inversely on $\beta$. As the land elasticity gets larger, the effect of agricultural productivity on population size decreases. The positive Malthusian relationship of population size and (agricultural) productivity remains, but because the Malthusian constraint is much tighter when $\beta$ is large, the relationship is not as strong as when $\beta$ is small. 
 
 \section{Definitions of regions}
 
