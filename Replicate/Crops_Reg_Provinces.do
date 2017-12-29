@@ -88,22 +88,22 @@ qui summ beta, det
 file write f_result "All provinces &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\ \\" _n
 qui summ beta if dry_suit==1 & wet_suit==0, det
-file write f_result "Wheat Suitable &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+file write f_result "Temperate Suitable &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 qui summ beta if dry_suit==0 & wet_suit==1, det
-file write f_result "Rice Suitable &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+file write f_result "Tropical Suitable &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 qui summ beta if dry_max==1 & wet_max==0, det
-file write f_result "Wheat cals>33\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+file write f_result "Temperate cals over 33\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 qui summ beta if dry_max==0 & wet_max==1, det
-file write f_result "Rice cals>33\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+file write f_result "Tropical cals over 33\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 qui summ beta if dry_area==1 & wet_area==0, det
-file write f_result "Wheat area>50\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+file write f_result "Temperate area over 50\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
 qui summ beta if dry_area==0 & wet_area==1, det
-file write f_result "Rice area>50\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+file write f_result "Tropical area over 50\% &" %9.0fc (r(N)) "&" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
 			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\ \\" _n
 
 capture label drop long

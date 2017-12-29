@@ -122,7 +122,7 @@ Define $x_i = X_i/L_{Ai}$ and $k_i = K_i/L_{Ai}$ as the per-worker amounts of la
 \begin{equation}
     f(x_i,k_i) = F(X_i/L_i,K_i/L_i,1)
 \end{equation}
-as the intensive form of the aggregate production function. By the mobility assumption, we know that $\phi_L Y_i/L_{iA} = w$, where the wage is common across districts. This allows us to write, in total, that 
+as the intensive form of the aggregate production function. By the mobility assumption, we know that $\phi_L Y_i/L_{iA} = w$, where the wage is common across districts. This allows us to write that 
 \begin{equation}
     w = \phi_L A_i f(x_i,k_i).
 \end{equation}
@@ -142,6 +142,86 @@ or that the elasticity of the intensive production function with respect to land
     \frac{\partial A_i}{\partial x_i} \frac{x_i}{A_i} = - \frac{F_1(X_i,K_i,L_i) X_i}{F(X_i,K_i,L_i)}
 \end{equation}
 or that the elasticity of productivity with respect to land per worker, $x_i$, is equal to the negative of the elasticity of aggregate output with respect to land. It is then trivial that the elasticity of productivity with respect to density, $1/x_i$, is equal to the elasticity of aggregate output with respect to land. The Cobb-Douglas assumption used in the main paper is not necessary to derive the main estimating equation used in the paper.
+
+\section{Solving for Labor Share and Real Income}\label{APP_solve}
+In section 2 we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (12) and (13) in the main paper is as follows. From here forward, any equation references without a prefix, (e.g. (2)), refer to the main paper, while references with a prefix (e.g. (A.2)) refer to this Appendix.
+
+Based on the district-level production functions from (1), total agricultural supply in province $I$ can be written as
+\begin{equation}
+Y_A = \sum_{i \in I} A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\beta}. \label{EQ_caL}
+\end{equation}
+We know each $L_{Ai}$ from (4). By a similar logic used for labor we can establish that the allocation of capital to any individual location $i$ is
+\begin{equation}
+    K_{Ai} = A_{i}^{1/\beta} X_i \frac{K_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}} \label{EQ_KaX}
+\end{equation}
+where $K_A$ is the aggregate allocation of capital to agriculture. Combine (11) from the main paper and (\ref{EQ_KaX}) with the expression in (\ref{EQ_caL}) and we can solve for 
+\begin{equation}
+    Y_A = A_A \left(\frac{K_A}{L_A}\right)^{\alpha(1-\beta)} L_A^{1-\beta} \nonumber
+\end{equation}
+where 
+\begin{equation}
+    A_A = \left(\sum_{j\in I} A_{j}^{1/\beta}X_{j} \right)^\beta \nonumber
+\end{equation}
+is the measure of aggregate agricultural total factor productivity for the province. 
+
+With the assumption that land earns no return, and the share earned by capital is $\phi_K$ is both sectors, and for labor the share is $\phi_L$ in both sectors, it follows that the capital/labor ratio in both sectors is equal to the aggregate capital labor ratio,
+\begin{equation}
+    \frac{K_A}{L_A} = \frac{K_N}{L_N} = \frac{K}{L} = \frac{w}{r}\frac{\phi_K}{\phi_L}. \nonumber
+\end{equation}
+
+Using the equilibrium condition on wages across sectors from (9), we can solve for 
+\begin{equation}
+    \frac{p_A}{p_N} = \frac{Y_N}{L_N}\frac{L_A}{Y_A}.\label{EQ_papn}
+\end{equation}
+Noting that $Y_N = c_N L$ and $Y_A = c_A L$, we can rearrange this be
+\begin{equation}
+    \frac{p_A c_A}{p_N c_N} = \frac{L_A}{L_N}, \label{EQ_expend}
+\end{equation}
+which shows that the relative amount of labor employed in agriculture and non-agriculture is equal to the relative expenditures on those goods. With the adding up conditions $L_A + L_N = L$ and $p_Ac_A + p_N c_N = M$, it follows that in log terms
+\begin{equation}
+    \ln L_A/L = \ln p_A c_A/M. \label{EQ_pacaM}
+\end{equation}
+
+Turning to the demand function from (8), we can re-arrange that to
+\begin{equation}
+   (1-\epsilon) \ln p_A c_A/M = \ln \theta_A  + (\epsilon-\gamma)(\ln p_N - \ln p_A) - \epsilon \ln c_A. \nonumber
+\end{equation}
+Using the relationships in (\ref{EQ_papn}) and (\ref{EQ_pacaM}), as well as the fact that $c_A = (Y_A/L_A)(L_A/L)$, we can substitute here to find
+\begin{equation}
+    (1-\epsilon)\ln L_A/L = \ln \theta_A + (\epsilon-\gamma)\left(\ln Y_N/L_N - \ln Y_A/L_A \right) - \epsilon \left(\ln Y_A/L_A + \ln L_A/L \right). \nonumber
+\end{equation}
+Collecting terms we have
+\begin{equation}
+    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln Y_N/L_N - \gamma \ln Y_A/L_A. \nonumber
+\end{equation}
+Using the production functions in (7) and (\ref{EQ_caL}), we can write this as
+\begin{equation}
+    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln \left(A_N (K/L)^{\alpha}\right) - \gamma \ln \left(A_A (K/L)^{\alpha(1-\beta)} L_A^{-\beta}\right) - \gamma \beta \ln L + \gamma \beta \ln L, \nonumber
+\end{equation}
+where we've added and subtracted the term involving $L$. At this point, what remains is to separate the productivity and capital terms using the logs, and then straightforward algebra to arrive at
+\begin{equation}
+    \ln L_A/L = \ln \theta_A + \frac{\beta\gamma}{1-\beta\gamma} \ln L - \frac{\gamma}{1-\beta\gamma} \ln A_A + \frac{\gamma - \epsilon}{1-\beta\gamma} \ln A_N + \frac{\alpha(\beta\gamma - \epsilon)}{1-\beta\gamma} \ln K/L. \nonumber
+\end{equation}
+Exponentiating this, we arrive at (10) from the main text.
+
+For real income, in agricultural terms we have
+\begin{equation}
+    y = \frac{M}{p_A} = c_A + \frac{p_N}{p_A} c_N. \nonumber
+\end{equation}
+Using (\ref{EQ_expend}) we can write this as
+\begin{equation}
+    y = c_A + \frac{p_N c_N}{p_A c_A}c_A = c_A \left(1 + \frac{L_N}{L_A}\right) = c_A \frac{L}{L_A}. \nonumber
+\end{equation}
+Noting that $c_A = Y_A/L$, we have that
+\begin{equation}
+    y = \frac{Y_A}{L_A} = A_A (K/L)^{\alpha(1-\beta)} (L_A/L)^{-\beta} L^{-\beta}, \nonumber
+\end{equation}
+where the second equality follows from (\ref{EQ_caL}). At this point, we can use (10) to plug in for $L_A/L$ in the above equation, and solve for 
+\begin{equation}
+    \ln y = \frac{1}{1-\beta\gamma} \ln A_A - \frac{\beta}{1-\beta\gamma} \ln L + \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln A_N + \frac{\alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln K/L. \nonumber
+\end{equation}
+Exponentiating, we arrive at (11) in the main text.
+
 
 \section{Alternative Mobility Assumptions}
 Our baseline specifications are built off of a model that assumes agricultural output, as well as labor and capital, are freely mobile across districts within a given province (although we do not require them to be mobile across provinces). However, even within a given province, there may be frictions or limits on the mobility of either output or inputs, or both. If these frictions exist, then our regressions may not be delivering unbiased estimates of $\beta$. We outline two alternative assumptions about mobility here, and how our results relate to those. 
@@ -184,84 +264,6 @@ Including the log of $L_{Ai}/L_i$ explicitly as a control is possible, and the r
 
 The results in Table A.11 may still be biased, however, if the night lights proxy does not pick up the variation in consumption or the capital/labor ratio. If the capital/labor ratio is positively related to the rural density, then we would be under-estimating the true value of $\beta$. The small estimated values of $\beta$ in tropical areas may be because of this relationship, although it is not clear why rural density would be positively related to capital/labor ratios only in tropical areas. Alternatively, if consumption of agricultural goods is negatively related to rural density, and we are not controlling for it with night lights, then we may be under-estimating $\beta$. This could possibly be true only in tropical areas if they are relatively poor, whereas this relationship no longer holds in richer, temperate areas. This is clearly a possibility, although recall that this would only be a problem if we believe that districts are \textit{autarkic}, which may be an extreme assumption.
 
-\section{Solving for Labor Share and Real Income}\label{APP_solve}
-In section 4.1 we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (12) and (13) is as follows.
-
-Based on the district-level production functions from (1) total agricultural supply in province $I$ can be written as
-\begin{equation}
-Y_A = \sum_{i \in I} A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\beta}. \label{EQ_caL}
-\end{equation}
-We know each $L_{Ai}$ from (4). By a similar logic used for labor we can establish that the allocation of capital to any individual location $i$ is
-\begin{equation}
-    K_{Ai} = A_{i}^{1/\beta} X_i \frac{K_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}} \label{EQ_KaX}
-\end{equation}
-where $K_A$ is the aggregate allocation of capital to agriculture. Combine (11) and (\ref{EQ_KaX}) with the expression in (\ref{EQ_caL}) and we can solve for 
-\begin{equation}
-    Y_A = A_A \left(\frac{K_A}{L_A}\right)^{\alpha(1-\beta)} L_A^{1-\beta} \nonumber
-\end{equation}
-where 
-\begin{equation}
-    A_A = \left(\sum_{j\in I} A_{j}^{1/\beta}X_{j} \right)^\beta \nonumber
-\end{equation}
-is the measure of aggregate agricultural total factor productivity for the province. 
-
-With the assumption that land earns no return, and the share earned by capital is $\phi_K$ is both sectors, and for labor the share is $\phi_L$ in both sectors, it follows that the capital/labor ratio in both sectors is equal to the aggregate capital labor ratio,
-\begin{equation}
-    \frac{K_A}{L_A} = \frac{K_N}{L_N} = \frac{K}{L} = \frac{w}{r}\frac{\phi_K}{\phi_L}. \nonumber
-\end{equation}
-
-Using the equilibrium condition on wages across sectors from (2), we can solve for 
-\begin{equation}
-    \frac{p_A}{p_N} = \frac{Y_N}{L_N}\frac{L_A}{Y_A}.\label{EQ_papn}
-\end{equation}
-Noting that $Y_N = c_N L$ and $Y_A = c_A L$, we can rearrange this be
-\begin{equation}
-    \frac{p_A c_A}{p_N c_N} = \frac{L_A}{L_N}, \label{EQ_expend}
-\end{equation}
-which shows that the relative amount of labor employed in agriculture and non-agriculture is equal to the relative expenditures on those goods. With the adding up conditions $L_A + L_N = L$ and $p_Ac_A + p_N c_N = M$, it follows that in log terms
-\begin{equation}
-    \ln L_A/L = \ln p_A c_A/M. \label{EQ_pacaM}
-\end{equation}
-
-Turning to the demand function from (10), we can re-arrange that to
-\begin{equation}
-   (1-\epsilon) \ln p_A c_A/M = \ln \theta_A  + (\epsilon-\gamma)(\ln p_N - \ln p_A) - \epsilon \ln c_A. \nonumber
-\end{equation}
-Using the relationships in (\ref{EQ_papn}) and (\ref{EQ_pacaM}), as well as the fact that $c_A = (Y_A/L_A)(L_A/L)$, we can substitute here to find
-\begin{equation}
-    (1-\epsilon)\ln L_A/L = \ln \theta_A + (\epsilon-\gamma)\left(\ln Y_N/L_N - \ln Y_A/L_A \right) - \epsilon \left(\ln Y_A/L_A + \ln L_A/L \right). \nonumber
-\end{equation}
-Collecting terms we have
-\begin{equation}
-    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln Y_N/L_N - \gamma \ln Y_A/L_A. \nonumber
-\end{equation}
-Using the production functions in (9) and (\ref{EQ_caL}), we can write this as
-\begin{equation}
-    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln \left(A_N (K/L)^{\alpha}\right) - \gamma \ln \left(A_A (K/L)^{\alpha(1-\beta)} L_A^{-\beta}\right) - \gamma \beta \ln L + \gamma \beta \ln L, \nonumber
-\end{equation}
-where we've added and subtracted the term involving $L$. At this point, what remains is to separate the productivity and capital terms using the logs, and then straightforward algebra to arrive at
-\begin{equation}
-    \ln L_A/L = \ln \theta_A + \frac{\beta\gamma}{1-\beta\gamma} \ln L - \frac{\gamma}{1-\beta\gamma} \ln A_A + \frac{\gamma - \epsilon}{1-\beta\gamma} \ln A_N + \frac{\alpha(\beta\gamma - \epsilon)}{1-\beta\gamma} \ln K/L. \nonumber
-\end{equation}
-Exponentiating this, we arrive at (12) from the main text.
-
-For real income, in agricultural terms we have
-\begin{equation}
-    y = \frac{M}{p_A} = c_A + \frac{p_N}{p_A} c_N. \nonumber
-\end{equation}
-Using (\ref{EQ_expend}) we can write this as
-\begin{equation}
-    y = c_A + \frac{p_N c_N}{p_A c_A}c_A = c_A \left(1 + \frac{L_N}{L_A}\right) = c_A \frac{L}{L_A}. \nonumber
-\end{equation}
-Noting that $c_A = Y_A/L$, we have that
-\begin{equation}
-    y = \frac{Y_A}{L_A} = A_A (K/L)^{\alpha(1-\beta)} (L_A/L)^{-\beta} L^{-\beta}, \nonumber
-\end{equation}
-where the second equality follows from (\ref{EQ_caL}). At this point, we can use (12) to plug in for $L_A/L$ in the above equation, and solve for 
-\begin{equation}
-    \ln y = \frac{1}{1-\beta\gamma} \ln A_A - \frac{\beta}{1-\beta\gamma} \ln L + \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln A_N + \frac{\alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln K/L. \nonumber
-\end{equation}
-Exponentiating, we arrive at (13) in the main text.
 
 \section{Definitions of regions}
 
@@ -292,7 +294,7 @@ We accessed both the gridded population map, and the urban extents grid. The GRU
 
 Because GRUMP counts zero rural residents in an area that is part of an urban extent, and all population in non-urban locations as rural, the variation in rural residents across districts is more severe than with HYDE. Some districts in GRUMP are entirely covered by urban extents, and so have zero rural residents. Hence the GRUMP data leads to 28,471 districts with data on rural density, compared to 35,451 using HYDE. For those 28,471 districts, the correlation of (log) rural density across the two datasets is 0.81, significant at less than 1\%. 
 
-Table A.2 shows the results using the GRUMP data. The results are consistent with our baseline findings. The elasticity for wheat family suitable districts is about 0.20, while for rice family suitable areas it is only 0.115, a difference of about 0.10 that is significant at less than 1\%. Panel B shows that these results hold up if we restrict the sample due to urban size, country development, or the density of rural workers.
+Table A.2 shows the results using the GRUMP data. The results are consistent with our baseline findings. The elasticity for temperate suitable districts is about 0.20, while for tropical areas it is only 0.115, a difference of about 0.10 that is significant at less than 1\%. Panel B shows that these results hold up if we restrict the sample due to urban size, country development, or the density of rural workers.
 
 The only discrepancy with the baseline results is in Panel A, columns (5) and (6), which distinguish samples by their harvested area. In this case, the estimated $\beta$ values are similar (statistically and practically). This appears to be due to a set of outliers in the GRUMP data that have very low reported rural density relative to the equivalent HYDE areas. We can identify these outliers by regressing the GRUMP (log) rural density on the HYDE (log) rural density, and looking for observations whose residuals from that regression are in the bottom 1\% (meaning GRUMP's estimate is well below the HYDE estimate). If we eliminate those from the GRUMP data, then the results for columns (5) and (6) are much closer to the baseline results. The underlying issue here is that these districts have many cells coded as ``urban'' by GRUMP, but HYDE's data indicates large rural populations. Without better information, we do not know if this is an error of HYDE's or GRUMP's methodologies.
 
@@ -322,11 +324,13 @@ Table \ref{TAB_province} shows the summary statistics of $\beta$ values from dif
 The lower portion of the table shows the statistics for individual sub-regions. This replicates the general results of our regional analysis in the main paper. Focusing on the medians, the values for the European regions are in the range 0.22-0.25, and this drops to 0.16 in the Asian regions. The temperate Americas is one discrepancy, with a median of only 0.10, similar to the median value from Tropical Africa, 0.09. Tropical Americas shows a value of 0.17, similar to southern Africa. North Africa has a higher median, consistent with the original results, of 0.31. 
 
 \section{Alternative measure of $A_{isg}$}
-The CSI index used as the baseline measure of $A_{isg}$ combines the raw potential tonnage of production of specific crops with information on their calorie content so that one can compare the \textit{caloric} yield of each crop within a given grid-cell. Then the maximum value of that caloric yield is selected across crops, and those maximums are aggregated across grid-cells in a district to arrive at the $A_{isg}$ measure. This follows Galor and Ozak's (2016) methodology, but there may be an issue with using these calorie counts to compare crops. The calorie count of each crop may not be an accurate measure of the available calories from those crops, given storage and preparation techniques. A worry is that we may have created variation in $A_{isg}$ because of variation in the calorie counts of crops, and that this is driving the results. For example, given paddy rice's very high caloric yield in the Galor and Ozak methodology, it is possible that we are overstating the productivity of districts that are in fact very un-productive from the perspective of farmers, but because they are capable of growing rice, Galor and Ozak have coded them as having very high productivity. This would bias our estimates of $\beta$ down for these districts. 
+The CSI index used as the baseline measure of $A_{isg}$ combines the raw potential tonnage of production of specific crops with information on their calorie content so that one can compare the \textit{caloric} yield of each crop within a given grid-cell. Then the maximum value of that caloric yield is selected across crops, and those maximums are aggregated across grid-cells in a district to arrive at the $A_{isg}$ measure. This follows Galor and Ozak's (2016) methodology, but there may be an issue with using these calorie counts to compare crops. The calorie count of each crop may not be an accurate measure of the available calories from those crops, given storage and preparation techniques. A worry is that we may have created variation in $A_{isg}$ because of variation in the calorie counts of crops, and that this is driving the results. For example, given paddy rice's very high caloric yield in the Galor and Ozak methodology, it is possible that we are overstating the productivity of districts that are in fact very un-productive from the perspective of farmers, but because they are capable of growing rice, Galor and Ozak have coded them as having very high productivity. This would bias our estimates of $\beta$ down for these areas. 
 
-To see that this is not driving our results, we have performed separate regressions estiamting $\beta$ where we use a single crop-specific raw yield from GAEZ as the measure of productivity (e.g. wheat or rice). In this case, there is no caloric information employed at all, as we are not trying to combine data across crops. Each district is measured on a comparable basis. Table \ref{TAB_indcrop} shows these results. Panel A is for the temperate districts identified in the main paper as those capable of growing the temperate crops, while Panel B is for the tropical districts capable of growing tropical crops. In both panels, the first column replicates our baseline results from Table 2 of the main paper.
+To see that this is not driving our results, we have performed separate regressions estiamting $\beta$ where we use a single crop-specific raw yield from GAEZ as the measure of productivity (e.g. wheat or rice). In this case, there is no caloric information employed at all, as we are not trying to combine data across crops. Each district is thus measured on a comparable basis. Table \ref{TAB_indcrop} shows these results. Panel A is for the temperate districts identified in the main paper as those capable of growing the temperate crops, while Panel B is for the tropical districts capable of growing tropical crops. In both panels, the first column replicates our baseline results from Table 2 of the main paper.
 
 For temperate crops, the baseline estimate of $\beta$ is 0.228. The next six columns show the estimated value of $\beta$ if in place of the CSI yield from Galor and Ozak as the $A_{isg}$ variable, we use the raw yield of the specified crop. For example, using just the raw yield of barley to measure $A_{isg}$ in temperate districts, we find an estimated $\beta$ of 0.225. Given that this is nearly identical to the baseline estimate, this indicates that the baseline is not driven simply by the caloric values assigned to barley versus other temperate crops. The rest of the columns show the same kind of result. In each case, the estimate of $\beta$ is very close to 0.228, indicating that the CSI index is not driven by caloric information, but by common variation in the raw productivity of these crops across districts. In Panel B, a similar story is shown. The baseline estimate for the tropical districts is 0.132, while each of the separate columns delivers a result nearly identical, save pearl millet (although still at 0.145). Again, the baseline estimate using the CSI index is not driven simply by the use of calories to weight the different crops.
+
+The implication of these results is that \textit{any} scheme used to weight raw yields across crops is going to deliver similar results regarding $\beta$. Prices, or alternative means of measuring nutritional quality, if used to construct $A_{isg}$ would still show that temperate areas have larger land elasticities than tropical areas.
 
 \section{Robustness Tables}
 Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, temperate and tropical districts. A list of tables is provided for convenience. The first table (A.1), replicates the baseline results for comparison purposes.
@@ -373,7 +377,7 @@ Each table that follows is a replica of Table 2 from the main paper, which estim
 
 \addtab{Using log rural percent of population as a control}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate, the log density of district nighttime lights, and the log rural percent of the population. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
 
-\addtab{Dropping districts over 90th percentile in absoltue size}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts over 493,000 hectares (the 90th percentile) are dropped.}{tab_beta_crop_size.tex}{tab_beta_crop_sub_size.tex}
+\addtab{Dropping districts over 90th percentile in absolute size}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts over 493,000 hectares (the 90th percentile) are dropped.}{tab_beta_crop_size.tex}{tab_beta_crop_sub_size.tex}
 
 \addtab{Dropping provinces with fewer than 10 districts}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts from provinces with fewer than 10 total districts are dropped.}{tab_beta_crop_district.tex}{tab_beta_crop_sub_district.tex}
 
