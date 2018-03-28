@@ -43,8 +43,8 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 reset // reset all globals to baseline
 global tag = "base" // name the set of results (files, figures)
 do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
-do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
-do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
+//do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
+//do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
 // Change cutoff for SE
 //reset
@@ -122,7 +122,7 @@ do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 // Call separate program to run using separate crop productivity data 
 // - This should stay last as it has to manipulate globals directly
 ////////////////////////////////////////////////////////////////////////////
-reset
-global tag = "base"
-di "$tag"
-do "$code/Crops_Reg_ByCrop_Call.do"
+//reset
+//global tag = "base"
+//di "$tag"
+//do "$code/Crops_Reg_ByCrop_Call.do"
