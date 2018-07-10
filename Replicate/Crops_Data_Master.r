@@ -48,7 +48,7 @@ setwd(refdir)
 #######################################################################
 ## Call reference program
 ## Run this first, but only once is necessary
-#source(file.path(codedir,'Crops_Data_Reference.r'))
+source(file.path(codedir,'Crops_Data_Reference.r'))
 
 #######################################################################
 ## Call individual data programs
