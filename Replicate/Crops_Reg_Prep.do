@@ -74,6 +74,12 @@ foreach c in barley buckwheat rye oat whitepotato wheat cassava cowpea pearlmill
 	gen ln_`c'_yield = ln(`c'_only_cals) - ln_area
 }
 
+gen ln_csi_yield_lo_rain = ln(cals_lo_rain) - ln_area
+gen ln_csi_yield_med_rain = ln(cals_med_rain) - ln_area
+gen ln_csi_yield_med_irr = ln(cals_med_irr) - ln_area
+gen ln_csi_yield_hi_rain = ln(cals_hi_rain) - ln_area
+gen ln_csi_yield_hi_irr = ln(cals_hi_irr) - ln_area
+
 //////////////////////////////////////
 // Create and adjust night lights data
 //////////////////////////////////////

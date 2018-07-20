@@ -50,4 +50,9 @@ colnames(cent.df) <- c("x_cent","y_cent")
 comb.df <- cbind(shape.df,cent.df) # merge centroids to shape file - warning: done by row, not OBJECTID
 write.csv(comb.df,file="all_cent_data_gadm1.csv") # write separate file of centroids
 
+# Create aggregated version of DMSP data for use in pixel analysis
+dmsp <- raster(file.path(dmspdir, "F12-F15_20000103-20001229_rad_v4.avg_vis.tif"))
+dmsp <- aggregate(dmsp,fact=10,fun=mean,na.rm=TRUE)
+dmsp <- resample(dmsp,gadm,progress='text')
+writeRaster(dmsp,file.path(refdir,"dmsp_disaggregated.tif"), overwrite=TRUE)
 

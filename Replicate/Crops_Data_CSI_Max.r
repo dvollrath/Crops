@@ -35,6 +35,8 @@ files <- lapply(crops, function(x) paste0(x,input,p1500,".tif")) # create list o
 cropstack <- stack(files) # stack the file names
 maxyld <- max(cropstack) # max yield in each cell
 maxcal <- maxyld*ha # convert from calorie yield to total calories
+writeRaster(maxyld,file.path(refdir,"csi_maxyld.tif"), overwrite=TRUE) # write rasters for use in pixel analysis
+writeRaster(maxcal,file.path(refdir,"csi_maxcal.tif"), overwrite=TRUE) # write rasters for use in pixel analysis
 
 # Get count of cells by zone
 cells <- zonal(maxyld,gadm,fun='count',na.rm=TRUE,progress='text')
@@ -82,4 +84,4 @@ for (c in crops) { # for each individual crop
 }
 
 # Save combined data frame to CSV
-write.csv(csi,file=file.path(refdir, paste0("all_csi_data",p1500,".csv")),row.names=FALSE, na="")
+write.csv(csi,file=file.path(refdir, paste0("all_csi_data_",input,"_",water,".csv")),row.names=FALSE, na="")

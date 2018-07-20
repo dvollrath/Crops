@@ -128,6 +128,13 @@ drop if dupe~=0
 collapse (first) iso name_0 name_1 (sum) grump_rur, by(`levels')
 save "$data/all_grump_data_`gadm'.dta", replace
 
+insheet using "$data/all_csi_data_input_water.csv", clear comma
+duplicates report id_0 id_1 id_2
+duplicates tag id_0 id_1 id_2, generate(dupe)
+drop if dupe~=0
+collapse (first) iso name_0 name_1 (rawsum) shape_area count_* cals_* (mean) meanyld_* [iw = shape_area], by(`levels')
+save "$data/all_csi_data_input_water_`gadm'.dta", replace
+
 
 // Merge all input sources together
 // All _merge results should be identical in numbers of observations
@@ -154,6 +161,8 @@ drop _merge
 merge 1:1 `levels' using "$data/all_earthstat_data_`gadm'.dta"
 drop _merge
 merge 1:1 `levels' using "$data/all_grump_data_`gadm'.dta"
+drop _merge
+merge 1:1 `levels' using "$data/all_csi_data_input_water_`gadm'.dta"
 drop _merge
 merge m:1 iso using "$data/iso_codes.dta"
 drop _merge

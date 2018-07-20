@@ -32,8 +32,8 @@ grumdir <- paste0(mdir,"/data/GRUMP") # GRUMP population data
 datadir <- paste0(mdir,"/Replicate") # Control files
 
 ## Set crop list, input, and water conditions
-water <- "rain_fed" ## alternative is "irrigated"
-input <- "lo" ## alternatives are "med" and "hi"
+water <- "rain_fed" ## alternative is "irrigated" "rain_fed"
+input <- "lo" ## alternatives are "lo" "med" and "hi"
 p1500 <- "" ## alternatives are "" for post-1500, "_p1500" for pre-1500
 
 ## Libraries for use
@@ -48,7 +48,7 @@ setwd(refdir)
 #######################################################################
 ## Call reference program
 ## Run this first, but only once is necessary
-source(file.path(codedir,'Crops_Data_Reference.r'))
+#source(file.path(codedir,'Crops_Data_Reference.r'))
 
 #######################################################################
 ## Call individual data programs

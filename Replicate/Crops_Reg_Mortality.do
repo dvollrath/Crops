@@ -182,7 +182,7 @@ estimates store reg_aj_4
 estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "$output/tab_aj.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Loose}$" "Countries" "Observations")) ///
+	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///
 	keep(life_res) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 
 qui reg gdppc_res pop_res if beta_low==1, robust
@@ -224,7 +224,7 @@ estimates store reg_aj_4
 estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 using "$output/tab_aj_pop.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Loose}$" "Countries" "Observations")) ///
+	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///
 	keep(pop_res) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 
 qui reg pop_res comps_res if beta_low==1, robust
@@ -284,6 +284,6 @@ estimates store reg_aj_4
 estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "$output/tab_aj_comp.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Loose}$" "Countries" "Observations")) ///
+	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///
 	keep(comps_res) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 

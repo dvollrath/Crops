@@ -40,9 +40,9 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 // Call programs given controls
 //////////////////////////////////////
 // Base results
-reset // reset all globals to baseline
-global tag = "base" // name the set of results (files, figures)
-do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
+//reset // reset all globals to baseline
+//global tag = "base" // name the set of results (files, figures)
+//do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 //do "$code/Crops_Reg_Region_Call.do" // call the regional regressions
 //do "$code/Crops_Reg_KGZones_Call.do" // call the regional regressions
 
@@ -96,11 +96,11 @@ do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 // Remove districts either very large or very small
 //reset
-//global drop = "ln_area>13.1086" // drop if outside 10th/90th pctile in size
+//global drop = "ln_area>13.1086" // drop if bigger than 90th pctile in size
 //global tag = "size"
 //do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
-// Remove districts with few harvest hectares
+// Remove districts with little output
 //reset
 //global drop = "prod_sum<2792" // drop if below 25th percentile in total production
 //global tag = "prodsum25th"
@@ -119,6 +119,15 @@ do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 //do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 ////////////////////////////////////////////////////////////////////////////
+// Call separate program to create the robustness table
+// - This should stay last as it has to manipulate globals directly
+////////////////////////////////////////////////////////////////////////////
+reset
+global tag = "robust"
+di "$tag"
+do "$code/Crops_Reg_Robust.do"
+
+////////////////////////////////////////////////////////////////////////////
 // Call separate program to run using separate crop productivity data 
 // - This should stay last as it has to manipulate globals directly
 ////////////////////////////////////////////////////////////////////////////
@@ -126,3 +135,4 @@ do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 //global tag = "base"
 //di "$tag"
 //do "$code/Crops_Reg_ByCrop_Call.do"
+

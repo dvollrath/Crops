@@ -46,6 +46,12 @@ drop if geolevel2==888888888 // also non-district data
 drop zone x1 x // useless fields
 save "$data/all_gaez_suit_data_ipums.dta", replace
 
+insheet using "$data/all_cent_data_geolev2.csv", clear names
+drop if geolevel2==. // get rid of non-district data
+drop if geolevel2==888888888 // also non-district data
+drop v1 // useless fields
+save "$data/all_cent_data_geolev2.dta", replace
+
 //////////////////////////////////////
 // Open IPUMS data, clean, and merge
 //////////////////////////////////////
@@ -62,6 +68,8 @@ drop _merge
 merge 1:1 geolevel2 using "$data/all_dmsp_light_data_ipums.dta"
 drop _merge
 merge 1:1 geolevel2 using "$data/all_gaez_suit_data_ipums.dta"
+drop _merge
+merge 1:1 geolevel2 using "$data/all_cent_data_geolev2.dta"
 drop _merge
 
 //////////////////////////////////////
@@ -132,6 +140,7 @@ egen prod_sum = rowtotal(*_production) // get total tonnes of all crops produced
 drop if ln_csi_yield==.
 drop if ln_pag==.
 
+gen name_0 = cntry_name
 
 save "$data/all_crops_data_ipums.dta", replace
 
