@@ -119,13 +119,21 @@ do "$code/Crops_Reg_Program.do" // set up program to do spatial regressions
 //do "$code/Crops_Reg_Type_Call.do" // call the temperate/tropical regressions
 
 ////////////////////////////////////////////////////////////////////////////
+// Call separate program to use expanded definitions
+////////////////////////////////////////////////////////////////////////////
+reset
+global tag = "expand"
+di "$tag"
+do "$code/Crops_Reg_Expand_Def.do"
+
+////////////////////////////////////////////////////////////////////////////
 // Call separate program to create the robustness table
 // - This should stay last as it has to manipulate globals directly
 ////////////////////////////////////////////////////////////////////////////
-reset
-global tag = "robust"
-di "$tag"
-do "$code/Crops_Reg_Robust.do"
+//reset
+//global tag = "robust"
+//di "$tag"
+//do "$code/Crops_Reg_Robust.do"
 
 ////////////////////////////////////////////////////////////////////////////
 // Call separate program to run using separate crop productivity data 

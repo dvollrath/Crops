@@ -88,7 +88,7 @@
 
 \vspace{1in} \noindent {\large \today}
 
-\vspace{.5in} \noindent {\Large \textbf{\strut How Tight are Malthusian Constraints?}}
+\vspace{.5in} \noindent {\Large \textbf{\strut Differences in the role of land for \\ agricultural production across climates}}
 
 \vspace{.25in} \noindent {\large T. Ryan Johnson}
 
@@ -282,27 +282,6 @@ Examining the exponent on $L_t$, it is clear that this is less than one, making 
 \end{equation}
 From this, one can see the influence of agricultural productivity on population, and hence on population density. Note that the elasticity of steady state population with respect to $A_A$ depends inversely on $\beta$. As the land elasticity gets larger, the effect of agricultural productivity on population size decreases. The positive Malthusian relationship of population size and (agricultural) productivity remains, but because the Malthusian constraint is much tighter when $\beta$ is large, the relationship is not as strong as when $\beta$ is small. 
 
-\section{Definitions of regions}
-
-\noindent\textbf{Regions:} Countries are included as follows:. 
-\begin{itemize}
-    \setlength\itemsep{0pt}
-    \input{tab_region_id.tex}
-\end{itemize}
-
-\noindent\textbf{For China-only regressions:} We exclude Tibet, Xinjiang, Gansu, and Qinghai entirely, given that their climates do not fit well into the temperate versus sub-tropical distinction we make in the regressions.
-\begin{itemize}
-    \setlength\itemsep{0pt}
-    \item \textbf{Temperate provinces}: Hebei, Heilongjiang, Jilin, Liaoning, Nei Mongol, Ningxia Hui, Shaanxi, Shanxi, Tianjin, Sichuan, Shandong, Yunnan
-    \item \textbf{Sub-tropical provinces}: Guangxi, Guangdong, Fujian, Jiangxi, Hunan, Guizhou, Chongqing, Hubei, Anhui, Zhejiang, Henan, Jiangsu, Hainan
-\end{itemize}
-
-\noindent\textbf{Russian provinces:} We split Russia into separate Asian and European sections for inclusion in the regions. That breakdown takes place at the province level
-\begin{itemize}
-    \setlength\itemsep{0pt}
-    \input{tab_russia_id.tex}
-\end{itemize}
-
 \section{Alternative Population Data}
 As mentioned in the main text, given possible issues with the HYDE data on population, we use two alternative sources of population data. These show that our results are not contingent on the particular data from HYDE.
 
@@ -348,6 +327,38 @@ To see that this is not driving our results, we have performed separate regressi
 For temperate crops, the baseline estimate of $\beta$ is 0.228. The next six columns show the estimated value of $\beta$ if in place of the CSI yield from Galor and Ozak as the $A_{isg}$ variable, we use the raw yield of the specified crop. For example, using just the raw yield of barley to measure $A_{isg}$ in temperate districts, we find an estimated $\beta$ of 0.225. Given that this is nearly identical to the baseline estimate, this indicates that the baseline is not driven simply by the caloric values assigned to barley versus other temperate crops. The rest of the columns show the same kind of result. In each case, the estimate of $\beta$ is very close to 0.228, indicating that the CSI index is not driven by caloric information, but by common variation in the raw productivity of these crops across districts. In Panel B, a similar story is shown. The baseline estimate for the tropical districts is 0.132, while each of the separate columns delivers a result nearly identical, save pearl millet (although still at 0.145). Again, the baseline estimate using the CSI index is not driven simply by the use of calories to weight the different crops.
 
 The implication of these results is that \textit{any} scheme used to weight raw yields across crops is going to deliver similar results regarding $\beta$. Prices, or alternative means of measuring nutritional quality, if used to construct $A_{isg}$ would still show that temperate areas have larger land elasticities than tropical areas.
+
+\section{Political region results}
+Table \ref{TAB_beta_subregion} shows results grouping districts by their ``macro-region''. Within each of these regions, all districts are assumed to have identical values of $\beta$. Given the rough correlation of these regions with different climate types, the pattern of results suggest similar results to the baseline. The final panel shows separate results for China (separated into a temperate north and tropical south), Japan, and Korea. 
+
+\noindent\textbf{Regions:} Countries are included as follows:. 
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \input{tab_region_id.tex}
+\end{itemize}
+
+\noindent\textbf{For China-only regressions:} We exclude Tibet, Xinjiang, Gansu, and Qinghai entirely, given that their climates do not fit well into the temperate versus sub-tropical distinction we make in the regressions.
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \item \textbf{Temperate provinces}: Hebei, Heilongjiang, Jilin, Liaoning, Nei Mongol, Ningxia Hui, Shaanxi, Shanxi, Tianjin, Sichuan, Shandong, Yunnan
+    \item \textbf{Sub-tropical provinces}: Guangxi, Guangdong, Fujian, Jiangxi, Hunan, Guizhou, Chongqing, Hubei, Anhui, Zhejiang, Henan, Jiangsu, Hainan
+\end{itemize}
+
+\noindent\textbf{Russian provinces:} We split Russia into separate Asian and European sections for inclusion in the regions. That breakdown takes place at the province level
+\begin{itemize}
+    \setlength\itemsep{0pt}
+    \input{tab_russia_id.tex}
+\end{itemize}
+
+\section{Climate zone results}
+For this, we use the K{\"o}ppen-Geiger scheme, which classifies each grid cell on the planet on three dimensions. First are the \textit{main climate} zones: equatorial (denoted with an ``A''), arid (B), warm temperate (C), and snow (D).\footnote{There is another classification of climate, polar (E), but that covers only areas that are uninhabited for all intents and purposes.} Second, each grid-cell has a \textit{precipitation} classification: fully humid (f), dry summers (s), dry winters (w), monsoonal (m), desert (D), and steppe (S). Finally, there is the \textit{temperature} dimension: hot summers (a), warm summers (b), cool summers (c), hot arid (h), and dry arid (k).\footnote{There are three other temperature classifications - extreme continental, polar frost, and polar tundra - that also cover only uninhabited areas.} Each grid cell thus receives either a three or two-part code. The area around Paris, for example, is ``Cfb'', meaning it is a warm temperate area, fully humid (rain throughout the year), with warm summers. The area near Saigon is ``Aw'', meaning it is equatorial, with dry winters. There is no separate temperature dimension assigned to equatorial zones, as it tends to be redundant.
+
+What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on their K{\"o}ppen-Geiger classifications, as opposed to crop suitability or production data. We do this along each individual dimension (climate, precipitation, and temperature), including a district in a region if more than 50\% of its land area falls in the given zone. For example, for the equatorial region, we include all districts in which 50\% (or more) of their land area is classified as being in ``A'' in the K{\"o}ppen-Geiger system, regardless of their precipitation or temperature codes. Narrowing down to very specific classifications (``Cfb'', for example) is impractical because the number of districts becomes very small. Similar to the temperate/tropical regressions, the climate zone regions do not force heterogeneous districts to be lumped into single regions based on their nation. 
+
+\section{Expanded samples}
+Our baseline samples are Tropical and Temperate. As defined in the main text, the Tropical sample includes districts that are suitable for growing specific crops (cassava, cowpeas, pearl millet, sweet potato, wet rice, yams) but have zero suitability for growing others (barley, buckwheat, oats, rye, white potato, wheat). Temperate is defined in the reverse manner. These definitions exclude 15,692 districts that are capable of growing \textit{both} types of crops. 
+
+Column (1) of Table \ref{TAB_beta_expand} shows the results for just those districts suitable for growing both kinds of crops. The estimated $\beta$ is 0.140, roughly in line with the result for the Tropical sample. Column (2) differs by including any districts that are suitable for Temperate crops (regardless of their suitability for growing Tropical crops). This gives a result of 0.180, smaller than our baseline estimate where we focus on districts suitable only for Temperate crops. Column (3) estimates $\beta$ for any districts that are capable of growing Tropical crops, regardless of their ability to grow Temperate, and the value is 0.132. Again, we see a difference between these two types of regions. However, the gap is smaller, consistent with the fact that we are not distinguishing them as clearly, and the fact that columns (2) and (3) include the 15,692 districts that can grow both kinds of crops. Columns (4)-(6) repeat these regressions, only limiting the sample by excluding districts with large urban areas. We find similar results in this case.
 
 \section{Robustness Tables}
 Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, temperate and tropical districts. A list of tables is provided for convenience. The first table (A.1), replicates the baseline results for comparison purposes.
@@ -446,6 +457,109 @@ Sub-sample & Provinces & Mean & SD & 10th & 25th & 50th & 75th & 90th \\
 }
 \end{center}
 \vspace{-.5cm}\singlespacing {\footnotesize The panels differ in the districts included in each regression. In Panel A, only districts that are suitable for temperate agriculture are inclueded (based on the criteria we outline in the paper based on GAEZ suitability measures). In Panel B, on tropical districts are included. The columns differ by the variable used to measure $A_{isg}$, inherent agricultural productivity. Column (1) uses the CSI index from Galor and Ozak (2016), as in our baseline results. Columns (2)-(7) use the raw potential yield (in tonnes) of the crop, from the GAEZ, for the crop specified. Additional controls are as in our basline results, and include province fixed effects. Conley standard errors, adjusted for spatial auto-correlation, are shown in parentheses. 
+}
+\end{table}
+
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Land Elasticity, $\beta$, by K{\"o}ppen-Geiger Zone, 2000CE}
+\label{TAB_beta_kg}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Climate Zones} \\
+ & Equatorial & Arid & Temperate & Snow  &     &   \\
+ & (1) & (2) & (3) & (4) &  & \\
+\midrule
+\input{tab_beta_kg_climate_base.tex}
+\midrule
+\\
+\multicolumn{7}{l}{Panel B: Precipitation Zones} \\
+& Fully     & Dry         & Dry        &              &            & \\
+& Humid & Summer & Winter & Monsoon & Desert & Steppe \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_kg_precip_base.tex}
+\midrule
+\\
+\multicolumn{7}{l}{Panel C: Temperature Zones} \\
+    & Hot        & Warm        & Cool       & Hot      & Cold     &  \\
+    & Summer & Summer & Summer & Arid & Arid &   \\
+ & (1) & (2) & (3) & (4) & (5) &  \\    
+\midrule
+\input{tab_beta_kg_temp_base.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. The coefficient estimate on rural population density indicates the value of $\beta_g$. Inclusion of districts is based on whether they have more than 50\% of their land area in the given K{\"o}ppen-Geiger zone. See text for details.
+}
+\end{table}
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Land Elasticity, $\beta$, by Regions, 2000CE}
+\label{TAB_beta_subregion}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXX}
+\midrule
+\multicolumn{6}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isg}$)} \\ \\
+\multicolumn{6}{l}{Panel A} \\
+ &          &         &             &  \multicolumn{2}{c}{Excl. China, Japan, Korea} \\ \cmidrule(lr){5-6}
+ & North \& &         &              & South \&  & Central \&             \\
+ & Western  & Eastern & Southern     & Southeast & West        \\
+ & Europe   & Europe  & Europe       & Asia      & Asia      \\
+ & (1) & (2) & (3) & (4) & (5) \\
+\midrule
+\input{tab_beta_subregionA_base.tex}
+\midrule
+\\
+\multicolumn{6}{l}{Panel B} \\
+ & Temperate & Tropical  & Tropical & South    & North    \\
+ & Americas  & Americas  & Africa   & Africa   & Africa     \\
+\midrule
+\input{tab_beta_subregionB_base.tex}
+\midrule
+\\
+\multicolumn{6}{l}{Panel C} \\
+ & All& Temperate & Sub-Tropical & & North \& \\
+ & China & China  & China & Japan & South Korea  \\
+ & (1) & (2) & (3) & (4) & (5) \\
+\midrule
+\input{tab_beta_subregionC_base.tex}
+\midrule
+
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. See appendix for lists of exact countries included in each region. The coefficient estimate on rural population density indicates the value of $\beta_g$, see equation (\ref{EQ_regress}). The countries included in each region can be found in this appendix.
+}
+\end{table}
+
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Land Elasticity, $\beta$, Expanded Definitions}
+\label{TAB_beta_expand}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{6}{l}{Dependent Variable: Log caloric yield ($A_{isg}$)} \\ \\
+ &   & &                             & \multicolumn{3}{c}{Urban Pop. $<25K$} \\
+ & \multicolumn{3}{c}{Suitable for:} & \multicolumn{3}{c}{Suitable for:} \\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & Temperate   & Any       & Any      & Temperate     & Any       & Any      \\
+ & and Tropical & Temperate & Tropical & and Tropical & Temperate & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_expand_expand.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. The coefficient estimate on rural population density indicates the value of $\beta_g$. ``Temperate and tropical'' includes all districts that are suitable for \textit{both} tropical and temperate crops (as defined in the text). ``Any temperate'' includes any district that is suitable for temperate crops (regardless of their suitability for tropical crops), and ``Any tropical'' is defined similarly for tropical crops regardless of suitability for temperate.
 }
 \end{table}
 

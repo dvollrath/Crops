@@ -110,6 +110,10 @@ replace dry_suit = 1 if suit_brl>0 | suit_bck>0 | suit_rye>0 | suit_oat>0 | suit
 gen wet_suit = 0
 replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo | suit_rcw>0 | suit_yam>0
 
+gen temp=.
+replace temp = 1 if dry_suit==1 & wet_suit==0
+replace temp = 0 if dry_suit==0 & wet_suit==1
+
 gen dry_max = 0
 replace dry_max = 1 if (barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells)>.33*count
 gen dry_cells = barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells
@@ -364,49 +368,28 @@ file close f_result
 // Create density figures for yield/rurd
 //////////////////////////////////////
 
-twoway kdensity csi_yield if jv_region==1, clcolor(black) ///
-	|| kdensity csi_yield if jv_region==2, clcolor(black) clpattern(dash) ///
-	|| kdensity csi_yield if jv_region==3, clcolor(gray) ///
-	|| kdensity csi_yield if jv_region==4, clcolor(gray) clpattern(dash) ///
-	|| kdensity csi_yield if jv_region==5, clcolor(black) clpattern(shortdash_dot) ///
-	|| kdensity csi_yield if jv_region==6, clcolor(gray) clpattern(shortdash_dot) ///
+twoway kdensity csi_yield if temp==0, clcolor(black) ///
+	|| kdensity csi_yield if temp==1, clcolor(gray) clpattern(dash) ///
 	graphregion(color(white)) xtitle("Caloric yield (mil. per hectare)") ///
-	legend(size(small) ring(0) pos(2) cols(1) label(1 "Europe") label(2 "S. and SE. Asia") label(3 "Sub-Saharan Africa") label(4 "N. Africa and W. Asia")  label(5 "S. and C. America") label(6 "N. America")) ///
+	legend(size(small) ring(0) pos(2) cols(1) label(1 "Tropical") label(2 "Temperate")) ///
 	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(0(5)35)
 graph export "$text/fig_dens_csi.png", replace as(png)
 graph export "$text/fig_dens_csi.eps", replace as(eps)
 
-twoway kdensity ln_rurd_2000 if jv_region==1, clcolor(black) ///
-	|| kdensity ln_rurd_2000 if jv_region==2, clcolor(black) clpattern(dash) ///
-	|| kdensity ln_rurd_2000 if jv_region==3, clcolor(gray) ///
-	|| kdensity ln_rurd_2000 if jv_region==4, clcolor(gray) clpattern(dash) ///
-	|| kdensity ln_rurd_2000 if jv_region==5, clcolor(black) clpattern(shortdash_dot) ///
-	|| kdensity ln_rurd_2000 if jv_region==6, clcolor(gray) clpattern(shortdash_dot) ///
+twoway kdensity ln_rurd_2000 if temp==0, clcolor(black) ///
+	|| kdensity ln_rurd_2000 if temp==1, clcolor(gray) clpattern(dash) ///
 	graphregion(color(white)) xtitle("Log rural density (persons/ha)") ///
-	legend(size(small) ring(0) pos(2) cols(1) label(1 "Europe") label(2 "S. and SE. Asia") label(3 "Sub-Saharan Africa") label(4 "N. Africa and W. Asia")  label(5 "S. and C. America") label(6 "N. America")) ///
-	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(-5(1)4)
+	legend(size(small) ring(0) pos(2) cols(1) label(1 "Tropical") label(2 "Temperate")) ///
+	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(-6(1)3)
 graph export "$text/fig_dens_rurd.png", replace as(png)
 graph export "$text/fig_dens_rurd.eps", replace as(eps)
-	
 
-qui reg ln_csi_yield urb_perc_2000 ln_light_mean i.state_id if dry_suit==1 & wet_suit==0
-predict csi_res_temp, res
-qui reg ln_rurd_2000 urb_perc_2000 ln_light_mean i.state_id if dry_suit==1 & wet_suit==0
-predict rurd_res_temp, res
 
-qui reg ln_csi_yield urb_perc_2000 ln_light_mean i.state_id if dry_suit==0 & wet_suit==1
-predict csi_res_trop, res
-qui reg ln_rurd_2000 urb_perc_2000 ln_light_mean i.state_id if dry_suit==0 & wet_suit==1
-predict rurd_res_trop, res
+binscatter ln_csi_yield ln_rurd_2000, ///
+	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
+	xtitle("(Log) rural density") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
+	absorb(state_id) controls(ln_light_mean urb_perc_2000) noaddmean ///
+	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.132") label(2 "Temperate {&beta}{sub:g} = 0.228") region(lwidth(none))) ///
+	savegraph("$text/fig_beta_crop.eps") replace reportreg
 
-scatter csi_res_temp rurd_res_temp if dry_suit==1 & wet_suit==0, msymbol(oh) msize(tiny) mcolor(black) ///
-	|| lfit csi_res_temp rurd_res_temp if dry_suit==1 & wet_suit==0, clcolor(black) ///
-	|| scatter csi_res_trop rurd_res_trop if dry_suit==0 & wet_suit==1, msymbol(sh) msize(tiny) mcolor(green) ///
-	|| lfit csi_res_trop rurd_res_trop if dry_suit==0 & wet_suit==1, clcolor(green) ///
-	xtitle("Residual log rural density, 2000CE") ytitle("Residual log caloric yield") ///
-	ylabel(, angle(0) nogrid) graphregion(color(white)) xlabel(-5(1)5) ///
-	legend(ring(0) pos(10) label(1 "Temperate (Black)") label(2 "Fitted") label(3 "Tropical (Green)") label(4 "Fitted"))
-graph export "$text/fig_beta_crop.png", replace as(png)
-graph export "$text/fig_beta_crop.eps", replace as(eps)	
-	
 // end
