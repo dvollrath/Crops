@@ -384,7 +384,6 @@ twoway kdensity ln_rurd_2000 if temp==0, clcolor(black) ///
 graph export "$text/fig_dens_rurd.png", replace as(png)
 graph export "$text/fig_dens_rurd.eps", replace as(eps)
 
-
 binscatter ln_csi_yield ln_rurd_2000, ///
 	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
 	xtitle("(Log) rural density") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
