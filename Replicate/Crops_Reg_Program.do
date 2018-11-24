@@ -1,108 +1,107 @@
-//////////////////////////////////////
-// Interaction regression
-//////////////////////////////////////	
-capture program drop est_reg
-program est_reg // Perform set of regressions for given conditions in `0', create output
-	di "Create residuals for selected sample"
-	// Get residuals for the selected sample - removes cntl's and FE
-	qui reg $csivar $cntl i.$fe `0'
-	capture drop ln_csi_yield_res
-	qui predict ln_csi_yield_res, res
-	qui reg $rurdvar $cntl i.$fe `0'
-	capture drop ln_rurd_res
-	qui predict ln_rurd_res, res
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Main program to run spatial interaction regression
+// - Variables are all demeaned first to save time
+// - Spatial OLS doesn't like ## notation, so create interaction terms ourselves
+// - Report both the results for main group, and the comparison group
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+capture program drop doreg
+program doreg, eclass
+	syntax varlist(min=2) [if] [in] [, fe(varlist) dist(real 500) comp(varlist) tag(string)] 
+	token `varlist' // tokenize list of passed variables for use
 	
-	// Create the CSI variable using selected sample and reference group
-	di "Create interaction variables"
-	capture drop csi_reg
-	qui gen csi_reg  = .
-	qui replace csi_reg = ln_csi_yield_res `0'
-	qui replace csi_reg = ln_csi_yield_ref if ref_ind==1
-	// Create the rurd variable using selected sample and reference group
-	capture drop rurd_reg 
-	qui gen rurd_reg = .
-	qui replace rurd_reg = ln_rurd_res `0'
-	qui replace rurd_reg = ln_rurd_ref if ref_ind==1
-	label variable rurd_reg "Log rural density"
-	// Create the interaction term for sample (0) and reference group
-	capture drop rurd_int
-	qui gen rurd_int = .
-	qui replace rurd_int = 0 `0'
-	qui replace rurd_int = ln_rurd_ref if ref_ind==1
-	// Mark the sample to use
-	capture drop sample_ind
-	gen sample_ind = 0
-	replace sample_ind = 1 `0'
-	replace sample_ind = 1 if ref_ind==1
+	local and = "&" // default is to add extra condition to passed if statement
+	if "`if'"=="" { // if the "if" passed is blank, then
+		local and = "if" // include the "if" explicitly
+	}
 	
-	di "Perform spatial regression"
-	qui ols_spatial_HAC csi_reg rurd_reg rurd_int if sample_ind==1, ///
-			lat(y_cent) lon(x_cent) timevar(y) panelvar($fe) distcutoff($cutoff) lagcutoff(1)
-	qui tabulate name_0 `0' & e(sample)==1
-	qui estadd scalar N_country = r(r)
-	qui count `0' & e(sample)==1 & ref_ind==.
-	qui estadd scalar N_obs = r(N)
-	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[rurd_reg])/_se[rurd_reg])) // add p-value from interaction		
-	qui estadd scalar p_diff = 2*(1-t(e(df_r),abs(_b[rurd_int])/_se[rurd_int])) // add p-value from interaction	
-end
+	qui areg `1' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the productivity variable over passed FE variable
+		// do this only if it matches passed "if" statement
+		// do this only if it has a valid 0/1 value in the group variable
+	capture drop res_`1'
+	qui predict res_`1', res // create residuals of productivity variable
+	
+	qui areg `2' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the rural density variable over passed FE variable
+	capture drop res_rurd
+	qui predict res_rurd, res // create residual of density variable
+	capture drop int_rurd
+	qui gen int_rurd = res_rurd*`comp' // create interaction of residual density and comparison group variable
+	
+	local i = 3 
+	while "``i''" != "" { // for all the remaining controls
+		qui areg ``i'' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the control over passed FE variable
+		capture drop res_cntl_``i''
+		qui predict res_cntl_``i'', res // create residual of control variable
+		capture drop int_cntl_``i''
+		qui gen int_cntl_``i'' = res_cntl_``i''*`comp' // create interaction of residual control with comparison group variable
+		local ++i
+	}
 
-//////////////////////////////////////
-// Reference program
-// -- Set ref_ind==1 for sample to act as reference
-// -- Usage: est_ref 
-//////////////////////////////////////	
-capture program drop est_ref
-program est_ref 
-	di "Process reference group"
-	capture drop ref_ind
-	qui gen ref_ind = .
-	qui replace ref_ind = 1 `0'
-	
-	di "Reference residuals"
-	qui reg $csivar $cntl i.$fe if ref_ind==1
-	capture drop ln_csi_yield_ref
-	qui predict ln_csi_yield_ref, res
-	qui reg $rurdvar $cntl i.$fe if ref_ind==1
-	capture drop ln_rurd_ref
-	qui predict ln_rurd_ref, res
-	
-	capture drop csi_reg
-	qui gen csi_reg  = .
-	qui replace csi_reg = ln_csi_yield_ref
-	capture drop rurd_reg 
-	qui gen rurd_reg = .
-	qui replace rurd_reg = ln_rurd_ref
-	label variable rurd_reg "Log rural density"
-	
-	qui ols_spatial_HAC csi_reg rurd_reg if ref_ind==1, ///
-				lat(y_cent) lon(x_cent) timevar(y) panelvar($fe) distcutoff($cutoff) lagcutoff(1)
-	qui tabulate name_0 if ref_ind==1 & e(sample)==1
-	qui estadd scalar N_country = r(r)
-	qui count `0' & e(sample)==1 & ref_ind==1
-	qui estadd scalar N_obs = r(N)
-	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[rurd_reg])/_se[rurd_reg])) // add p-value from interaction		
-end
+	// Main results
+	// Regress productivity on density, include all controls, include all interaction terms, and a constant(c), 
+	qui ols_spatial_HAC res_`1' res_rurd int_rurd res_cntl_* int_cntl_* `comp' c `if' `and' inlist(`comp',0,1), ///
+			lat(y_cent) lon(x_cent) timevar(c) panelvar(c) distcutoff(`dist') lagcutoff(1)	// options for spatial errors
+	//reg res_`1' res_rurd int_rurd res_cntl_* int_cntl_* `comp' `if' `and' inlist(`comp',0,1) // OLS version for testing, leave commented out
+	qui tabulate name_0 `if' `and' e(sample)==1 & `comp'==0 // count countries in group=0
+	qui estadd scalar N_country = r(r) // store country count for group=0
+	qui count `if' `and' e(sample)==1 & `comp'==0 // count observations in group=0
+	qui estadd scalar N_obs = r(N) // store obs count for group=0
+	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/_se[res_rurd])) // add p-value for H0: beta=0 for group==0		
+	qui estadd scalar p_diff = 2*(1-t(e(df_r),abs(_b[int_rurd])/_se[int_rurd])) // add p-value for H0: beta(group=0) = beta(group=1)
+	estimates store `tag'2 // store results
 
-capture program drop est_quick
-program est_quick
-	qui reg $csivar $cntl i.$fe `0'
-	capture drop ln_csi_yield_ref
-	qui predict ln_csi_yield_ref, res
-	qui reg $rurdvar $cntl i.$fe `0'
-	capture drop ln_rurd_ref
-	qui predict ln_rurd_ref, res
+	qui lincom res_rurd + int_rurd // get linear combination of base and interaction to get estimated elasticity, SE for group==1	
+	local comp_se = r(se) // save off the SE of this estimate
 	
-	capture drop csi_reg
-	qui gen csi_reg  = .
-	qui replace csi_reg = ln_csi_yield_ref
-	capture drop rurd_reg 
-	qui gen rurd_reg = .
-	qui replace rurd_reg = ln_rurd_ref
+	// Run separate OLS for reference group, for reporting use
+	// To avoid running spatial OLS again, pull the appropriate SE from the prior spatial OLS
+	// Done solely to avoid re-running spatial OLS again to save time
+	qui reg res_`1' res_rurd res_cntl_* `if' `and' `comp'==1 // run regression on just the comparison group ==1, the reference
+	mat NV = e(V) // save OLS Var/Covar matrix
+	mat NV[1,1] = `comp_se'^2 // overwrite Var/Covar for density with the variance from spatial OLS above
+	ereturn repost V = NV // repost the overwritten Var/Covar to estimates for reporting
+	qui tabulate name_0 `if' `and' e(sample)==1 & `comp'==1 // count countries in group=1
+	qui estadd scalar N_country = r(r) // store country count for group=1
+	qui count `if' `and' e(sample)==1 & `comp'==1 // count observations in group=1	
+	qui estadd scalar N_obs = r(N) // store obs count for group=1
+	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/`comp_se'))
+	estimates store `tag'1 // store results
+end 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Supplemental program to run spatial interaction regression
+// - Variables are all demeaned first to save time
+// - Spatial OLS for a single group based on if statement (MUST have if statement)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+capture program drop onereg
+program onereg, eclass
+	syntax varlist(min=2) [if] [in] [, fe(varlist) dist(real 500) tag(string)] 
+	token `varlist' // tokenize list of passed variables for use
+		
+	qui areg `1' `if', absorb(`fe') // demean the productivity variable over passed FE variable
+	capture drop res_`1'
+	qui predict res_`1', res // create residuals of productivity variable
 	
-	reg csi_reg rurd_reg `0', absorb($fe) cluster($fe)
-	qui tabulate name_0 if ref_ind==1 & e(sample)==1
-	qui estadd scalar N_country = r(r)
-	qui count `0' & e(sample)==1 & ref_ind==1
-	qui estadd scalar N_obs = r(N)
-	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[rurd_reg])/_se[rurd_reg])) // add p-value from interaction		
-end
+	qui areg `2' `if', absorb(`fe') // demean the rural density variable over passed FE variable
+	capture drop res_rurd
+	qui predict res_rurd, res // create residual of density variable
+	
+	local i = 3 
+	while "``i''" != "" { // for all the remaining controls
+		qui areg ``i'' `if', absorb(`fe') // demean the control over passed FE variable
+		capture drop res_cntl_``i''
+		qui predict res_cntl_``i'', res // create residual of control variable
+		local ++i
+	}
+
+	// Regress productivity on density, include all controls, and a constant(c), 
+	qui ols_spatial_HAC res_`1' res_rurd res_cntl_*  c `if', ///
+			lat(y_cent) lon(x_cent) timevar(c) panelvar(c) distcutoff(`dist') lagcutoff(1)	// options for spatial errors
+	qui tabulate name_0 `if' & e(sample)==1 // count countries in group=0
+	qui estadd scalar N_country = r(r) // store country count for group=0
+	qui count `if' & e(sample)==1 // count observations in group=0
+	qui estadd scalar N_obs = r(N) // store obs count for group=0
+	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/_se[res_rurd])) // add p-value for H0: beta=0 for group==0		
+	estimates store `tag'1 // store results
+end 
+
+

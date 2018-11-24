@@ -68,13 +68,13 @@
 %-------------------------------------------Title---------------------------------------------------%
 
 
-\title[Land Constraints]{{How Tight are Malthusian Constraints?}}
+\title[Land Constraints]{{The Role of Land in Temperate and Tropical Agriculture}}
 
 \author[Johnson \& Vollrath]{T. Ryan Johnson \inst{1} \and Dietrich Vollrath \inst{2}}
-\institute[UH]{\inst{1} University of Houston \and %
+\institute[UH]{\inst{1} Washington University \and %
                       \inst{2} University of Houston}
 
-\date[June 2017]{}
+\date[November 2018]{}
 
 %-------------------------------------------Slides---------------------------------------------------%
 
@@ -83,257 +83,179 @@
 
 \section{Introduction}
 
-\begin{frame}{Translation}\label{define}
+\begin{frame}{The basic questions}\label{define}
 
-What is the elasticity (i.e. how tight) of agricultural output with respect to land (i.e. the Malthusian constraint)? 
+What is the elasticity of agricultural output with respect to land? Does it differ in tropical and temperate agriculture? 
 
-What we do: 
+\vspace{.25in}\noindent What we do: 
 \begin{itemize}
-  \item Estimate the elasticity using district-level variation in rural density
-  \item Estimate elasticity separately for different climate zones, agric. type, etc..
-  \item Show elasticity is about 2x higher for temperate (0.20-0.30) vs. tropics (0.10-0.15)
-  \item Show differences are robust w.r.t. data sources, measurement error
+  \item Estimate the elasticity using district-level (2nd-level admin unit) variation in rural density
+  \item Estimate elasticity separately for tropical and temperate regions
+  \item Find elasticity is higher for temperate (0.23) vs. tropical (0.13)
+  \item Show differences are robust w.r.t. data sources, samples, measurement issues
 \end{itemize}
-
 
 \end{frame}
 
 
 \begin{frame}{Why do you care?}
-The elasticity determines the degree of decreasing returns to scale for labor/capital in agriculture. 
+With constant returns, the land elasticity determines the degree of decreasing returns to scale for labor/capital in agriculture. 
 
 \begin{itemize}
-  \item \textbf{Theory}: The higher the elasticity, the more sensitive are $y$ and $L_A/L$ to shocks in population/productivity.
-  \item \textbf{Evidence}: Using epidemiological transition after WWII a la Acemoglu and Johnson (2007), countries with high elasticities had more severe negative effect of rising life expectancy
-  \item \textbf{Speculation}: Informative about historical development (Asia vs. Europe) and contemporary development (delayed development in tropics?)
+  \item \textbf{Theory}: The higher the elasticity, the more sensitive are real income and the agric. labor share to shocks in population/productivity.
+  \item \textbf{Evidence}: Using epidemiological transition after WWII a la Acemoglu and Johnson (2007), countries with high, temperate, elasticities had more severe negative effect of rising life expectancy
+  \item \textbf{Speculation}: Informative about historical development (Asia vs. Europe) and contemporary development (delayed development in tropics?). Geography as mediator, not cause.
 \end{itemize}
 
 \end{frame}
 
-\section{Model}
+\begin{frame}{Why do you care?}
+Informs any work that involves an agricultural sector within the economy
+
+\begin{itemize}
+  \item \textbf{Structural change}: Gollin, Parente, Rogerson (2007); Restuccia, Yang, Zhu (2008); Weil and Wilde (2009); Gollin (2010); Duarte and Restuccia (2010); Alvarez-Cuadrado and Poschke (2011); Herrendorf, Rogerson, Valentinyi (2014); Eberhardt and Vollrath (2018); 
+  \item \textbf{Malthusian stagnation/UGT}: Ashraf and Galor (2011); Galor (2011); Hansen and Prescott (2002); Cervellati and Sunde (2005); Lagerl{\"o}f (2006); Strulik and Weisdorf (2008)
+  \item \textbf{Comparative development}: Kogel and Prskawetz (2001); Galor and Mountford (2008); Vollrath (2011); Voigtlaender and Voth (2013a,b); Cervellati and Sunde (2015)
+\end{itemize}
+
+\end{frame}
+
+\section{Empirical Model}
 
 \begin{frame}{Density and Productivity}
-Province $I$ contains a set of districts, each denoted by $i$, with aggregate agricultural production
-\begin{equation}
-Y_{i} = A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\beta} \label{EQ_production}
-\end{equation}
+Think of many districts $i$ within a given province/state $I$
 \begin{itemize}
-  \item $A_i$ is productivity, $X_i$ is land
-  \item $K_{Ai}$ is all other inputs (e.g. capital)
-  \item $L_{Ai}$ is agricultural labor in district $i$ (not a single sector)
-  \item Assume $\beta$ and $\alpha$ are identical \textit{within} province (but not nec. \textit{across} provinces)
+  \item Each has Cobb-Douglas ag prod fct: $Y_{i} = A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\beta}$
+  \item $X$ is land, $K$ is capital, $L$ is labor
+  \item Across districts, wage and rate of return on capital equalized
+  \item Capital/labor ratio equalized across districts
+  \item Total ag labor in province in $L_A = \sum_i L_{Ai}$
+  \item Higher productivity, $A_i$, implies higher rural density $L_{Ai}/X_i$
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Agricultural Labor Allocation}
-Assume that labor and capital are mobile across districts \textit{within} province (but not nec. \textit{across} provinces), and you can solve for
+In log terms:
 \begin{equation}
-\ln L_{Ai}/X_i = \frac{1}{\beta} \ln A_{i} + \ln \frac{L_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}}, \label{EQ_est}
+\ln A_{i} = \beta \ln L_{Ai}/X_i + \Omega, \label{EQ_est}
 \end{equation}
-where second term is \textit{province-specific}. 
+where second term is \textit{province-specific},
+\begin{equation}
+   \Omega = \beta \ln \sum_{j\in I} A_{j}^{1/\beta}X_{j} - \beta \ln L_A.
+\end{equation} 
 
 \begin{itemize}
-  \item $\beta$ can be estimated from elasticity of $L_{Ai}/X_i$ w.r.t. $A_i$. 
-  \item $\beta$ large (tight), $1/\beta$ small, ag. workers spread evenly w/in province
-  \item $\beta$ small (loose), $1/\beta$ large, ag. workers concentrated on high $A_i$
-  \item Ag labor relative to total labor ($L_A/L$) does not enter
+  \item $\beta$ can be estimated from elasticity of $A_i$ w.r.t. $L_{Ai}/X_i$
+  \item Ag labor relative to total labor ($L_A/L$) is implicit in $\Omega$
   \item Expression is not unique to heaviliy agricultural provinces (or eras)
 \end{itemize}
 
 \hfill \hyperlink{extend}{\beamerbutton{More}}
 \end{frame}
 
-\section{Regression Setup}
-
 \begin{frame}{Using as a Specification}
-Re-arranging the prior expression and adding some notation:
+Adding some notation:
 \begin{equation}
-  \ln A_{isc} = \alpha + \beta \ln L_{Aisc}/X_{isc} + \gamma_{sc} + \delta' \mathbf{Z}_{isc} + \epsilon_{isc}. \label{EQ_regress}
+\ln A^{GAEZ}_{isg} = \beta_g \ln L_{Aisg}/X_{isg} + \gamma_{s} + \delta_g' \mathbf{Z}_{isg} + \epsilon_{isg}
 \end{equation}
 
 \begin{itemize}
-  \item District $i$, region/state/province $s$, country $c$
-  \item $\gamma_{sc}$, province/country FE, pick up province-specific term
-  \item $\mathbf{Z}_{isc}$ are additional controls
-  \item $\epsilon_{isc}$ is error term
+  \item District $i$, region/state/province $s$
+  \item $g$ indicates a geographic area (e.g. temperate)
+  \item $\gamma_{s}$, province FE, picks up $\Omega$ and province-specific productivity level
+  \item $\mathbf{Z}_{isg}$ is district-level proxies for productivity, controls
+  \item $\ln A^{GAEZ}_{isg}$ is agro-climatic measure of productivity
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Using as a Specification}
-We moved productivity, $A_{isc}$ and agric. density $L_{Aisc}/X_{isc}$ to opposite sides:
+\begin{frame}{Empirical assumptions}
+What are the key assumptions for getting good estimates of $\beta_g$?
 \begin{equation}
-  \ln A_{isc} = \alpha + \beta \ln L_{Aisc}/X_{isc} + \gamma_{sc} + \delta' \mathbf{Z}_{isc} + \epsilon_{isc}. \label{EQ_regress}
+  \ln A^{GAEZ}_{isg} = \beta_g \ln L_{Aisg}/X_{isg} + \gamma_{s} + \delta_g' \mathbf{Z}_{isg} + \epsilon_{isg}, \label{EQ_regress}
 \end{equation}
 
 \begin{itemize}
-  \item Estimating $1/\beta$ $\Rightarrow$ very sensitive to small differences in $\beta$
+  \item Estimating $\beta_g$ using \textit{within} provinces, \textit{across}-province variation is not used
+  \item Country-level variation is not used
+  \item Danger is unobserved district-level variation in productivity \textit{within} a province
+  \item Danger is fundamental difference in district-level production function (i.e. different $\beta_g$) within our samples (e.g. pastoralism versus crop production)
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Agricultural Density Data}
-$L_{Aisc}$ comes from HYDE 3.1 database (Goldewijk et al, 2011)
+\section{Data}
+
+\begin{frame}{``Temperate'' versus ``Tropical''}
+How do we define the geographic types $g$?
 \begin{itemize}
-  \item Population counts for 5 degree grid-cells built from administrative data
-  \item We aggregate data back to administrative level (e.g. districts)
-  \item Rural population data (not agricultural)
-  \item Main samples based on year 2000
+  \item \textbf{Temperate}: suitable for barley, buckwheat, rye, oats, white potatoes, and/or wheat but zero suitability for Tropical crops
+  \item \textbf{Tropical}: suitable for cassava, cowpeas, pearl millet, sweet potatoes, paddy rice, and/or yams but zero suitability for Temperate crops
 \end{itemize}
-$X_{isc}$ calculated as area of a given district
-\begin{itemize}
-  \item Measure of possible agricultural land
-\end{itemize}
-$L_{Aisc}/X_{isc}$ data 
-\begin{itemize}
-  \item Trim above 99th and below 1st percentiles
-  \item Drop if fewer than 100 total rural residents
-  \item 35,451 total districts from around world
-\end{itemize}
+
+Definition of geographic type is specific to a district, allows heterogeneity within country
 \end{frame}
 
-\begin{frame}{Agricultural Density Data}
-\begin{center}
-\includegraphics[width=.8\textwidth]{fig_dens_rurd.eps}
-\end{center}
-\end{frame}
-
-%\begin{frame}{Agricultural Density Data}
-%\begin{center}
-%\includegraphics[scale=.5]{fig_rurd_map.png}
-%\end{center}
-%\end{frame}
-
-\begin{frame}{Agricultural Productivity Data}\label{data}
-$A_{isc}$ is built from Galor and {\"O}zak (2016) caloric suitability index
+\begin{frame}{Main data}
 \begin{itemize}
-  \item Data from GAEZ on agro-climatic possible yield (in raw tons) for each crop
-  \item Combine with nutritional information by crop (total calories per raw ton)
-  \item For each grid cell, determine max calories across all crops
-  \item Sum max calories across grid cells in district, divide by total area
-  \item Holds technology assumptions constant
-  \item Trim above 99th and below 1st percentile
+  \item $L_{Aisg}$ comes from HYDE 3.1 database (Goldewijk et al, 2011)
+  \item $X_{isg}$ calculated as area of a given district (GAEZ)
+  \item $A^{GAEZ}_{isg}$ caloric suitability index (Galor and {\"O}zak, 2016)
+  \item $\mathbf{Z}_{isg}$ includes urban percent (HYDE) and district-level night lights (Henderson et al, 2016)
 \end{itemize}
+
 \hfill \hyperlink{stats}{\beamerbutton{Summary}}
 
 \hfill \hyperlink{crops}{\beamerbutton{Crops}}
 \end{frame}
 
-\begin{frame}{Agricultural Productivity Data}
-\begin{center}
-\includegraphics[width=.8\textwidth]{fig_dens_csi.eps}
-\end{center}
-\end{frame}
-
-%\begin{frame}{Agricultural Productivity Data}
-%Grid cells take values of their district. Shown by percentiles.
-%\vspace{-.5in}
-%\begin{center}
-%\includegraphics[scale=.5]{fig_csi_yield_map.png}
-%\end{center}
-%\end{frame}
-
-\begin{frame}{Control Variables}
-Henderson et al (2016) on spatial distribution of economic activity
-\begin{itemize}
-  \item Urban activity correlated with (caused by?) high agricultural productivity (in some places)
-  \item Low rural density because of urban activity
-  \item $Corr(\epsilon_{isc},\ln L_{isc}/X_{isc})<0$
-\end{itemize}
-
-Include two controls at the district level in $\mathbf{Z}_{isc}$ for urban/economic activity:
-\begin{itemize}
-  \item Night lights density: follows Henderson et al (2016) using Global Radiance Calibrated data
-  \item Urban percent of population: from HYDE
-\end{itemize}
-
-\end{frame}
-
 \section{Results}
-
-%\begin{frame}{Raw Correlation for Temperate/Tropical}
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{fig_beta_crop.eps}
-%\end{center}
-%\end{frame}
-
-\begin{frame}{``Temperate'' versus ``Tropical''}
-Define the following:
-\begin{itemize}
-  \item \textbf{Temperate}: suitable for barley, buckwheat, rye, oats, white potatoes, and/or wheat but zero suitability for Tropical crops
-  \item \textbf{Tropical}: suitable for cassava, cowpeas, pearl millet, sweet potatoes, paddy rice, and/or yams but zero suitability for Temperate crops
-\end{itemize}
-Measure suitability several ways
-\begin{itemize}
-  \item GAEZ suitability indices (0 to 100), OR
-  \item Source of maximum calories in our $A_{isc}$ measure, OR
-  \item Actual harvested area
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}{Results by Temperate/Tropical}\label{crop}
 \begin{center}
-\includegraphics[width=.8\textwidth]{fig_coef_crop_base.eps}
+\includegraphics[width=0.9\textwidth]{fig_coef_crop_base.eps}
 \end{center}
 \hfill \hyperlink{cropreg}{\beamerbutton{Table}}
 \end{frame}
 
+\begin{frame}{Residual plot from baseline results}
+\begin{center}
+\includegraphics[width=.9\textwidth]{fig_beta_crop.eps}
+\end{center}
+\end{frame}
+
 \begin{frame}{Results by Temperate/Tropical}
 \begin{center}
-\includegraphics[width=.8\textwidth]{fig_coef_crop_sub_base.eps}
+\includegraphics[width=.9\textwidth]{fig_coef_crop_sub_base.eps}
 \end{center}
 \end{frame}
 
-\begin{frame}{Results by Climate Zone}
-Look at specific climate factors, rather than agricultural crops grown
-\begin{itemize}
-  \item Create samples based on K{\"o}ppen-Geiger zones
-  \item Three layers: Climate, Precipitation, Temperature
-  \item Each layer has multiple types (e.g. Climate is Equatorial, Arid, ...)
-  \item Create samples where districts have >50\% of land in a given type
-  \item $\Rightarrow$ heterogeneity within countries in $\beta$  
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Results by Climate Zone}\label{climate}
+\begin{frame}{Results using different population sources}\label{pop}
 \begin{center}
-\includegraphics[width=.8\textwidth]{fig_coef_kg_base.eps}
+\includegraphics[width=.9\textwidth]{fig_coef_robust_pop.eps}
 \end{center}
-\hfill \hyperlink{climatereg}{\beamerbutton{Table}}
+\hfill \hyperlink{popreg}{\beamerbutton{Table}}
 \end{frame}
 
-\begin{frame}{Results by Sub-Region}\label{subregion}
+\begin{frame}{Results using different land assumptions}\label{land}
 \begin{center}
-\includegraphics[width=.8\textwidth]{fig_coef_subregion_base.eps}
+\includegraphics[width=.9\textwidth]{fig_coef_robust_other.eps}
 \end{center}
-\hfill \hyperlink{subregiontab}{\beamerbutton{Table}}
+\hfill \hyperlink{landreg}{\beamerbutton{Table}}
 \end{frame}
 
-%\begin{frame}{Explanations?}
-%Evidence suggests:
-%\begin{itemize}
-%  \item Tight constraints: wheat family, temperate/snow, warm/cool summers
-%  \item Loose constraints: rice family, equatorial/arid, hot summer/arid
-%\end{itemize}
-%
-%\vspace{.2cm} Why looser constraints some areas?
-%\begin{itemize}
-%  \item Positive(?): Multiple cropping, longer growing periods, more sun, more rain during growing periods $\Rightarrow$ land area isn't binding?
-%  \item Negative(?): Soil leaching, lack of frost $\Rightarrow$ land is less useful?
-%\end{itemize}
+\begin{frame}{Results using different $A^{GAEZ}_{isg}$ level}\label{prod}
+\begin{center}
+\includegraphics[width=.9\textwidth]{fig_coef_robust_input.eps}
+\end{center}
+\hfill \hyperlink{prodreg}{\beamerbutton{Table}}
+\end{frame}
 
-%\vspace{.2cm} Working on new project that uses actual crop yields to back out elasticities \textit{by crop} within a given grid cell, with constant climate conditions
-%\end{frame}
-
-\begin{frame}{Robustness and questions}\label{robustness}
+\begin{frame}{Questions and more robustness}\label{robustness}
 \begin{itemize}
   \item Use province level data (with country FE) \hyperlink{regprov}{\beamerbutton{Results}}
-  \item Use rural density from 1900 from HYDE \hyperlink{reg1900}{\beamerbutton{Results}}
-  \item Use IPUMS for agricultural population \hyperlink{ipums}{\beamerbutton{Results}}
-  \item Use GRUMP for population data \hyperlink{grump}{\beamerbutton{Results}}
-  \item Estimate $\beta$ for individual provinces \hyperlink{prov}{\beamerbutton{Results}}
-  \item Use cultivated area of land \hyperlink{cultreg}{\beamerbutton{Results}}
-  \item Maize and soy \hyperlink{othercrop}{\beamerbutton{Results}}
-  \item Exclude districts with few harvest Ha \hyperlink{harvarea}{\beamerbutton{Results}}
+  \item By political regions \hyperlink{subregiontab}{\beamerbutton{Results}}
+  \item By Koppen-Geiger climate zone \hyperlink{climatereg}{\beamerbutton{Results}}
+  \item Inclusive definitions of temp. and trop. \hyperlink{definition}{\beamerbutton{Results}}
+  \item Use rural density for 1900 from HYDE \hyperlink{reg1900}{\beamerbutton{Results}}
   \item Workers not mobile between districts? \hyperlink{nonmobile}{\beamerbutton{Slides}}
   \item Districts autarkic? \hyperlink{autarky}{\beamerbutton{Slides}}  
   \item Elasticity of substitution? \hyperlink{eos}{\beamerbutton{Slides}}
@@ -345,12 +267,12 @@ Look at specific climate factors, rather than agricultural crops grown
 \section{Implications}
 
 \begin{frame}{Back to the model}\label{extend}
-Summarizing:
 \begin{itemize}
-  \item Preferences for ag/non-ag goods (Boppart, 2014). $\epsilon > \gamma$ are parameters ensuring income elasticity for ag is less than one, and ag/non-ag are substitutes. This ensures that productivity improvements in any sector drive down ag labor share.
-  \item Non-ag sector is CD with capital and labor only. Ag sector is as described.
-  \item Static. Not thinking about transition paths, just steady states.
-  \item Focus on ag labor share ($L_A/L$) and real income per capita, $y$
+  \item Non-agricultural sector that uses capital and labor too, with TFP $A_N$
+  \item Agricultural sector as before, with TFP $A_A$ (a combo of district $A_A$)
+  \item Labor and capital mobile between ag and non-ag, and across districts
+  \item Preferences (Boppart, 2014) with income elasticity $<1$, governed by parameters $\gamma$ and $\epsilon$
+  \item Gives nice analytical solutions for $L_A/L$ and real income $y$
 \end{itemize}
 
 \end{frame}
@@ -361,10 +283,6 @@ The elasticities of the agricultural labor share ($L_A/L$) and real income ($y$)
   \item[(a)] Agricultural productivity ($A_A$): 
 \begin{equation}
   \frac{\partial \ln L_A/L}{\partial \ln A_A} = - \frac{\gamma}{1-\beta\gamma} \quad \quad \frac{\partial \ln y}{\partial \ln A_A} = \frac{1}{1-\beta\gamma}
-\end{equation}
-  \item[(b)] Non-agricultural productivity ($A_N$): 
-\begin{equation}
-  \frac{\partial \ln L_A/L}{\partial \ln A_N} = - \frac{\epsilon-\gamma}{1-\beta\gamma} \quad \quad \frac{\partial \ln y}{\partial \ln A_N} = \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma}
 \end{equation}
   \item[(c)] Population ($L$): 
 \begin{equation}
@@ -383,86 +301,29 @@ Three settings where the Malthusian constraint might matter
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Empirical implications:}
+\begin{frame}{Empirical implications:}\label{aj}
 Acemoglu and Johnson (2007) analysis of epidemiological transition:
 \begin{itemize}
   \item WHO (and other) interventions lower mortality rates from many tropical diseases
   \item They find higher resulting population was negative for income per capita
-  \item According to our theory, the negative effect should be \textit{bigger} for places with \textit{tighter} land constraints
-  \item We divide countries in AJ into ``loose'' and ``tight'' groups based on country-specific elasticities, run AJ analysis separately for those groups
+  \item According to our theory, the negative effect should be \textit{bigger} for places with \textit{higher} land elasticity
+  \item We divide countries in AJ into ``high'' and ``low'' $\beta$ groups based on country-specific elasticities, run AJ analysis separately for those groups
+  \item Consistent with prediction, high $\beta$ countries had much larger negative effects on GDP per worker, GDP per capita in response to mortality decline
 \end{itemize}
 
-Run panel regressions of form
-\begin{equation}
-    y_{it} = \alpha + \theta x_{it} + \gamma_i + \delta_t + \epsilon_{it}
-\end{equation}
-for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life expect, or (log) population size. $y_{it}$ is (log) GDP per capita, (log) GDP per worker, or (log) population.
-
-\end{frame}
-
-\begin{frame}{Response to mortality rate changes}
-
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
- & \multicolumn{6}{c}{Dependent Variable:} \\ \cmidrule(lr){2-7}
- & \multicolumn{2}{c}{Log GDP per capita} & \multicolumn{2}{c}{Log GDP per worker} & \multicolumn{2}{c}{Log population} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
- & Loose & Tight & Loose & Tight & Loose & Tight \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
- & \multicolumn{6}{c}{Panel A:} \\ \cmidrule(lr){2-7}
-\input{tab_aj_comp.tex}
-\midrule
-
-\end{tabularx}
-}
-\end{frame}
-
-\begin{frame}{Response to life expectancy changes}
-
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
- & \multicolumn{6}{c}{Dependent Variable:} \\ \cmidrule(lr){2-7}
- & \multicolumn{2}{c}{Log GDP per capita} & \multicolumn{2}{c}{Log GDP per worker} & \multicolumn{2}{c}{Log population} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
- & Loose & Tight & Loose & Tight & Loose & Tight \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
- & \multicolumn{6}{c}{Panel B:} \\ \cmidrule(lr){2-7}
-\input{tab_aj.tex}
-\midrule
-
-\end{tabularx}
-}
-\end{frame}
-
-\begin{frame}{Response to population change}
-
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
- & \multicolumn{6}{c}{Dependent Variable:} \\ \cmidrule(lr){2-7}
- & \multicolumn{2}{c}{Log GDP per capita} & \multicolumn{2}{c}{Log GDP per worker} & \multicolumn{2}{c}{Log population} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
- & Loose & Tight & Loose & Tight & Loose & Tight \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
- & \multicolumn{6}{c}{Panel C:} \\ \cmidrule(lr){2-7}
-\input{tab_aj_pop.tex}
-\midrule
-
-\end{tabularx}
-}
+\hfill \hyperlink{mortality}{\beamerbutton{Tables}}
 \end{frame}
 
 \section{Conclusion}
 
 \begin{frame}{Conclusion}
 \begin{itemize}
-  \item Estimate Malthusian constraint - elasticity of agricultural output w.r.t. land - from variation in rural density within provinces
-  \item Constraint is ``tight'' (0.20-0.30) in temperate areas (N. China, Europe, US/Canada, S. Africa)
-  \item Constraint is ``loose'' (0.10-0.15) in tropical areas (S. China, SE Asia, C. Africa, S/C America)
-  \item Constraint affects the sensitivity of $L_A/L$ and living standards to population and productivity
+  \item Estimate aggregate land elasticity from variation in rural density within provinces
+  \item Elasticity is high (0.20-0.25) in temperate agricultural areas 
+  \item Elasticity is low (0.10-0.15) in tropical agricultural areas 
+  \item Elasticity affects the sensitivity of $L_A/L$ and living standards to population and productivity
   \item Evidence from epidemiological transition is consistent with our findings and theory
+  \item Implications for the study of historical and contemporary development
 \end{itemize}
 \end{frame}
 
@@ -473,10 +334,10 @@ for country $i$ and time (decade) $t$. $x_{it}$ is mortality rate, (log) life ex
 \begin{frame}{Interaction Regression}\label{interaction}
 Combine a given sample with the reference sample (denoted by $Ref$). Run the following regression with interaction terms
 \begin{eqnarray}
-    \ln A_{isc} = \beta \ln L_{Aisc}/X_{isc} + (\beta^{Ref} - \beta) \ln L_{Aisc}/X_{isc} \times I(Ref) \\ \nonumber
-    + \gamma_{sc} + \delta' \mathbf{Z}_{isc} + (\delta^{Ref} - \delta)'\mathbf{Z}_{isc} \times I(Ref) + \epsilon_{isc}. \label{EQ_interaction}
+    \ln A_{isg} = \beta \ln L_{Aisg}/X_{isg} + (\beta^{Ref}_g - \beta_g) \ln L_{Aisg}/X_{isg} \times I(Ref) \\ \nonumber
+    + \gamma_{s} + \delta_g' \mathbf{Z}_{isg} + (\delta^{Ref}_g - \delta_g)'\mathbf{Z}_{isg} \times I(Ref) + \epsilon_{isg}. \label{EQ_interaction}
 \end{eqnarray}
-where $I(Ref)$ is an indicator for the reference region. Our hypothesis test is $H_0: \beta^{Ref} - \beta = 0$, the coefficient on the interaction term for rural density. 
+where $I(Ref)$ is an indicator for the reference region. Our hypothesis test is $H_0: \beta^{Ref}_g - \beta_g = 0$, the coefficient on the interaction term for rural density. 
 
 \hfill \hyperlink{testing}{\beamerbutton{Return}}
 \end{frame}
@@ -529,17 +390,91 @@ alfalfa, banana, barley, buckwheat, cassava, chickpea, cowpea, drypea, flax, fox
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel B: Samples with other restrictions (using suitability to distinguish crop families)} \\ \\
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A^{GAEZ}_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Regions defined by:} \\ \\
+ & \multicolumn{2}{c}{Suitability:} & \multicolumn{2}{c}{Max calories:} & \multicolumn{2}{c}{Harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_crop_base.tex}
+\midrule
+\end{tabularx}
+}
+\end{frame}
+
+\begin{frame}{Population results}\label{popreg}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Panel B: With other restrictions (using suitability to define temperate/tropical)} \\ \\
  & \multicolumn{2}{c}{Urban Pop. $<25K$:} & \multicolumn{2}{c}{Ex. Europe/N. Amer.:} & \multicolumn{2}{c}{Rural dens. $>$ 25th P'tile:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
-  & Wheat Only& Rice Only & Wheat Only& Rice Only& Wheat Only& Rice Only\\
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
 \input{tab_beta_crop_sub_base.tex}
 \midrule
 \end{tabularx}
 }
+
+\hfill \hyperlink{pop}{\beamerbutton{Return}}
 \end{frame}
+
+
+\begin{frame}{Land results}\label{landreg}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A^{GAEZ}_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel B: Different land assumptions} \\ \\
+ & \multicolumn{2}{c}{Cultivated Area:} & \multicolumn{2}{c}{Drop $>$ 90th Ptile size:} & \multicolumn{2}{c}{Drop $<$ 25th Ptile Prod:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_robust_other.tex}
+\midrule
+\end{tabularx}
+}
+
+\hfill \hyperlink{land}{\beamerbutton{Return}}
+\end{frame}
+
+
+\begin{frame}{Productivity results}\label{prodreg}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A^{GAEZ}_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Caloric yield based on GAEZ input/water use:} \\ \\
+ & \multicolumn{2}{c}{Medium/Irrigated:} & \multicolumn{2}{c}{High/Rain-fed:} & \multicolumn{2}{c}{High/Irrigated:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_robust_input.tex}
+\midrule
+\end{tabularx}
+}
+
+\hfill \hyperlink{prod}{\beamerbutton{Return}}
+\end{frame}
+
+\begin{frame}{Productivity results}
+
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A^{GAEZ}_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel B: Excluding N.A. and Europe, caloric yield based on GAEZ input/water use:} \\ \\
+ & \multicolumn{2}{c}{Medium/Irrigated:} & \multicolumn{2}{c}{High/Rain-fed:} & \multicolumn{2}{c}{High/Irrigated:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_robust_input_poor.tex}
+\midrule
+\end{tabularx}
+}
+
+\end{frame}
+
 
 \begin{frame}{Climate Results}\label{climatereg}
 
@@ -556,7 +491,7 @@ alfalfa, banana, barley, buckwheat, cassava, chickpea, cowpea, drypea, flax, fox
 \end{tabularx}
 }
 
-\hfill \hyperlink{climate}{\beamerbutton{Return}}
+\hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
 
 \begin{frame}{Climate Results}
@@ -610,7 +545,7 @@ alfalfa, banana, barley, buckwheat, cassava, chickpea, cowpea, drypea, flax, fox
 \end{tabularx}
 }
 
-\hfill \hyperlink{subregion}{\beamerbutton{Return}}
+\hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
 
 \begin{frame}{Region Results}
@@ -648,6 +583,13 @@ alfalfa, banana, barley, buckwheat, cassava, chickpea, cowpea, drypea, flax, fox
 
 \end{frame}
 
+\begin{frame}{Results by Region}
+\begin{center}
+\includegraphics[width=.8\textwidth]{fig_coef_subregion_base.eps}
+\end{center}
+\end{frame}
+
+
 \subsection{Robustness checks}
 
 \begin{frame}{Results by Province}\label{prov}
@@ -663,7 +605,7 @@ Baseline results assume $\beta$ constant within larger sub-samples.
 
 \begin{frame}{Results by Province}
 
-{\footnotesize
+{\scriptsize
 \begin{tabularx}{\textwidth}{lrrrXXXXX}
 \midrule
            &       &      &     & \multicolumn{5}{c}{Percentiles:} \\ \cmidrule{5-9}
@@ -720,26 +662,8 @@ Factors and output are immobile within province.
 \hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
 
-\begin{frame}{Crop Results}
 
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
- & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Wheat & Rice & Wheat  & Rice  & Wheat  & Rice \\
- & Only & Only &  $>33\%$ & $>33\%$ & $>50\%$ & $>50\%$   \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
-\input{tab_beta_crop_autarky.tex}
-\midrule
-\end{tabularx}
-}
-
-\end{frame}
-
-\begin{frame}{Using Cultivated Area}\label{cultreg}
+\begin{frame}{Using Cultivated Area}\label{cultivated}
 Cultivated area, $X^C_{isc}$, available from GAEZ. Rural density is
 \begin{equation}
   \ln L_{Aisc}/X_{isc} = \ln L_{Aisc}/X^C_{isc} + \ln X^C_{isc}/X_{isc}
@@ -751,37 +675,19 @@ Cultivated area, $X^C_{isc}$, available from GAEZ. Rural density is
   \item Controls for percent of land actually being cultivated
 \end{itemize}
 
-\hfill \hyperlink{robustness}{\beamerbutton{Return}}
+\hfill \hyperlink{land}{\beamerbutton{Return}}
 \end{frame}
 
-%\begin{frame}{Measurement error?}
-%\begin{itemize}
-%  \item Whether we are using cultivated or total area
-%  \item Systematic mismeasurement of districts within a province not a problem, FE
-%  \item Variation in systematic mismeasurement across provinces not a problem, FE
-%  \item Problem is \textit{variation in noise of mismeasurement} across provinces
-%  \item Is there noisier measurement in tropical areas? 
-%\end{itemize}
-%\end{frame}
-
-\begin{frame}{Using Cultivated Area}
-
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
- & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Wheat & Rice & Wheat  & Rice  & Wheat  & Rice \\
- & Only & Only &  $>33\%$ & $>33\%$ & $>50\%$ & $>50\%$   \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
-\input{tab_beta_crop_cult.tex}
-\midrule
-\end{tabularx}
-}
-
+\begin{frame}{Measurement error?}
+\begin{itemize}
+  \item Whether we are using cultivated or total area
+  \item Systematic mismeasurement of districts within a province not a problem, FE
+  \item Variation in systematic mismeasurement across provinces not a problem, FE
+  \item Problem is \textit{variation in noise of mismeasurement} across provinces
+  \item Is there noisier measurement in tropical areas? 
+\end{itemize}
 \end{frame}
+
 
 \begin{frame}{Province-level Data}\label{regprov}
 
@@ -843,25 +749,28 @@ Cultivated area, $X^C_{isc}$, available from GAEZ. Rural density is
 \hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
 
-\begin{frame}{Maize and Soy Results}\label{othercrop}
+\begin{frame}{Other definitions of temperate and tropical}\label{definition}
 
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Samples defined by suitability for each crop:} \\ \\
- & \multicolumn{3}{c}{Maize suitable AND:} & \multicolumn{3}{c}{Soy suitable AND:} \\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}
- & Wheat & Rice & Wheat  & Wheat  & Rice  & Wheat \\
- & or Rice & Only & Only & or Rice & Only & Only   \\
+\multicolumn{6}{l}{Dependent Variable: Log caloric yield ($A_{isg}$)} \\ \\
+ &   & &                             & \multicolumn{3}{c}{Urban Pop. $<25K$} \\
+ & \multicolumn{3}{c}{Suitable for:} & \multicolumn{3}{c}{Suitable for:} \\ \cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & Temperate   & Any       & Any      & Temperate     & Any       & Any      \\
+ & and Tropical & Temperate & Tropical & and Tropical & Temperate & Tropical \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
-\input{tab_beta_crop_alt_base.tex}
+\input{tab_beta_expand_expand.tex}
 \midrule
 \end{tabularx}
 }
 
 \hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
+
+
+
 
 \begin{frame}{Measurement Error}\label{measure}
 Measurement error $\Rightarrow$ attentuation bias
@@ -923,6 +832,15 @@ Possible sources of difference
 \hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
 
+\begin{frame}{Using GRUMP Population Data}\label{grump}
+GRUMP (Global Rural-Urban Mapping Project) also provides grid-cell population estimates. 
+\begin{itemize}
+  \item Define urban/rural differently than HYDE. They denote specific grid-cells as ``urban'', and any population in that cell is assumed to be urban.
+  \item Inclusion of cells in districts and provinces is identical to HYDE. 
+\end{itemize}
+
+\end{frame}
+
 \begin{frame}{Using IPUMS Population Data}\label{ipums}
 39 countries in IPUMS with geographic identifiers for individuals at the ``district'' level (agglomerations of districts with constant boundaries). 
 \begin{itemize}
@@ -932,54 +850,65 @@ Possible sources of difference
   \item Rebuild data on $A_{isc}$ and $L_{Aisc}$ at the level of the IPUMS districts
 \end{itemize}
 
+\hfill \hyperlink{pop}{\beamerbutton{Return}}
 \end{frame}
 
-\begin{frame}{Using IPUMS Population Data}
+
+\begin{frame}{Response to mortality rate changes}\label{mortality}
 
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
- & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Wheat & Rice & Wheat/  & Rice  & Wheat  & Rice \\
- & Only & Only &  No Rice & No Wheat & $>50\%$ & $>50\%$   \\
+ & \multicolumn{6}{c}{Dependent Variable:} \\ \cmidrule(lr){2-7}
+ & \multicolumn{2}{c}{Log GDP per capita} & \multicolumn{2}{c}{Log GDP per worker} & \multicolumn{2}{c}{Log population} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & $\beta<$Median & $\beta>$Median & $\beta<$Median & $\beta>$Median & $\beta<$Median & $\beta>$Median \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
-\input{tab_beta_crop_ipums.tex}
+ & \multicolumn{6}{c}{Panel A:} \\ \cmidrule(lr){2-7}
+\input{tab_aj_comp.tex}
 \midrule
+
 \end{tabularx}
 }
-
-\hfill \hyperlink{robustness}{\beamerbutton{Return}}
 \end{frame}
 
-\begin{frame}{Using GRUMP Population Data}\label{grump}
-GRUMP (Global Rural-Urban Mapping Project) also provides grid-cell population estimates. 
-\begin{itemize}
-  \item Define urban/rural differently than HYDE. They denote specific grid-cells as ``urban'', and any population in that cell is assumed to be urban.
-  \item Inclusion of cells in districts and provinces is identical to HYDE. 
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Using GRUMP Population Data}
+\begin{frame}{Response to life expectancy changes}
 
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
- & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Wheat & Rice & Wheat/  & Rice  & Wheat  & Rice \\
- & Only & Only &  No Rice & No Wheat & $>50\%$ & $>50\%$   \\
+ & \multicolumn{6}{c}{Dependent Variable:} \\ \cmidrule(lr){2-7}
+ & \multicolumn{2}{c}{Log GDP per capita} & \multicolumn{2}{c}{Log GDP per worker} & \multicolumn{2}{c}{Log population} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & $\beta<$Median & $\beta>$Median & $\beta<$Median & $\beta>$Median & $\beta<$Median & $\beta>$Median \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
-\input{tab_beta_crop_grump.tex}
+ & \multicolumn{6}{c}{Panel B:} \\ \cmidrule(lr){2-7}
+\input{tab_aj.tex}
 \midrule
+
+\end{tabularx}
+}
+\end{frame}
+
+\begin{frame}{Response to population change}
+
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+ & \multicolumn{6}{c}{Dependent Variable:} \\ \cmidrule(lr){2-7}
+ & \multicolumn{2}{c}{Log GDP per capita} & \multicolumn{2}{c}{Log GDP per worker} & \multicolumn{2}{c}{Log population} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & $\beta<$Median & $\beta>$Median & $\beta<$Median & $\beta>$Median & $\beta<$Median & $\beta>$Median \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+ & \multicolumn{6}{c}{Panel C:} \\ \cmidrule(lr){2-7}
+\input{tab_aj_pop.tex}
+\midrule
+
 \end{tabularx}
 }
 
-\hfill \hyperlink{robustness}{\beamerbutton{Return}}
+\hfill \hyperlink{aj}{\beamerbutton{Return}}
 \end{frame}
+
 
 \end{document}

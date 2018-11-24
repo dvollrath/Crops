@@ -1,22 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// Date: 2016-11-08
-// Author: Dietz Vollrath
-// 
-// Merge the various CSV files together
-// 1. Set the level of aggregation (country, province, district)
-// 2. Pull in each CSV file, remove dupes, aggregate to set level
-// 3. Merge all files together
+// Data preparation
 //
 //////////////////////////////////////////////////////////////////////
 
-// SET THESE TO POINT TO YOUR WORK AND DATA FOLDERS
-global data "/users/dietz/dropbox/project/crops/work"
-global text "/users/dietz/dropbox/project/crops/drafts"
-
-// SET LEVEL OF AGGREGATION TO WORK WITH
-// gadm0 - Countries
-// gadm1 - States within countries
-// gadm2 - Districts within states within countries
 local gadm = "gadm2" 
 
 //////////////////////////////////////////////////////////////////////
@@ -25,7 +11,7 @@ local gadm = "gadm2"
 
 graph set eps fontface Times
 
-use "$data/all_crops_collapse_`gadm'.dta", clear
+use "./Work/all_crops_collapse_`gadm'.dta", clear
 
 //////////////////////////////////////
 // IDs
@@ -33,6 +19,8 @@ use "$data/all_crops_collapse_`gadm'.dta", clear
 gen country_id = id_0
 egen state_id = group(id_0 id_1)
 bysort state_id: egen district_count = count(id_2) // create count of districts in a state
+
+gen c = 1 // a constant for use in spatial regression
 
 //////////////////////////////////////
 // HYDE Population Data Prep
@@ -110,9 +98,9 @@ replace dry_suit = 1 if suit_brl>0 | suit_bck>0 | suit_rye>0 | suit_oat>0 | suit
 gen wet_suit = 0
 replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo | suit_rcw>0 | suit_yam>0
 
-gen temp=.
-replace temp = 1 if dry_suit==1 & wet_suit==0
-replace temp = 0 if dry_suit==0 & wet_suit==1
+gen temp = .
+replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
+replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 gen dry_max = 0
 replace dry_max = 1 if (barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells)>.33*count
@@ -272,14 +260,14 @@ replace ipums_flag = 1 if inlist(name_0,"Mozambique","Panama","Peru","Sierra Leo
 replace ipums_flag = 1 if inlist(name_0,"South Sudan","Spain","Sudan","Tanzania","Turkey")
 replace ipums_flag = 1 if inlist(name_0,"Uganda","United States","Venezuela","Zambia")
 
-save "$data/all_crops_data_`gadm'.dta", replace
+save "./Work/all_crops_data_`gadm'.dta", replace
 
 
 //////////////////////////////////////
 // Write table of regional membership
 //////////////////////////////////////
 capture file close f_result
-file open f_result using "$text/tab_region_id.tex", write replace
+file open f_result using "./Drafts/tab_region_id.tex", write replace
 
 qui levelsof jv_subregion_text, local(levels)
 foreach x of local levels {
@@ -303,7 +291,7 @@ foreach x of local levels {
 capture file close f_result
 
 capture file close f_result
-file open f_result using "$text/tab_russia_id.tex", write replace
+file open f_result using "./Drafts/tab_russia_id.tex", write replace
 
 qui levelsof name_1 if id_0==188 & subregioncode==999, local(provinces)
 file write f_result "\item \textbf{Russia(Asia)}: "
@@ -344,7 +332,7 @@ gen rurd_2000 = rurc_2000/shape_ha
 label variable rurd_2000 "Rural density (persons/ha)"
 
 capture file close f_result
-file open f_result using "$text/tab_summ_levels.tex", write replace
+file open f_result using "./Drafts/tab_summ_levels.tex", write replace
 
 foreach v in rurd_2000 csi_yield urb_perc_2000 ln_light_mean {
 		local lab: variable label `v' 
@@ -355,7 +343,7 @@ foreach v in rurd_2000 csi_yield urb_perc_2000 ln_light_mean {
 file close f_result
 
 capture file close f_result
-file open f_result using "$text/tab_summ_counts.tex", write replace
+file open f_result using "./Drafts/tab_summ_counts.tex", write replace
 qui count
 file write f_result "{\newcommand{\districts}{" %8.0fc (r(N)) "}" _n
 qui tabulate state_id
@@ -373,22 +361,22 @@ twoway kdensity csi_yield if temp==0, clcolor(black) ///
 	graphregion(color(white)) xtitle("Caloric yield (mil. per hectare)") ///
 	legend(size(small) ring(0) pos(2) cols(1) label(1 "Tropical") label(2 "Temperate")) ///
 	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(0(5)35)
-graph export "$text/fig_dens_csi.png", replace as(png)
-graph export "$text/fig_dens_csi.eps", replace as(eps)
+graph export "./Drafts/fig_dens_csi.png", replace as(png)
+graph export "./Drafts/fig_dens_csi.eps", replace as(eps)
 
 twoway kdensity ln_rurd_2000 if temp==0, clcolor(black) ///
 	|| kdensity ln_rurd_2000 if temp==1, clcolor(gray) clpattern(dash) ///
 	graphregion(color(white)) xtitle("Log rural density (persons/ha)") ///
 	legend(size(small) ring(0) pos(2) cols(1) label(1 "Tropical") label(2 "Temperate")) ///
 	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(-6(1)3)
-graph export "$text/fig_dens_rurd.png", replace as(png)
-graph export "$text/fig_dens_rurd.eps", replace as(eps)
+graph export "./Drafts/fig_dens_rurd.png", replace as(png)
+graph export "./Drafts/fig_dens_rurd.eps", replace as(eps)
 
 binscatter ln_csi_yield ln_rurd_2000, ///
 	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
 	xtitle("(Log) rural density") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
 	absorb(state_id) controls(ln_light_mean urb_perc_2000) noaddmean ///
 	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.132") label(2 "Temperate {&beta}{sub:g} = 0.228") region(lwidth(none))) ///
-	savegraph("$text/fig_beta_crop.eps") replace reportreg
+	savegraph("./Drafts/fig_beta_crop.eps") replace reportreg
 
 // end

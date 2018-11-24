@@ -88,11 +88,11 @@
 
 \vspace{1in} \noindent {\large \today}
 
-\vspace{.5in} \noindent {\Large \textbf{\strut Differences in the role of land for \\ agricultural production across climates}}
+\vspace{.5in} \noindent {\Large \textbf{\strut The role of land in temperate and tropical agriculture}}
 
 \vspace{.25in} \noindent {\large T. Ryan Johnson}
 
-\vspace{.05in} \noindent University of Houston
+\vspace{.05in} \noindent Washington University
 
 \vspace{.25in} \noindent {\large Dietrich Vollrath}
 
@@ -146,7 +146,7 @@ or that the elasticity of the intensive production function with respect to land
 or that the elasticity of productivity with respect to land per worker, $x_i$, is equal to the negative of the elasticity of aggregate output with respect to land. It is then trivial that the elasticity of productivity with respect to density, $1/x_i$, is equal to the elasticity of aggregate output with respect to land. The Cobb-Douglas assumption used in the main paper is not necessary to derive the main estimating equation used in the paper.
 
 \section{Solving for Labor Share and Real Income}\label{APP_solve}
-In section 2 we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (12) and (13) in the main paper is as follows. From here forward, any equation references without a prefix, (e.g. (2)), refer to the main paper, while references with a prefix (e.g. (A.2)) refer to this Appendix.
+In Section 4 of the main paper we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (12) and (13) in the main paper is as follows. From here forward, any equation references without a prefix, (e.g. (2)), refer to the main paper, while references with a prefix (e.g. (A.2)) refer to this Appendix.
 
 Based on the district-level production functions from (1), total agricultural supply in province $I$ can be written as
 \begin{equation}
@@ -261,9 +261,7 @@ Taking logs and re-arranging, we have the following
 \end{equation}
 We can recover an estimate of $\beta$ from the relationship of productivity and rural density, but now must control for the agricultural share of labor, $L_{Ai}/L_i$, the capital/labor ratio, and the consumption of agricultural goods per capita. For $L_{Ai}/L_i$, we have this data, and can include it directly in a regression (it is implicitly included in our baseline regression when we use the percent urban). For the capital/labor ratio and consumption of agricultural goods, we believe that the night lights data are a decent proxy for these terms.
 
-Including the log of $L_{Ai}/L_i$ explicitly as a control is possible, and the results of this are shown in Table A.11 at the end of this Appendix.
-
-The results in Table A.11 may still be biased, however, if the night lights proxy does not pick up the variation in consumption or the capital/labor ratio. If the capital/labor ratio is positively related to the rural density, then we would be under-estimating the true value of $\beta$. The small estimated values of $\beta$ in tropical areas may be because of this relationship, although it is not clear why rural density would be positively related to capital/labor ratios only in tropical areas. Alternatively, if consumption of agricultural goods is negatively related to rural density, and we are not controlling for it with night lights, then we may be under-estimating $\beta$. This could possibly be true only in tropical areas if they are relatively poor, whereas this relationship no longer holds in richer, temperate areas. This is clearly a possibility, although recall that this would only be a problem if we believe that districts are \textit{autarkic}, which may be an extreme assumption.
+Including the log of $L_{Ai}/L_i$ explicitly as a control is possible, and the results are almost identical to our baseline results. This may still be biased, however, if the night lights proxy does not pick up the variation in consumption or the capital/labor ratio. If the capital/labor ratio is positively related to the rural density, then we would be under-estimating the true value of $\beta$. The small estimated values of $\beta$ in tropical areas may be because of this relationship, although it is not clear why rural density would be positively related to capital/labor ratios only in tropical areas. Alternatively, if consumption of agricultural goods is negatively related to rural density, and we are not controlling for it with night lights, then we may be under-estimating $\beta$. This could possibly be true only in tropical areas if they are relatively poor, whereas this relationship no longer holds in richer, temperate areas. This is clearly a possibility, although recall that this would only be a problem if we believe that districts are \textit{autarkic}, which may be an extreme assumption.
 
 \section{Adding Malthusian fertility responses}
 Our main model is static, taking the size of population (and capital) as given. By adding in a simple Malthusian fertility response, one can establish several results related to population density and the land elasticity. 
@@ -283,16 +281,12 @@ Examining the exponent on $L_t$, it is clear that this is less than one, making 
 From this, one can see the influence of agricultural productivity on population, and hence on population density. Note that the elasticity of steady state population with respect to $A_A$ depends inversely on $\beta$. As the land elasticity gets larger, the effect of agricultural productivity on population size decreases. The positive Malthusian relationship of population size and (agricultural) productivity remains, but because the Malthusian constraint is much tighter when $\beta$ is large, the relationship is not as strong as when $\beta$ is small. 
 
 \section{Alternative Population Data}
-As mentioned in the main text, given possible issues with the HYDE data on population, we use two alternative sources of population data. These show that our results are not contingent on the particular data from HYDE.
+As mentioned in the main text, given possible issues with the HYDE data on population, we use two alternative sources of population data.
 
 \subsection{GRUMP Data}
 We accessed both the gridded population map, and the urban extents grid. The GRUMP data is provided at 30 arc-second grids (rougly 1km squares), a higher resolution than the HYDE data (which has 5 arc-minute grids, or roughly 10km squares). We overlay the urban extents grid on the population map, and retrieve only the population count of grid cells that are not part of an urban extent. We then sum up the population count of grid cells within each district. The district definitions are from GADM, identical to those used with the HYDE data, so we can compare the counts directly.
 
 Because GRUMP counts zero rural residents in an area that is part of an urban extent, and all population in non-urban locations as rural, the variation in rural residents across districts is more severe than with HYDE. Some districts in GRUMP are entirely covered by urban extents, and so have zero rural residents. Hence the GRUMP data leads to 28,471 districts with data on rural density, compared to 35,451 using HYDE. For those 28,471 districts, the correlation of (log) rural density across the two datasets is 0.81, significant at less than 1\%. 
-
-Table A.2 shows the results using the GRUMP data. The results are consistent with our baseline findings. The elasticity for temperate suitable districts is about 0.20, while for tropical areas it is only 0.115, a difference of about 0.10 that is significant at less than 1\%. Panel B shows that these results hold up if we restrict the sample due to urban size, country development, or the density of rural workers.
-
-The only discrepancy with the baseline results is in Panel A, columns (5) and (6), which distinguish samples by their harvested area. In this case, the estimated $\beta$ values are similar (statistically and practically). This appears to be due to a set of outliers in the GRUMP data that have very low reported rural density relative to the equivalent HYDE areas. We can identify these outliers by regressing the GRUMP (log) rural density on the HYDE (log) rural density, and looking for observations whose residuals from that regression are in the bottom 1\% (meaning GRUMP's estimate is well below the HYDE estimate). If we eliminate those from the GRUMP data, then the results for columns (5) and (6) are much closer to the baseline results. The underlying issue here is that these districts have many cells coded as ``urban'' by GRUMP, but HYDE's data indicates large rural populations. Without better information, we do not know if this is an error of HYDE's or GRUMP's methodologies.
 
 \subsection{IPUMS Data}
 We use 39 countries that have both geographic identifier data (the GEOLEV2 variable from IPUMS) as well as information on individual industry of employment. We create a 0/1 variable indicating whether an individual is an agricultural worker (meaning they are reported as in the workforce). We then aggregate this variable (weighted by their IPUMS provided sampling weight) across individuals within a geographic area to get a count of the total agricultural workers. Using a similar method, we are also able to count the number of urban residents, which allows us to measure the percent urban within a geographic area. We end up with a total of 8,393 geographic areas.
@@ -301,23 +295,8 @@ Before we run regressions, the IPUMS data is useful in assessing how good of an 
 
 The geographic areas provided by IPUMS in the GEOLEV2 variable are in many cases agglomerations of the districts we use from GADM. This is because IPUMS aggregates districts with fewer than 25000 observations (to protect anonymity) or districts whose boundaries have changed over time (so that the agglomerations are comparable over time for a given country). This means the IPUMS geographic areas are not directly comparable to our districts. Because the IPUMS agglomerations are much larger than districts, it is not practical to use province/state fixed effects, as most of these have only one or two IPUMS areas within them. Hence we run our regressions only with country fixed effects. Because the GEOLEV2 areas are different than the districts in our baseline specifications, we create new GEOLEV2 level versions of our caloric suitability index, night lights data, and other crop suitability measures. 
 
-Table A.3 shows the results using the IPUMS data. For the main results using the temperate and tropical areas, the results show a similar pattern to what we found in our baseline. The estimated $\beta$ in temperate areas is 0.213, compared to 0.025 in tropical areas, and the difference is statistically significant. 
-
-In columns (3) and (4), the samples are selected on which crops we find deliver the maximum calories within an area. A slight modification is made here to the baseline selection criteria, because the IPUMS areas are so large. Column (3) includes areas that have any of their maximum calories derived from the temperate crops, and \textit{none} from the tropical crops. Column (4) excludes areas where \textit{none} of the maximum calories from the temperate crops, and includes areas with \textit{any} maximum calories derived from the tropical crops. Here, we again see the temperate areas have an elasticity around 0.20, while the tropical elasticity is estimated to be zero, and the difference is statistically significant. In this case, we cannot reject the hypothesis that there is no land constraint in these tropical dominated areas. In columns (5) and (6), based on actual harvested area, we again get results similar to our baseline specification using HYDE data, and again the tropical coefficient is estimated to be very small. 
-
-We cannot replicate the second panel of our baseline results, for several reasons. First, the areas from IPUMS are so large that they almost universally contain large cities, so there is no point in removing areas with large cities. Second, the 39 countries are dominated by poor countries, so eliminating ``rich'' countries does not change the results (it eliminates only the U.S., Spain, and Austria). 
-
-Finally, the 39 countries included from IPUMS are, with the census date listed: 
-\input{tab_ipums_countries.tex}
-
-\section{Province Specific Estimates}
-In the main paper we create sub-samples first, and estimate $\beta$ for each sub-sample, assuming that the $\beta$ is identical for all provinces (and districts) within the sub-sample. As an alternative, we can first estimate $\beta$ separately for each province, and then group those provinces into sub-samples based on agricultural type, climate, or region. 
-
-The one limitation we have is that we cannot estimate separate $\beta$ values for provinces without sufficient districts within them. We include a province if it has at least 8 districts, and run our baseline regression, including controls for night lights and the urban percentage. This gives us a total of 1,183 provinces. From those, we trim value of $\beta$ at the 1st and 99th percentiles, to eliminate severe outliers from the entire set. 
-
-Table \ref{TAB_province} shows the summary statistics of $\beta$ values from different sub-samples. Row 1 shows the values from all the provinces, with a mean $\beta$ of 0.21, and a median of 0.18. The next six rows replicate the sample selection criteria for our baseline results using crops. For provinces that are suitable for temperate agriculture (but not for tropical), the mean $\beta$ is 0.23, with a median of 0.21. For tropical provinces (but not for temperate), the mean is 0.17, with a median of 0.15. As one reads down the rows, this patten is repeated, with temperate $\beta$ values tending to be about 0.06 higher than tropical values. 
-
-The lower portion of the table shows the statistics for individual sub-regions. This replicates the general results of our regional analysis in the main paper. Focusing on the medians, the values for the European regions are in the range 0.22-0.25, and this drops to 0.16 in the Asian regions. The temperate Americas is one discrepancy, with a median of only 0.10, similar to the median value from Tropical Africa, 0.09. Tropical Americas shows a value of 0.17, similar to southern Africa. North Africa has a higher median, consistent with the original results, of 0.31. 
+The 39 countries included from IPUMS are, with the census date listed: 
+\input{tab_ipums_countries.tex} 
 
 \section{Alternative measure of $A_{isg}$}
 The CSI index used as the baseline measure of $A_{isg}$ combines the raw potential tonnage of production of specific crops with information on their calorie content so that one can compare the \textit{caloric} yield of each crop within a given grid-cell. Then the maximum value of that caloric yield is selected across crops, and those maximums are aggregated across grid-cells in a district to arrive at the $A_{isg}$ measure. This follows Galor and Ozak's (2016) methodology, but there may be an issue with using these calorie counts to compare crops. The calorie count of each crop may not be an accurate measure of the available calories from those crops, given storage and preparation techniques. A worry is that we may have created variation in $A_{isg}$ because of variation in the calorie counts of crops, and that this is driving the results. For example, given paddy rice's very high caloric yield in the Galor and Ozak methodology, it is possible that we are overstating the productivity of districts that are in fact very un-productive from the perspective of farmers, but because they are capable of growing rice, Galor and Ozak have coded them as having very high productivity. This would bias our estimates of $\beta$ down for these areas. 
@@ -353,7 +332,7 @@ Table \ref{TAB_beta_subregion} shows results grouping districts by their ``macro
 \section{Climate zone results}
 For this, we use the K{\"o}ppen-Geiger scheme, which classifies each grid cell on the planet on three dimensions. First are the \textit{main climate} zones: equatorial (denoted with an ``A''), arid (B), warm temperate (C), and snow (D).\footnote{There is another classification of climate, polar (E), but that covers only areas that are uninhabited for all intents and purposes.} Second, each grid-cell has a \textit{precipitation} classification: fully humid (f), dry summers (s), dry winters (w), monsoonal (m), desert (D), and steppe (S). Finally, there is the \textit{temperature} dimension: hot summers (a), warm summers (b), cool summers (c), hot arid (h), and dry arid (k).\footnote{There are three other temperature classifications - extreme continental, polar frost, and polar tundra - that also cover only uninhabited areas.} Each grid cell thus receives either a three or two-part code. The area around Paris, for example, is ``Cfb'', meaning it is a warm temperate area, fully humid (rain throughout the year), with warm summers. The area near Saigon is ``Aw'', meaning it is equatorial, with dry winters. There is no separate temperature dimension assigned to equatorial zones, as it tends to be redundant.
 
-What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on their K{\"o}ppen-Geiger classifications, as opposed to crop suitability or production data. We do this along each individual dimension (climate, precipitation, and temperature), including a district in a region if more than 50\% of its land area falls in the given zone. For example, for the equatorial region, we include all districts in which 50\% (or more) of their land area is classified as being in ``A'' in the K{\"o}ppen-Geiger system, regardless of their precipitation or temperature codes. Narrowing down to very specific classifications (``Cfb'', for example) is impractical because the number of districts becomes very small. Similar to the temperate/tropical regressions, the climate zone regions do not force heterogeneous districts to be lumped into single regions based on their nation. 
+What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on their K{\"o}ppen-Geiger classifications, as opposed to crop suitability or production data. We do this along each individual dimension (climate, precipitation, and temperature), including a district in a region if more than 66\% of its land area falls in the given zone. For example, for the equatorial region, we include all districts in which 66\% (or more) of their land area is classified as being in ``A'' in the K{\"o}ppen-Geiger system, regardless of their precipitation or temperature codes. Narrowing down to very specific classifications (``Cfb'', for example) is impractical because the number of districts becomes very small. Similar to the temperate/tropical regressions, the climate zone regions do not force heterogeneous districts to be lumped into single regions based on their nation. 
 
 \section{Expanded samples}
 Our baseline samples are Tropical and Temperate. As defined in the main text, the Tropical sample includes districts that are suitable for growing specific crops (cassava, cowpeas, pearl millet, sweet potato, wet rice, yams) but have zero suitability for growing others (barley, buckwheat, oats, rye, white potato, wheat). Temperate is defined in the reverse manner. These definitions exclude 15,692 districts that are capable of growing \textit{both} types of crops. 
@@ -361,74 +340,7 @@ Our baseline samples are Tropical and Temperate. As defined in the main text, th
 Column (1) of Table \ref{TAB_beta_expand} shows the results for just those districts suitable for growing both kinds of crops. The estimated $\beta$ is 0.140, roughly in line with the result for the Tropical sample. Column (2) differs by including any districts that are suitable for Temperate crops (regardless of their suitability for growing Tropical crops). This gives a result of 0.180, smaller than our baseline estimate where we focus on districts suitable only for Temperate crops. Column (3) estimates $\beta$ for any districts that are capable of growing Tropical crops, regardless of their ability to grow Temperate, and the value is 0.132. Again, we see a difference between these two types of regions. However, the gap is smaller, consistent with the fact that we are not distinguishing them as clearly, and the fact that columns (2) and (3) include the 15,692 districts that can grow both kinds of crops. Columns (4)-(6) repeat these regressions, only limiting the sample by excluding districts with large urban areas. We find similar results in this case.
 
 \section{Robustness Tables}
-Each table that follows is a replica of Table 2 from the main paper, which estimates $\beta$, the land elasticity, temperate and tropical districts. A list of tables is provided for convenience. The first table (A.1), replicates the baseline results for comparison purposes.
-
 \listoftables
-
-\addtab{Baseline results}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_base.tex}{tab_beta_crop_sub_base.tex}
-
-\addtab{Using GRUMP Population Data}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from the GRUMP database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_grump.tex}{tab_beta_crop_sub_grump.tex}
-
-\clearpage
-\begin{table}[!htb]
-\begin{center}
-\caption{Using IPUMS Population Data}
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isc}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Samples defined by crop family (wheat vs. rice):} \\ \\
- & \multicolumn{2}{c}{By suitability:} & \multicolumn{2}{c}{By max calories:} & \multicolumn{2}{c}{By harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Wheat & Rice & Wheat/  & Rice  & Wheat  & Rice \\
- & Only & Only &  No Rice & No Wheat & $>50\%$ & $>50\%$   \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
-\input{tab_beta_crop_ipums.tex}
-\midrule
-\end{tabularx}
-}
-\end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize Clustered standard errors at the country level are shown in parentheses. All regressions include country fixed effects, and controls for (log) night lights and urban percent. Agricultural worker density is from IPUMS, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction.}
-\end{table}
-
-\addtab{Conley SE cutoff of 1000km}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 1000km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_cut1000.tex}{tab_beta_crop_sub_cut1000.tex}
-
-\addtab{Province-level data}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include country fixed effects, a constant, and controls for the province-level urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_province.tex}{tab_beta_crop_sub_province.tex}
-
-\addtab{Using cultivated area to measure density}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate, the log density of district nighttime lights, and the percent of a district that is cultivated. Rural density is from HYDE database, and is measured as rural population per hectare of cultivated land (from the GAEZ). Caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_cult.tex}{tab_beta_crop_sub_cult.tex}
-
-\addtab{Using population from 1900CE}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population for 1900CE is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_pop1900.tex}{tab_beta_crop_sub_pop1900.tex}
-
-\addtab{Using population from 1950CE}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population from 1950CE is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_pop1950.tex}{tab_beta_crop_sub_pop1950.tex}
-
-\addtab{Dropping districts under 25th percentile in production}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. All districts below the 25th percentile of total tonnes of staple crops produced across all districts are dropped. Raw tonnes are used, unadjusted for calorie content.}{tab_beta_crop_prodsum25th.tex}{tab_beta_crop_sub_prodsum25th.tex}
-
-\addtab{Using log rural percent of population as a control}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate, the log density of district nighttime lights, and the log rural percent of the population. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both.}{tab_beta_crop_autarky.tex}{tab_beta_crop_sub_autarky.tex}
-
-\addtab{Dropping districts over 90th percentile in absolute size}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts over 493,000 hectares (the 90th percentile) are dropped.}{tab_beta_crop_size.tex}{tab_beta_crop_sub_size.tex}
-
-\addtab{Dropping provinces with fewer than 10 districts}{Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. Rural population is from HYDE database, and caloric yield is the author's calculations based on the data from Galor and Ozak (2016), see the main paper for an explanation of the construction of both. Districts from provinces with fewer than 10 total districts are dropped.}{tab_beta_crop_district.tex}{tab_beta_crop_sub_district.tex}
-
-
-\clearpage
-\begin{table}[!htb]
-\begin{center}
-\caption{Summary Statistics of Province-Specific $\beta$ Estimates} 
-\label{TAB_province}
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXXXX}
-\midrule
-           &           &      &    & \multicolumn{5}{c}{Percentiles}\\ \cmidrule(lr){5-9}
-Sub-sample & Provinces & Mean & SD & 10th & 25th & 50th & 75th & 90th \\
-\midrule
-\input{tab_summ_province.tex}
-\midrule
-\end{tabularx}
-}
-\end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize For each province with more than 7 districts, we estimated a separate $\beta$ using our baseline specification. The table shows the summary statistics of those $\beta$ values for the given sub-sample. Prior to any summary statistics, all values of $\beta$ for the overall sample of provinces were trimmed at the 1st and 99th percentile to remove outliers.}
-\end{table}
-
 
 \clearpage
 \begin{table}[!htb]
@@ -554,7 +466,7 @@ Sub-sample & Provinces & Mean & SD & 10th & 25th & 50th & 75th & 90th \\
  & and Tropical & Temperate & Tropical & and Tropical & Temperate & Tropical \\
  & (1) & (2) & (3) & (4) & (5) & (6) \\
 \midrule
-\input{tab_beta_expand_expand.tex}
+\input{tab_beta_extend_base.tex}
 \midrule
 \end{tabularx}
 }
