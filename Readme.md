@@ -82,52 +82,22 @@ The original sources of the data can be found at the following links:
 The shell script "Crops_GAEZ_unzip.sh" in the Replicate folder is a utility that will unzip the sets of zip files downloaded from GAEZ.
 
 ### Running Regressions
-These files are all named "Crops_Reg_????.do". There are two files that need to be run first to merge the CSV files from R into a usable DTA file for Stata. 
+These files are all named "Crops_Reg_????.do". There is a single script, "Crops_Reg_Master.do" that will run everything necessary. In that script, it calls two scripts to prepare the data:
 
 1. Crops_Reg_Collapse.do: This will take each CSV file, aggregate the data up to the given level (country, province, district), and then merge them to one DTA file. You need to set (A) the directories for the CSV files and the data file of ISO codes and (B) the level of aggregation you want. In normal use, run this script twice. Once with the level of aggregation "gadm2" (for a district-level dataset) and once with the level "gadm1" (for a province-level dataset).
 
 2. Crops_Reg_Prep.do: This takes the DTA file and produces several new variables (yields, population densities, etc..), winsorizes data, and creates several categorical variables for regions. It also produces summary stats tables and density plots. You need to set (A) the directories for the DTA files and where output (figures, etc..) should go and (B) the level of aggregation you want. In normal use, you'd use this script twice. Once with the level of aggregation "gadm2" (for a district-level dataset) and once with the level "gadm1" (for a province-level dataset).
 
-Once those scripts are run, the DTA files necessary for the regressions are ready. "Crops_Reg_Master.do" controls the flow of work for the regressions. This do-file sets up and uses a small program called "reset" that sets global variables used by other do-files. Yes, global variables are scary and bad. No, we did not feel like programming everything to be a callable program. The small program that sets the globals always wipes out all globals first, so there should be no issues in replicating our work. 
-
-In that "reset" program, you should edit the following
-```
-    global data "/users/dietz/dropbox/project/crops/work"
-    global output "/users/dietz/dropbox/project/crops/drafts"
-    global code "/users/dietz/dropbox/project/crops/replicate"
-```
-to point towards your the directories that contain the CSV files (data), the other source code (code), and where you want tables and figures to go (output).
+Once those scripts are run, the DTA files necessary for the regressions are ready. 
 
 "Crops_Reg_Master.do" then calls two do-files to put programs in memory - neither produce any output.
 
 1. ols_spatial_HAC.ado: this is code from Hsiang (shsiang@berkeley.edu) to calculate Conley standard errors. You should not have to edit or touch this.
-2. Crops_Reg_Program.do: these are programs that perform spatial regressions using variables passed to them, and using values of globals to control their execution. You should not have to edit or touch this.
+2. Crops_Reg_Program.do: these are programs that perform spatial regressions using variables passed to them. You should not have to edit or touch this.
 
-"Crops_Reg_Master.do" then calls do-files based on the parameters you feed it. For each run, the do-file first calls the "reset" program, which resets the globals. It then assigns a "tag" to the run, which is used in the name of the output files to identify them. For example, we use the tag "base" to identify output files that were produced using our baseline assumptions. The do-file then calls three separate do-files, each associated with a specific table from the paper
-
-1. Crops_Reg_Crops_Call.do: this produces Table 2 from the paper, with samples distinguished by crop families 
-2. Crops_Reg_KGZones_Call.do: this produces Table 3 from the paper, with samples distinguished by climate zone
-3. Crops_Reg_Region_Call.do: this produces Table 4 from the paper, with samples distinguished by region
-
-"Crops_Reg_Master.do" can be run over and over again, setting different globals to different values to change the nature of the regressions. Our main robustness checks are all shown in the do-file (commented out) so one can see the idea. For example, to run using population data from 1900 we do the following
-```
-// 1900 population results
-reset
-global year 1900
-global tag = "pop1900"
-do "$code/Crops_Reg_Crops_Call.do" // call the crop-specific regressions
-```
-which will replicate Table 2, but using population data from 1900, and putting the tag "pop1900" in all the output file names.
-
-### Producing tables
-All of the regression output is written directly to TEX files. To see those results, you can compile the document. The file "Constraints-Tables.tex" in the "Drafts" folder is a tex document that is stripped down to only produce tables and figures, and includes no text or bibliography from the actual paper. Use your preferred TeX system to compile this.
-
-Alternatively, you can simply view the TEX files of the tables. They are reasonably clear to look at in a normal text editor, but do not contain the normal headings found in the paper. 
+"Crops_Reg_Master.do" then calls do-files to produce various results and tables. 
 
 ## Replication of Table 5, Population Change
 We do a validation check using the Acemoglu and Johnson dataset from "Disease and Development". The dataset, named "disease.dta", is available from Acemoglu's website. We do not alter it in any way. 
 
 The code "Crops_Reg_Mortality.do" uses this data, after estimating separate elasticities for each country. You will only have to edit the directory locations in that do-file to reproduce Table 5.
-
-## Replication of province-level estimates
-As part of the appendix, we run separate estimates of the land elasticity for each province, and then look at the summary statistics of the elasticities by sub-sample, to confirm the variation we see in the baseline results. The script for this analysis is "Crops_Reg_Provinces.do".
