@@ -22,17 +22,22 @@ local temperate temp // variable denoting temperate/tropical
 //////////////////////////////////////
 // Regressions - different productivity
 //////////////////////////////////////	
+capture drop temp
+gen temp = .
+replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
+replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 // HYDE 1950 rural density
-doreg `csivar' ln_rurd_1950 `controls', fe(`fe') dist(`dist') comp(`temperate') tag(hyde) // call program to do spatial OLS
+doreg `csivar' ln_rurd_1950 `controls', fe(`fe') dist(`dist') comp(temp) tag(hyde) // call program to do spatial OLS
 
 // GRUMP rural density
-doreg `csivar' ln_grump_rurd `controls', fe(`fe') dist(`dist') comp(`temperate') tag(grump) // call program to do spatial OLS
+doreg `csivar' ln_grump_rurd `controls', fe(`fe') dist(`dist') comp(temp) tag(grump) // call program to do spatial OLS
 
 // IPUMS rural density
 clear
 use "./Work//all_crops_data_ipums.dta"
 gen c = 1 // constant for use in spatial OLS
+capture drop temp
 gen temp=.
 replace temp = 1 if dry_suit==1 & wet_suit==0
 replace temp = 0 if dry_suit==0 & wet_suit==1
@@ -43,7 +48,7 @@ doreg ln_csi_yield ln_pag urb_perc ln_light_mean, fe(cntry_code) dist(`dist') co
 estout hyde1 hyde2 grump1 grump2 ipums1 ipums2 using "./Drafts/tab_beta_robust_pop.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
+	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
 //////////////////////////////////////
@@ -52,6 +57,11 @@ estout hyde1 hyde2 grump1 grump2 ipums1 ipums2 using "./Drafts/tab_beta_robust_p
 clear
 estimates clear
 use "./Work/all_crops_data_gadm2.dta" // 
+
+capture drop temp
+gen temp = .
+replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
+replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 // Using cultivated area
 doreg `csivar' ln_rurd_cult_2000 ln_cult_area_perc `controls', fe(`fe') dist(`dist') comp(temp) tag(cult) // call program to do spatial OLS
@@ -67,7 +77,7 @@ doreg `csivar' `rurdvar' `controls' if district_count>50, fe(`fe') dist(`dist') 
 estout cult1 cult2 large1 large2 number1 number2 using "./Drafts/tab_beta_robust_other.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
+	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 		
 coefplot cult1 || cult2 || large1 || large2 || number1 ///

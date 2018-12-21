@@ -324,7 +324,6 @@ for (ti = 1; ti <= Ntime; ti++){
 		//add each new k x k matrix onto the existing matrix (will be symmetric)
 	
 		XeeX = XeeX + XeeXh 	
-	
 	} //i
 } // ti
 
@@ -342,9 +341,10 @@ V = invXX * XeeX_spatial * invXX / n
 
 // Ensures that the matrix is symmetric 
 // in theory, it should be already, but it may not be due to rounding errors for large datasets
-V = (V+V')/2 
+//V = (V+V')/2 
 
 st_matrix("V_spatial", V)
+st_matrix("H_window",window_i)
 
 } // mata
 

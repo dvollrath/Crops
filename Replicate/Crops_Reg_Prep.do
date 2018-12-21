@@ -23,6 +23,13 @@ bysort state_id: egen district_count = count(id_2) // create count of districts 
 gen c = 1 // a constant for use in spatial regression
 
 //////////////////////////////////////
+// Centroid data
+//////////////////////////////////////
+drop if x_cent==. // drop if no longitude data
+drop if y_cent==. // drop if no latitude data
+drop if objectid==. // drop if no GIS identifier
+
+//////////////////////////////////////
 // HYDE Population Data Prep
 //////////////////////////////////////
 local years 1900 1950 2000
@@ -98,10 +105,6 @@ replace dry_suit = 1 if suit_brl>0 | suit_bck>0 | suit_rye>0 | suit_oat>0 | suit
 gen wet_suit = 0
 replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo | suit_rcw>0 | suit_yam>0
 
-gen temp = .
-replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
-replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
-
 gen dry_max = 0
 replace dry_max = 1 if (barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells)>.33*count
 gen dry_cells = barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells
@@ -111,9 +114,9 @@ gen wet_cells = cassava_cells + cowpea_cells + pearlmillet_cells + sweetpotato_c
 
 egen harvarea_sum = rowtotal(*_harvarea)
 gen dry_area = 0
-replace dry_area = 1 if (barley_harvarea + buckwheat_harvarea + oats_harvarea + rye_harvarea + potato_harvarea + wheat_harvarea)>.5*harvarea_sum
+replace dry_area = 1 if (barley_harvarea + buckwheat_harvarea + oats_harvarea + rye_harvarea + potato_harvarea + wheat_harvarea)>.66*harvarea_sum
 gen wet_area = 0
-replace wet_area = 1 if (cassava_harvarea + cowpea_harvarea + millet_harvarea + sweetpotato_harvarea + rice_harvarea + yam_harvarea)>.5*harvarea_sum
+replace wet_area = 1 if (cassava_harvarea + cowpea_harvarea + millet_harvarea + sweetpotato_harvarea + rice_harvarea + yam_harvarea)>.66*harvarea_sum
 
 //////////////////////////////////////
 // Create crop production totals
@@ -356,6 +359,11 @@ file close f_result
 // Create density figures for yield/rurd
 //////////////////////////////////////
 
+capture drop temp
+gen temp = .
+replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
+replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
+
 twoway kdensity csi_yield if temp==0, clcolor(black) ///
 	|| kdensity csi_yield if temp==1, clcolor(gray) clpattern(dash) ///
 	graphregion(color(white)) xtitle("Caloric yield (mil. per hectare)") ///
@@ -376,7 +384,7 @@ binscatter ln_csi_yield ln_rurd_2000, ///
 	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
 	xtitle("(Log) rural density") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
 	absorb(state_id) controls(ln_light_mean urb_perc_2000) noaddmean ///
-	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.132") label(2 "Temperate {&beta}{sub:g} = 0.228") region(lwidth(none))) ///
+	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.130") label(2 "Temperate {&beta}{sub:g} = 0.225") region(lwidth(none))) ///
 	savegraph("./Drafts/fig_beta_crop.eps") replace reportreg
 
 // end

@@ -4,6 +4,75 @@
 // - Spatial OLS doesn't like ## notation, so create interaction terms ourselves
 // - Report both the results for main group, and the comparison group
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+capture program drop spatreg
+program spatreg, eclass
+	syntax varlist(min=2) [if] [in] [, fe(varlist) dist(real 500) comp(varlist) tag(string)] 
+	token `varlist' // tokenize list of passed variables for use
+	
+	local and = "&" // default is to add extra condition to passed if statement
+	if "`if'"=="" { // if the "if" passed is blank, then
+		local and = "if" // include the "if" explicitly
+	}
+	
+	qui areg `1' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the productivity variable over passed FE variable
+		// do this only if it matches passed "if" statement
+		// do this only if it has a valid 0/1 value in the group variable
+	local df_fe = e(df_a) // save off degrees of freedom from absorbing FE for use in adjusting SE later
+	capture drop res_`1'
+	qui predict res_`1', res // create residuals of productivity variable
+	
+	qui areg `2' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the rural density variable over passed FE variable
+	capture drop res_rurd
+	qui predict res_rurd, res // create residual of density variable
+	capture drop int_rurd
+	qui gen int_rurd = res_rurd*`comp' // create interaction of residual density and comparison group variable
+	
+	local i = 3 
+	while "``i''" != "" { // for all the remaining controls
+		qui areg ``i'' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the control over passed FE variable
+		capture drop res_cntl_``i''
+		qui predict res_cntl_``i'', res // create residual of control variable
+		capture drop int_cntl_``i''
+		qui gen int_cntl_``i'' = res_cntl_``i''*`comp' // create interaction of residual control with comparison group variable
+		local ++i
+	}
+
+	// Main results
+	// Regress productivity on density, include all controls, include all interaction terms, and a constant(c), 
+	reg res_`1' res_rurd int_rurd res_cntl_* int_cntl_* `comp' `if' `and' inlist(`comp',0,1) // OLS version for testing, leave commented out
+	local df = e(df_r) - `df_fe' // adjust DF for estimation of the FE
+	capture drop ols_res
+	predict ols_res, res
+	capture drop touse
+	gen touse = e(sample)
+	
+	unab rhs : res_rurd int_rurd res_cntl_* int_cntl_* `comp'
+	
+	mata{
+		u = st_data(.,"touse") // get vector of 0/1 for obs in sample
+		W = select(X,u) // get rows from X matching sample
+		W = select(W,u') // get columns from W matching sample
+
+		df = st_local("df")
+		dfreal = strtoreal(df)
+
+		rhs_vars = st_local("rhs")
+		Z = st_data(.,tokens(rhs_vars),"touse") // get matrix of RHS variables for sample
+		e = st_data(.,"ols_res","touse") // get vector of OLS residuals for sample
+		
+		invZZ = luinv(Z'*Z)*dfreal
+		E = e*e'
+		weighted = E:*W
+		sandwich = Z'*weighted*Z / dfreal
+		V = invZZ*sandwich*invZZ / dfreal
+		V = (V+V')/2 
+		st_matrix("V_spatial", V)
+	}
+	ereturn repost V = V_spatial
+end 
+
+
+
 capture program drop doreg
 program doreg, eclass
 	syntax varlist(min=2) [if] [in] [, fe(varlist) dist(real 500) comp(varlist) tag(string)] 
@@ -17,6 +86,7 @@ program doreg, eclass
 	qui areg `1' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the productivity variable over passed FE variable
 		// do this only if it matches passed "if" statement
 		// do this only if it has a valid 0/1 value in the group variable
+	local df_fe = e(df_a) // save off degrees of freedom from absorbing FE for use in adjusting SE later
 	capture drop res_`1'
 	qui predict res_`1', res // create residuals of productivity variable
 	
@@ -45,6 +115,9 @@ program doreg, eclass
 	qui estadd scalar N_country = r(r) // store country count for group=0
 	qui count `if' `and' e(sample)==1 & `comp'==0 // count observations in group=0
 	qui estadd scalar N_obs = r(N) // store obs count for group=0
+	local df_adj = e(df_r)/(e(df_r)-`df_fe') // Df adjustment for estimated FE
+	mat NV = `df_adj'*e(V) // adjust all C/V matrix
+	ereturn repost V = NV
 	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/_se[res_rurd])) // add p-value for H0: beta=0 for group==0		
 	qui estadd scalar p_diff = 2*(1-t(e(df_r),abs(_b[int_rurd])/_se[int_rurd])) // add p-value for H0: beta(group=0) = beta(group=1)
 	estimates store `tag'2 // store results
@@ -65,6 +138,10 @@ program doreg, eclass
 	qui estadd scalar N_obs = r(N) // store obs count for group=1
 	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/`comp_se'))
 	estimates store `tag'1 // store results
+	
+	label variable res_rurd "Log rural density ($\beta_g$)"
+
+
 end 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,6 +179,9 @@ program onereg, eclass
 	qui estadd scalar N_obs = r(N) // store obs count for group=0
 	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/_se[res_rurd])) // add p-value for H0: beta=0 for group==0		
 	estimates store `tag'1 // store results
+	
+	label variable res_rurd "Log rural density ($\beta_g$)"
+
 end 
 
 

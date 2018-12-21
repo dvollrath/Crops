@@ -23,16 +23,17 @@ local dist 500 // km cutoff for Conley SE
 //////////////////////////////////////	
 
 // Create dummy to distinguish temperate from tropical on crops
-replace temp = .
+capture drop temp
+gen temp = .
 replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 doreg `csivar' `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(base) // call program to do spatial OLS
 
-// Create dummy to distinguish temperate from tropical on harvested area
+// Create dummy to distinguish temperate from tropical on frost-free days
 replace temp = .
-replace temp = 1 if dry_area==1 & wet_area==0 // area used for temp crops, not for trop
-replace temp = 0 if dry_area==0 & wet_area==1 // area used for trop crops, not for temp
+replace temp = 1 if agro_lt3<365 // any average frost days
+replace temp = 0 if agro_lt3==365 // no average frost days
 
 doreg `csivar' `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(harv) // call program to do spatial OLS
 
@@ -47,16 +48,16 @@ doreg `csivar' `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(kg) //
 estout base1 base2 harv1 harv2 kg1 kg2 using "./Drafts/tab_beta_crop_base.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
+	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
 coefplot base1 || base2 || harv1 || harv2 || kg1 || kg2, ///
 	keep(res_rurd) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(0(.05).35,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
-	headings(1 = "{bf:By GAEZ suitability}" 3 = "{bf:By harvested area}" 5 = "{bf:By Koeppen-Geiger}") ///
+	headings(1 = "{bf:By GAEZ suitability}" 3 = "{bf:By frost-free days}" 5 = "{bf:By Koeppen-Geiger}") ///
 	bylabels("Temperate" "Tropical" "Temperate" "Tropical" "Temperate" "Tropical")
-graph export "./Drafts/fig_coef_crop_$tag.png", replace as(png)
-graph export "./Drafts/fig_coef_crop_$tag.eps", replace as(eps)
+graph export "./Drafts/fig_coef_crop_base.png", replace as(png)
+graph export "./Drafts/fig_coef_crop_base.eps", replace as(eps)
 
 
 //////////////////////////////////////
@@ -84,7 +85,7 @@ doreg `csivar' `rurdvar' `controls' if prod_sum>`prodcut', fe(`fe') dist(`dist')
 estout urbc1 urbc2 poor1 poor2 prod1 prod2 using "./Drafts/tab_beta_crop_sub_base.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta=0$" "p-value $\beta=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
+	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
 coefplot urbc1 || urbc2 || poor1 || poor2 || prod1 || prod2, ///
@@ -92,6 +93,6 @@ coefplot urbc1 || urbc2 || poor1 || poor2 || prod1 || prod2, ///
 	mlabel format(%9.3f) mlabposition(12) ///
 	headings(1 = "{bf:<25K urban pop}" 3 = "{bf:Excl. rich countries}" 5 = "{bf:Excl. low production}") ///
 	bylabels("Temperate" "Tropical" "Temperate" "Tropical" "Temperate" "Tropical")
-graph export "./Drafts/fig_coef_crop_sub_$tag.png", replace as(png)
-graph export "./Drafts/fig_coef_crop_sub_$tag.eps", replace as(eps)
+graph export "./Drafts/fig_coef_crop_sub_base.png", replace as(png)
+graph export "./Drafts/fig_coef_crop_sub_base.eps", replace as(eps)
 

@@ -45,43 +45,6 @@
 
 \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 
-%%%%%%%% Create template for table inclusion
-\newcommand{\addtab}[4]{
-\clearpage
-
-\begin{table}[!htb]
-\begin{center}
-\caption{#1}
-{\footnotesize
-\begin{tabularx}{\textwidth}{lXXXXXX}
-\midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isg}$)} \\ \\
-\multicolumn{7}{l}{Panel A: Regions defined by:} \\ \\
- & \multicolumn{2}{c}{Suitability:} & \multicolumn{2}{c}{Max calories:} & \multicolumn{2}{c}{Harvest area:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
- & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
-\input{#3}
-\midrule
-\\
-\multicolumn{7}{l}{Panel B: With other restrictions (using suitability to define temperate/tropical)} \\ \\
- & \multicolumn{2}{c}{Urban Pop. $<25K$:} & \multicolumn{2}{c}{Ex. Europe/N. Amer.:} & \multicolumn{2}{c}{Rural dens. $>$ 25th P'tile:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
- & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
- & (1) & (2) & (3) & (4) & (5) & (6) \\
-\midrule
-\input{#4}
-\midrule
-\end{tabularx}
-}
-\end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize #2
-}
-\end{table}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
 \begin{document}
 \begin{titlepage}
 \hfill \textsc{FOR ONLINE PUBLICATION}
