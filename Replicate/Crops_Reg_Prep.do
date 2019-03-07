@@ -49,10 +49,20 @@ foreach year in `years' {
 	qui gen ln_rur_perc_`year' = ln(rurc_`year'/popc_`year') // percent of all rural workers in district i
 	qui gen ln_rurd_cult_`year' = ln(rurc_`year'/(shape_ha*cult_area_perc))
 	label variable ln_rurd_cult_`year' "Log rural cult. density"
+	qui gen ln_popc_`year' = ln(popc_`year')
+	label variable ln_popc_`year' "Log population"
 }
 
 qui gen ln_grump_rurd = ln(grump_rur/shape_ha)
 label variable ln_grump_rurd "Log rural density"
+qui gen ln_grump_popc = ln(grump_pop)
+qui gen grump_urb_perc = (grump_pop-grump_rur)/grump_pop
+
+bysort state_id: gen state_popc_2000 = sum(popc_2000)
+gen popc_2000_perc = popc_2000/state_popc_2000
+bysort state_id: gen state_rurc_2000 = sum(rurc_2000)
+gen rurc_2000_perc = rurc_2000/state_rurc_2000
+
 
 //////////////////////////////////////
 // Create CSI productivity variables
@@ -76,6 +86,11 @@ gen ln_csi_yield_hi_rain = ln(cals_hi_rain) - ln_area
 gen ln_csi_yield_hi_irr = ln(cals_hi_irr) - ln_area
 
 //////////////////////////////////////
+// Create flag for DHS data
+//////////////////////////////////////
+gen dhs_flag = (!missing(dhsid))
+
+//////////////////////////////////////
 // Create and adjust night lights data
 //////////////////////////////////////
 gen light_mean_adj = light_mean
@@ -85,7 +100,7 @@ gen ln_light_mean = ln(light_mean_adj)
 label variable ln_light_mean "Log light density"
 
 //////////////////////////////////////
-// Winsorize CSI yield and rural density data
+// Clip CSI yield and rural density data
 //////////////////////////////////////
 qui summ ln_csi_yield, det
 drop if ln_csi_yield<r(p1) | ln_csi_yield>r(p99) // drop above 99th and below 1st percentile
@@ -333,11 +348,14 @@ gen csi_yield = (cals/1000)/shape_ha
 label variable csi_yield "Caloric yield (mil cals/ha)"
 gen rurd_2000 = rurc_2000/shape_ha
 label variable rurd_2000 "Rural density (persons/ha)"
+gen popc_report = popc_2000/1000
+label variable popc_report "Population (000s)"
+
 
 capture file close f_result
 file open f_result using "./Drafts/tab_summ_levels.tex", write replace
 
-foreach v in rurd_2000 csi_yield urb_perc_2000 ln_light_mean {
+foreach v in rurd_2000 csi_yield urb_perc_2000 ln_light_mean popc_report {
 		local lab: variable label `v' 
 		qui summ `v', det
 		file write f_result "`lab' &" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
@@ -383,8 +401,24 @@ graph export "./Drafts/fig_dens_rurd.eps", replace as(eps)
 binscatter ln_csi_yield ln_rurd_2000, ///
 	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
 	xtitle("(Log) rural density") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
-	absorb(state_id) controls(ln_light_mean urb_perc_2000) noaddmean ///
-	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.130") label(2 "Temperate {&beta}{sub:g} = 0.225") region(lwidth(none))) ///
+	absorb(state_id) controls(ln_light_mean urb_perc_2000 ln_popc_2000) noaddmean ///
+	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.119") label(2 "Temperate {&beta}{sub:g} = 0.238") region(lwidth(none))) ///
 	savegraph("./Drafts/fig_beta_crop.eps") replace reportreg
+
+//////////////////////////////////////
+// Create residual variation in main variables
+//////////////////////////////////////
+quietly {
+areg ln_csi_yield, absorb(state_id)
+predict res_ln_csi_yield, res
+areg ln_rurd_2000, absorb(state_id)
+predict res_ln_rurd_2000, res
+areg urb_perc_2000, absorb(state_id)
+predict res_urb_perc_2000, res
+areg ln_popc_2000, absorb(state_id)
+predict res_ln_popc_2000, res
+areg ln_light_mean, absorb(state_id)
+predict res_ln_light_mean, res
+}
 
 // end

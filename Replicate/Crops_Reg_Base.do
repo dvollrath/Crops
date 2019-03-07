@@ -15,7 +15,7 @@ use "./Work/all_crops_data_gadm2.dta" //
 local fe state_id // fixed effect to include
 local csivar ln_csi_yield // measure of productivity
 local rurdvar ln_rurd_2000 // rural density per unit of total land
-local controls urb_perc_2000 ln_light_mean // urban percent and light mean
+local controls urb_perc_2000 ln_light_mean ln_popc_2000 // urban percent and light mean and total population
 local dist 500 // km cutoff for Conley SE
 
 //////////////////////////////////////
@@ -72,26 +72,24 @@ replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not fo
 // For only with under certain urban total
 doreg `csivar' `rurdvar' `controls' if urbc_2000<25000, fe(`fe') dist(`dist') comp(temp) tag(urbc) // call program to do spatial OLS
 
+// For only with under certain urban total
+doreg `csivar' `rurdvar' `controls' if urb_perc_2000<.50, fe(`fe') dist(`dist') comp(temp) tag(perc) // call program to do spatial OLS
+
 // For only in "poor" regions
 doreg `csivar' `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(poor) // call program to do spatial OLS
 
-qui summ prod_sum, det // use raw tonnage of production
-local prodcut = r(p25) // cut off above 25th percentile
-
-// For only those above 25th percentile in raw production
-doreg `csivar' `rurdvar' `controls' if prod_sum>`prodcut', fe(`fe') dist(`dist') comp(temp) tag(prod) // call program to do spatial OLS
 	
 // Output table and coefficient plot
-estout urbc1 urbc2 poor1 poor2 prod1 prod2 using "./Drafts/tab_beta_crop_sub_base.tex", /// write the region results to Tex file
+estout urbc1 urbc2 perc1 perc2 poor1 poor2 using "./Drafts/tab_beta_crop_sub_base.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
 	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
-coefplot urbc1 || urbc2 || poor1 || poor2 || prod1 || prod2, ///
+coefplot urbc1 || urbc2 || perc1 || perc2 || poor1 || poor2, ///
 	keep(res_rurd) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(0(.05).35,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
-	headings(1 = "{bf:<25K urban pop}" 3 = "{bf:Excl. rich countries}" 5 = "{bf:Excl. low production}") ///
+	headings(1 = "{bf:<25K urban pop}" 3 = "{bf:<50% urban}" 5 = "{bf:Excl. rich countries}") ///
 	bylabels("Temperate" "Tropical" "Temperate" "Tropical" "Temperate" "Tropical")
 graph export "./Drafts/fig_coef_crop_sub_base.png", replace as(png)
 graph export "./Drafts/fig_coef_crop_sub_base.eps", replace as(eps)

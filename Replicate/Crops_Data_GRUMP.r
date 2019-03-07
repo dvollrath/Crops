@@ -36,5 +36,10 @@ s <- zonal(rurpop,cropgadm,fun='sum',digits=3,na.rm=FALSE,progress='text')
 colnames(s) <- c("OBJECTID","grump_rur")
 out <- merge(out, s, by="OBJECTID")
 
+cropgadm <- crop(disgadm,pop)
+s <- zonal(pop,cropgadm,fun='sum',digits=3,na.rm=FALSE,progress='text')
+colnames(s) <- c("OBJECTID","grump_pop")
+out <- merge(out, s, by="OBJECTID")
+
 # Save combined data frame to CSV
 write.csv(out,file=file.path(refdir, "all_grump_pop_data.csv"),row.names=FALSE, na="")

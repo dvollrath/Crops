@@ -243,6 +243,24 @@ Examining the exponent on $L_t$, it is clear that this is less than one, making 
 \end{equation}
 From this, one can see the influence of agricultural productivity on population, and hence on population density. Note that the elasticity of steady state population with respect to $A_A$ depends inversely on $\beta$. As the land elasticity gets larger, the effect of agricultural productivity on population size decreases. The positive Malthusian relationship of population size and (agricultural) productivity remains, but because the Malthusian constraint is much tighter when $\beta$ is large, the relationship is not as strong as when $\beta$ is small. 
 
+\section{Demographic and Health Survey Data}
+In the main text, we used Demographic and Health Survey (DHS) data to create controls for demographics and assets at the district level. To do this, we started with all available DHS surveys for which latitude/longitude data was provided for the location of each cluster of surveyed individuals. For each survey, we overlaid these points on the map of 2nd-level political units (districts), creating a concordance of clusters to districts. 
+
+One note here is that for privacy reasons, the DHS perturbs the actual latitude/longitude point of a cluster by 10km in an arbitrary direction. Thus, for clusters very close to district borders, we may assign them to the incorrect district. Given the large number of clusters within any given district, and the fact that this is done randomly, we do not believe it creates any systematic errors in our ultimate district-level aggregates. 
+
+Having linked clusters to districts, we can then link all households in a survey to a district. For each district, we construct several measures of demographics and assets using this household data. 
+\begin{itemize}
+    \item \textbf{Demographics} We obtain the 10th, 50th, and 90th percentile values of the following household variables: years of education of household head (hv107-01), age of household head (hv220), and number of regular household members (hv012).
+    \item \textbf{Assets} We obtain the mean value of the following dummy variables for household possession of the following assets: flush toilet (hv205), electricity (hv206), television (hv208), refrigerator (hv209), improved flooring (hv213), agricultural land (hv244), a bank account (hv247), any cattle (hv246a), any draft animals (hv246c), and any sheep (hv246e). 
+\end{itemize}
+
+Detailed data on the number of agricultural hectares held, or counts of livestock held, are only available for a small number of recent surveys, so were not used. The mean values of the asset dummies thus indicate the percentage of households in a district that report having these assets. For the demographic data, the percentiles allow us a crude control for the distribution of education, age, and household size.
+
+Given that there are countries which have been surveyed multiple time, we use the latest available survey from any given country. This is done because later surveys have more variables available, allowing us to control for more characteristics.
+
+The specific country surveys that we draw from, and which have districts that fall into our temperate/tropical distinction, are:
+\input{tab_dhs_countries.tex} 
+
 \section{Alternative Population Data}
 As mentioned in the main text, given possible issues with the HYDE data on population, we use two alternative sources of population data.
 

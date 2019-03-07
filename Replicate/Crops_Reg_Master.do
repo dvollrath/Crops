@@ -32,8 +32,8 @@ do "./Replicate/Crops_Reg_Prep.do" // generates needed variables, set labels
 do "./Replicate/Crops_Reg_Base.do" // call the main temperate/tropical regressions (Table 2)
 do "./Replicate/Crops_Reg_PopLand.do" // call robustness regressions (Table 3)
 do "./Replicate/Crops_Reg_GAEZ.do" // call productivity regressions (Table 4)
+do "./Replicate/Crops_Reg_DHS.do" // call DHS regressions (Table 5)
 
-do "./Replicate/Crops_Reg_Climate.do" // call climate zone regressions (Appendix)
 do "./Replicate/Crops_Reg_Region.do" // call political region regressions (Appendix)
 do "./Replicate/Crops_Reg_Extend.do" // call extended crop definition regressions (Appendix)
 do "./Replicate/Crops_Reg_ByCrop.do" // call single crop definition regressions (Appendix)

@@ -100,7 +100,7 @@ insheet using "./Work/all_grump_pop_data.csv", clear comma
 duplicates report id_0 id_1 id_2
 duplicates tag id_0 id_1 id_2, generate(dupe)
 drop if dupe~=0
-collapse (first) iso name_0 name_1 (sum) grump_rur, by(`levels')
+collapse (first) iso name_0 name_1 (sum) grump_rur grump_pop, by(`levels')
 save "./Work/all_grump_data_`gadm'.dta", replace
 
 insheet using "./Work/all_csi_data_input_water.csv", clear comma
@@ -140,6 +140,13 @@ drop _merge
 merge 1:1 `levels' using "./Work/all_csi_data_input_water_`gadm'.dta"
 drop _merge
 merge m:1 iso using "./Work/iso_codes.dta"
+drop _merge
+
+drop if id_0==.
+drop if id_1==.
+drop if id_2==.
+
+merge 1:1 `levels' using "./Data/DHS/DHS-all-gadm-hh.dta"
 drop _merge
 
 save "./Work/all_crops_collapse_`gadm'.dta", replace

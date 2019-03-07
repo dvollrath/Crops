@@ -14,7 +14,7 @@ use "./Work/all_crops_data_gadm2.dta" //
 //////////////////////////////////////
 local fe state_id // fixed effect to include
 local rurdvar ln_rurd_2000 // rural density per unit of total land
-local controls urb_perc_2000 ln_light_mean // urban percent and light mean
+local controls urb_perc_2000 ln_light_mean ln_popc_2000 // urban percent and light mean
 local dist 500 // km cutoff for Conley SE
 local temperate temp // variable denoting temperate/tropical
 
