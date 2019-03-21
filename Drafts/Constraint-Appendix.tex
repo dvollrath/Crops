@@ -53,13 +53,13 @@
 
 \vspace{.5in} \noindent {\Large \textbf{\strut The role of land in temperate and tropical agriculture}}
 
-\vspace{.25in} \noindent {\large T. Ryan Johnson}
+%\vspace{.25in} \noindent {\large T. Ryan Johnson}
 
-\vspace{.05in} \noindent Washington University
+%\vspace{.05in} \noindent Washington University
 
-\vspace{.25in} \noindent {\large Dietrich Vollrath}
+%\vspace{.25in} \noindent {\large Dietrich Vollrath}
 
-\vspace{.05in} \noindent University of Houston
+%\vspace{.05in} \noindent University of Houston
 
 \vspace{2in} \noindent \textsc{Online Appendix} \hrulefill
 
@@ -109,7 +109,7 @@ or that the elasticity of the intensive production function with respect to land
 or that the elasticity of productivity with respect to land per worker, $x_i$, is equal to the negative of the elasticity of aggregate output with respect to land. It is then trivial that the elasticity of productivity with respect to density, $1/x_i$, is equal to the elasticity of aggregate output with respect to land. The Cobb-Douglas assumption used in the main paper is not necessary to derive the main estimating equation used in the paper.
 
 \section{Solving for Labor Share and Real Income}\label{APP_solve}
-In Section 4 of the main paper we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (12) and (13) in the main paper is as follows. From here forward, any equation references without a prefix, (e.g. (2)), refer to the main paper, while references with a prefix (e.g. (A.2)) refer to this Appendix.
+In Section 4 of the main paper we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (17) and (18) in the main paper is as follows. From here forward, any equation references without a prefix, (e.g. (2)), refer to the main paper, while references with a prefix (e.g. (A.2)) refer to this Appendix.
 
 Based on the district-level production functions from (1), total agricultural supply in province $I$ can be written as
 \begin{equation}
@@ -134,7 +134,7 @@ With the assumption that land earns no return, and the share earned by capital i
     \frac{K_A}{L_A} = \frac{K_N}{L_N} = \frac{K}{L} = \frac{w}{r}\frac{\phi_K}{\phi_L}. \nonumber
 \end{equation}
 
-Using the equilibrium condition on wages across sectors from (9), we can solve for 
+Using the equilibrium condition on wages across sectors from (16), we can solve for 
 \begin{equation}
     \frac{p_A}{p_N} = \frac{Y_N}{L_N}\frac{L_A}{Y_A}.\label{EQ_papn}
 \end{equation}
@@ -147,7 +147,7 @@ which shows that the relative amount of labor employed in agriculture and non-ag
     \ln L_A/L = \ln p_A c_A/M. \label{EQ_pacaM}
 \end{equation}
 
-Turning to the demand function from (8), we can re-arrange that to
+Turning to the demand function from (15), we can re-arrange that to
 \begin{equation}
    (1-\epsilon) \ln p_A c_A/M = \ln \theta_A  + (\epsilon-\gamma)(\ln p_N - \ln p_A) - \epsilon \ln c_A. \nonumber
 \end{equation}
@@ -159,7 +159,7 @@ Collecting terms we have
 \begin{equation}
     \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln Y_N/L_N - \gamma \ln Y_A/L_A. \nonumber
 \end{equation}
-Using the production functions in (7) and (\ref{EQ_caL}), we can write this as
+Using the production functions in (13) and (\ref{EQ_caL}), we can write this as
 \begin{equation}
     \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln \left(A_N (K/L)^{\alpha}\right) - \gamma \ln \left(A_A (K/L)^{\alpha(1-\beta)} L_A^{-\beta}\right) - \gamma \beta \ln L + \gamma \beta \ln L, \nonumber
 \end{equation}
@@ -167,7 +167,7 @@ where we've added and subtracted the term involving $L$. At this point, what rem
 \begin{equation}
     \ln L_A/L = \ln \theta_A + \frac{\beta\gamma}{1-\beta\gamma} \ln L - \frac{\gamma}{1-\beta\gamma} \ln A_A + \frac{\gamma - \epsilon}{1-\beta\gamma} \ln A_N + \frac{\alpha(\beta\gamma - \epsilon)}{1-\beta\gamma} \ln K/L. \nonumber
 \end{equation}
-Exponentiating this, we arrive at (10) from the main text.
+Exponentiating this, we arrive at (17) from the main text.
 
 For real income, in agricultural terms we have
 \begin{equation}
@@ -181,65 +181,26 @@ Noting that $c_A = Y_A/L$, we have that
 \begin{equation}
     y = \frac{Y_A}{L_A} = A_A (K/L)^{\alpha(1-\beta)} (L_A/L)^{-\beta} L^{-\beta}, \nonumber
 \end{equation}
-where the second equality follows from (\ref{EQ_caL}). At this point, we can use (10) to plug in for $L_A/L$ in the above equation, and solve for 
+where the second equality follows from (\ref{EQ_caL}). At this point, we can use (17) to plug in for $L_A/L$ in the above equation, and solve for 
 \begin{equation}
     \ln y = \frac{1}{1-\beta\gamma} \ln A_A - \frac{\beta}{1-\beta\gamma} \ln L + \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln A_N + \frac{\alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln K/L. \nonumber
 \end{equation}
-Exponentiating, we arrive at (11) in the main text.
-
-\section{Alternative Mobility Assumptions}
-Our baseline specifications are built off of a model that assumes agricultural output, as well as labor and capital, are freely mobile across districts within a given province (although we do not require them to be mobile across provinces). However, even within a given province, there may be frictions or limits on the mobility of either output or inputs, or both. If these frictions exist, then our regressions may not be delivering unbiased estimates of $\beta$. We outline two alternative assumptions about mobility here, and how our results relate to those. 
-
-\subsection{Immobile Factors}
-The baseline model assumes capital and labor are free to move between districts within a region. If we make factors immobile, but allow both agricultural and non-agricultural output to move between districts, this changes the specification of the relationship between agricultural productivity and rural density. 
-
-The agricultural production function for a district is the same as in (1), and we also need to specify a production function for non-agriculture. We do so as $Y_{Ni} = A_{Ni} K_{Ni}^{\alpha} L_{Ni}^{1-\alpha}$. Capital and labor are assumed to be mobile \textit{within} the district between the two sectors, implying that the return to capital and the return to labor are equalized across different uses. Because of this, the capital/labor ratio in both sectors will be identical, with $K_{Ai}/L_{Ai} = K_{Ni}/L_{Ni} = K_i/L_i$, where $K_i/L_i$ is the district's aggregate capital/labor ratio. 
-
-Equality of the return to labor across different sectors implies that 
-\begin{equation}
-    p_A (1-\alpha)(1-\beta)\frac{Y_{Ai}}{L_{Ai}} = p_N (1-\alpha)\frac{Y_{Ni}}{L_{Ni}}. \nonumber
-\end{equation}
-Using the condition that the capital/labor ratio will be identical across the two sectors, and re-arranging this relationship, we have that
-\begin{equation}
-    p_A (1-\beta) A_{Ai} \left(\frac{K_i}{L_i}\right)^{\alpha(1-\beta)} \left(\frac{X_i}{L_{Ai}}\right)^{\beta} = p_N A_{Ni} \left(\frac{K_i}{L_i}\right)^{\alpha} \nonumber
-\end{equation}
-Taking logs, are again re-arranging terms, we arrive at
-\begin{equation}
-    \ln A_{Ai} = \beta \ln L_{Ai}/X_i + \ln A_{Ni} + \alpha\beta \ln K_i/L_i + \ln p_N/p_A. \nonumber
-\end{equation}
-This equation shows that the relationship between agricultural productivity, $A_{Ai}$, and rural density, $L_{Ai}/X_i$, can still be used to recover an estimate of $\beta$. To do this, we must control for the district-specific levels of non-agricultural productivity, $A_{Ni}$, and capital/labor, $K_i/L_i$. While we do not have direct measures of those, we believe that our control for night lights will act as a decent proxy for these terms. Finally, the price ratio, $p_N/p_A$, is the province relative price, as goods are traded freely, so this will be captured by the province level fixed effects.
-
-If our night lights control is not capturing the variation in $A_{Ni}$ or $K_i/L_i$, then our estimates may be biased if there is a relationship between those variables and rural density. In particular, if rural density is negatively related to $A_{Ni}$ and/or $K_i/L_i$ then we could be under-stating the value of $\beta$. It is not clear why this negative relationship would hold only in tropical areas (with small estimate $\beta$ values), but not in other areas.
-
-\subsection{Autarkic Districts}
-If districts are entirely closed, in that neither factors of production nor output can move between districts, then this again changes the specification of our regressions. Here, the crucial remaining assumption is that the value of $\beta$ is the same across all districts within a given province. 
-
-Within each district, let the amount of agricultural output consumed be $c_{Ai}$, and hence market clearing within the district requires $c_{Ai} L_i = Y_i$ for agricultural output. Using the same production function as in the main section, and again assuming that capital and labor move freely between sectors (non-agriculture and agriculture) so that the capital/labor ratios are equal to the aggregate ratio, we have
-\begin{equation}
-    c_{Ai} L_i = A_i X_i^{\beta} \left(K_i/L_i\right)^{\alpha(1-\beta)} L_{Ai}^{1-\beta}. \nonumber
-\end{equation}
-Taking logs and re-arranging, we have the following
-\begin{equation}
-    \ln A_i = \beta \ln L_{Ai}/X_i - \ln L_{A_i}/L_i - \alpha(1-\beta) \ln K_{i}/L_{i} + \ln c_{Ai}. \nonumber
-\end{equation}
-We can recover an estimate of $\beta$ from the relationship of productivity and rural density, but now must control for the agricultural share of labor, $L_{Ai}/L_i$, the capital/labor ratio, and the consumption of agricultural goods per capita. For $L_{Ai}/L_i$, we have this data, and can include it directly in a regression (it is implicitly included in our baseline regression when we use the percent urban). For the capital/labor ratio and consumption of agricultural goods, we believe that the night lights data are a decent proxy for these terms.
-
-Including the log of $L_{Ai}/L_i$ explicitly as a control is possible, and the results are almost identical to our baseline results. This may still be biased, however, if the night lights proxy does not pick up the variation in consumption or the capital/labor ratio. If the capital/labor ratio is positively related to the rural density, then we would be under-estimating the true value of $\beta$. The small estimated values of $\beta$ in tropical areas may be because of this relationship, although it is not clear why rural density would be positively related to capital/labor ratios only in tropical areas. Alternatively, if consumption of agricultural goods is negatively related to rural density, and we are not controlling for it with night lights, then we may be under-estimating $\beta$. This could possibly be true only in tropical areas if they are relatively poor, whereas this relationship no longer holds in richer, temperate areas. This is clearly a possibility, although recall that this would only be a problem if we believe that districts are \textit{autarkic}, which may be an extreme assumption.
+Exponentiating, we arrive at (18) in the main text.
 
 \section{Adding Malthusian fertility responses}
 Our main model is static, taking the size of population (and capital) as given. By adding in a simple Malthusian fertility response, one can establish several results related to population density and the land elasticity. 
 
 Without specifying a particular utility function, let population growth from $t$ to $t+1$ be a function of income per capita in $t$
 \begin{equation}
-    n_{t+1} = y_t^{\theta}
+    n_{t+1} = y_t^{\theta} \nonumber
 \end{equation}
-where $0<\theta<1$ so that population growth is a concave function of income per capita. This delivers, using equation (11) from the main text, 
+where $0<\theta<1$ so that population growth is a concave function of income per capita. The dynamics of population are thus
 \begin{equation}
-    L_{t+1} = n_{t+1} L_t = \left(A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}\right)^{\frac{\theta}{1-\beta\gamma}} L_t^{\frac{1-\beta(\theta+\gamma)}{1-\beta\gamma}}.
+    L_{t+1} = n_{t+1} L_t = \left(A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}\right)^{\frac{\theta}{1-\beta\gamma}} L_t^{\frac{1-\beta(\theta+\gamma)}{1-\beta\gamma}}. \nonumber
 \end{equation}
 Examining the exponent on $L_t$, it is clear that this is less than one, making $L_{t+1}$ a concave function of $L_t$, and thus we have a stable steady state for population. Solving for that steady state by setting $L_{t+1} = L_t$ we have
 \begin{equation}
-    L^{\ast} = \left(A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}\right)^{\frac{1}{\beta}}.
+    L^{\ast} = \left(A_A A_N^{\beta(\epsilon-\gamma)}\hat{k}^{\Omega}\right)^{\frac{1}{\beta}}. \nonumber
 \end{equation}
 From this, one can see the influence of agricultural productivity on population, and hence on population density. Note that the elasticity of steady state population with respect to $A_A$ depends inversely on $\beta$. As the land elasticity gets larger, the effect of agricultural productivity on population size decreases. The positive Malthusian relationship of population size and (agricultural) productivity remains, but because the Malthusian constraint is much tighter when $\beta$ is large, the relationship is not as strong as when $\beta$ is small. 
 
@@ -250,8 +211,8 @@ One note here is that for privacy reasons, the DHS perturbs the actual latitude/
 
 Having linked clusters to districts, we can then link all households in a survey to a district. For each district, we construct several measures of demographics and assets using this household data. 
 \begin{itemize}
-    \item \textbf{Demographics} We obtain the 10th, 50th, and 90th percentile values of the following household variables: years of education of household head (hv107-01), age of household head (hv220), and number of regular household members (hv012).
-    \item \textbf{Assets} We obtain the mean value of the following dummy variables for household possession of the following assets: flush toilet (hv205), electricity (hv206), television (hv208), refrigerator (hv209), improved flooring (hv213), agricultural land (hv244), a bank account (hv247), any cattle (hv246a), any draft animals (hv246c), and any sheep (hv246e). 
+    \item \textbf{Demographics} We calculate the 10th, 50th, and 90th percentile values of the following household variables: years of education of household head (hv107-01), age of household head (hv220), and number of regular household members (hv012).
+    \item \textbf{Assets} We calculate the mean value of the following dummy variables for household possession of the following assets: flush toilet (hv205), electricity (hv206), television (hv208), refrigerator (hv209), improved flooring (hv213), agricultural land (hv244), a bank account (hv247), any cattle (hv246a), any draft animals (hv246c), and any sheep (hv246e). 
 \end{itemize}
 
 Detailed data on the number of agricultural hectares held, or counts of livestock held, are only available for a small number of recent surveys, so were not used. The mean values of the asset dummies thus indicate the percentage of households in a district that report having these assets. For the demographic data, the percentiles allow us a crude control for the distribution of education, age, and household size.
@@ -352,6 +313,41 @@ Column (1) of Table \ref{TAB_beta_expand} shows the results for just those distr
 \vspace{-.5cm}\singlespacing {\footnotesize The panels differ in the districts included in each regression. In Panel A, only districts that are suitable for temperate agriculture are inclueded (based on the criteria we outline in the paper based on GAEZ suitability measures). In Panel B, on tropical districts are included. The columns differ by the variable used to measure $A_{isg}$, inherent agricultural productivity. Column (1) uses the CSI index from Galor and Ozak (2016), as in our baseline results. Columns (2)-(7) use the raw potential yield (in tonnes) of the crop, from the GAEZ, for the crop specified. Additional controls are as in our basline results, and include province fixed effects. Conley standard errors, adjusted for spatial auto-correlation, are shown in parentheses. 
 }
 \end{table}
+
+\clearpage
+
+
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of Land Elasticity, $\beta_g$, with Polynomial Controls}
+\label{TAB_beta_crops}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A^{GAEZ}_{isg}$)} \\ \\
+\multicolumn{7}{l}{Panel A: Regions defined by:} \\ \\
+ & \multicolumn{2}{c}{Crop suitability:} & \multicolumn{2}{c}{Frost Days:} & \multicolumn{2}{c}{Koeppen-Geiger:}\\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} 
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_crop_poly.tex}
+\midrule
+\\
+\multicolumn{7}{l}{Panel B: With other restrictions (using crop suitability to define temperate/tropical)} \\ \\
+ & \multicolumn{2}{c}{Urban Pop. $<25K$:} & \multicolumn{2}{c}{Urban Perc. $<50$:} & \multicolumn{2}{c}{Ex. Europe/N. Amer.:} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & Temperate & Tropical & Temperate  & Tropical  & Temperate  & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+\midrule
+\input{tab_beta_crop_sub_poly.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, and log total population. In addition to these standard controls, quadratic terms of each control, as well as their interactions, are included. The coefficient estimate on rural population density indicates the value of $\beta_g$, see equation (\ref{EQ_regress}). Rural population is from HYDE database \citep{hyde31}, and caloric yield is the author's calculations based on the data from \citet{galorozak2016}. Inclusion of districts in the regression is based on the listed criteria, either crop suitability, the number of frost-free days, or K{\"o}ppen-Geiger climate zones. See text for details of how temperate and tropical regions are defined in each case. In Panel B, the columns either exclude districts with more than 25,000 urban residents, exclude districts from any country in Europe (incl. Russia east of the Urals) or North America, or with a percent of urban residents below 50 percent.
+}
+\end{table}
+
+\clearpage
 
 \begin{table}[!htb]
 \begin{center}
