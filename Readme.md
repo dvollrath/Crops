@@ -1,4 +1,4 @@
-# How Tight are Malthusian Constraints?
+# The role of land in temperate and tropical agriculture
 T. Ryan Johnson and Dietrich Vollrath
 
 ## Replication of Main Results
