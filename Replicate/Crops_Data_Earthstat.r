@@ -41,5 +41,17 @@ for (c in crops) { # for each individual crop
   es <- merge(es, s, by="OBJECTID")
 }
 
+cropdir <- paste0(esdir,"/CroplandPastureArea2000_Geotiff")
+setwd(cropdir)
+pasture <-  raster("Pasture2000_5m.tif")
+s <- zonal(pasture,gadm,fun='mean',digits=3,na.rm=FALSE,progres='text')
+colnames(s) <- c("OBJECTID",paste0("es_pastureperc"))
+es <- merge(es, s, by="OBJECTID")
+
+crop <-  raster("Cropland2000_5m.tif")
+s <- zonal(crop,gadm,fun='mean',digits=3,na.rm=FALSE,progres='text')
+colnames(s) <- c("OBJECTID",paste0("es_cropperc"))
+es <- merge(es, s, by="OBJECTID")
+
 # Save combined data frame to CSV
 write.csv(es,file=file.path(refdir, paste0("all_earthstat_data.csv")),row.names=FALSE, na="")

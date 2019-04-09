@@ -93,7 +93,7 @@ insheet using "./Work/all_earthstat_data.csv", clear comma
 duplicates report id_0 id_1 id_2
 duplicates tag id_0 id_1 id_2, generate(dupe)
 drop if dupe~=0
-collapse (first) iso name_0 name_1 (sum) *_harvarea *_production, by(`levels')
+collapse (first) iso name_0 name_1 (sum) *_harvarea *_production es_*, by(`levels')
 save "./Work/all_earthstat_data_`gadm'.dta", replace
 
 insheet using "./Work/all_grump_pop_data.csv", clear comma

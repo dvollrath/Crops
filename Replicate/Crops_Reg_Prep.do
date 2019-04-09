@@ -128,15 +128,18 @@ replace wet_max = 1 if (cassava_cells + cowpea_cells + pearlmillet_cells + sweet
 gen wet_cells = cassava_cells + cowpea_cells + pearlmillet_cells + sweetpotato_cells + wetrice_cells + yams_cells
 
 egen harvarea_sum = rowtotal(*_harvarea)
-gen dry_area = 0
-replace dry_area = 1 if (barley_harvarea + buckwheat_harvarea + oats_harvarea + rye_harvarea + potato_harvarea + wheat_harvarea)>.66*harvarea_sum
-gen wet_area = 0
-replace wet_area = 1 if (cassava_harvarea + cowpea_harvarea + millet_harvarea + sweetpotato_harvarea + rice_harvarea + yam_harvarea)>.66*harvarea_sum
+gen dry_area_perc = (barley_harvarea + buckwheat_harvarea + oats_harvarea + rye_harvarea + potato_harvarea + wheat_harvarea)/harvarea_sum
+gen wet_area_perc = (cassava_harvarea + cowpea_harvarea + millet_harvarea + sweetpotato_harvarea + rice_harvarea + yam_harvarea)/harvarea_sum
 
 //////////////////////////////////////
 // Create crop production totals
 //////////////////////////////////////
 egen prod_sum = rowtotal(*_production) // get total tonnes of all crops produced
+
+gen cash_area = banana_harvarea + cocoa_harvarea + coffee_harvarea + cotton_harvarea + jute_harvarea ///
+					+ oilpalm_harvarea + rubber_harvarea + sunflower_harvarea + tea_harvarea + tobacco_harvarea ///
+					+ sugarbeet_harvarea + sugarcane_harvarea
+gen cash_area_perc = cash_area/harvarea_sum
 
 //////////////////////////////////////
 // Basic climate zone sums

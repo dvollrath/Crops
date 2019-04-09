@@ -82,7 +82,10 @@ program doreg, eclass
 	if "`if'"=="" { // if the "if" passed is blank, then
 		local and = "if" // include the "if" explicitly
 	}
-	
+
+	capture drop res_*
+	capture drop int_*
+
 	qui areg `1' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the productivity variable over passed FE variable
 		// do this only if it matches passed "if" statement
 		// do this only if it has a valid 0/1 value in the group variable
@@ -95,7 +98,7 @@ program doreg, eclass
 	qui predict res_rurd, res // create residual of density variable
 	capture drop int_rurd
 	qui gen int_rurd = res_rurd*`comp' // create interaction of residual density and comparison group variable
-	
+		
 	local i = 3 
 	while "``i''" != "" { // for all the remaining controls
 		qui areg ``i'' `if' `and' inlist(`comp',0,1), absorb(`fe') // demean the control over passed FE variable
