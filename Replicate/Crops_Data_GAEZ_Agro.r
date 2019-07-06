@@ -26,6 +26,18 @@ for (f in files) {
   gaez <- merge(gaez, s, by="OBJECTID")
 }
 
+# Terrain suitability indices
+files <- list.files(path='.', pattern="lr_ter_.*05.tif")
+for (f in files) {
+  name <- substr(f[[1]], 8, 13) # get index identifier
+  message(sprintf("\nProcessing: %s\n", f))
+  x <- raster(f[[1]])
+  s <- zonal(x,gadm,fun='mean',digits=3,na.rm=FALSE,progres='text')
+  colnames(s) <- c("OBJECTID",paste0("agro_",name))
+  gaez <- merge(gaez, s, by="OBJECTID")
+}
+
+
 # Climatic indices
 files <- list.files(path='.', pattern="res01_.*_crav6190.tif")
 for (f in files) {

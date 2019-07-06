@@ -62,6 +62,8 @@ bysort state_id: gen state_popc_2000 = sum(popc_2000)
 gen popc_2000_perc = popc_2000/state_popc_2000
 bysort state_id: gen state_rurc_2000 = sum(rurc_2000)
 gen rurc_2000_perc = rurc_2000/state_rurc_2000
+bysort state_id: gen state_shape_ha = sum(shape_ha)
+gen state_rurd_2000 = state_rurc_2000/state_shape_ha // state level rural density
 
 
 //////////////////////////////////////
@@ -140,6 +142,16 @@ gen cash_area = banana_harvarea + cocoa_harvarea + coffee_harvarea + cotton_harv
 					+ oilpalm_harvarea + rubber_harvarea + sunflower_harvarea + tea_harvarea + tobacco_harvarea ///
 					+ sugarbeet_harvarea + sugarcane_harvarea
 gen cash_area_perc = cash_area/harvarea_sum
+
+//////////////////////////////////////
+// Create soil quality variables
+//////////////////////////////////////
+gen agro_soil_perc = .
+replace agro_soil_perc = 100 if agro_sq1==0
+replace agro_soil_perc = (agro_sq1-0)*90 + (1-agro_sq1)*100 if agro_sq1>0 & agro_sq1<=1
+replace agro_soil_perc = (agro_sq1-1)*70 + (2-agro_sq1)*90 if agro_sq1>1 & agro_sq1<=2
+replace agro_soil_perc = (agro_sq1-2)*50 + (3-agro_sq1)*70 if agro_sq1>2 & agro_sq1<=3
+replace agro_soil_perc = (agro_sq1-2)*30 + (3-agro_sq1)*50 if agro_sq1>3 & agro_sq1<=4
 
 //////////////////////////////////////
 // Basic climate zone sums
@@ -407,7 +419,7 @@ binscatter ln_csi_yield ln_rurd_2000, ///
 	absorb(state_id) controls(ln_light_mean urb_perc_2000 ln_popc_2000) noaddmean ///
 	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.119") label(2 "Temperate {&beta}{sub:g} = 0.238") region(lwidth(none))) ///
 	savegraph("./Drafts/fig_beta_crop.eps") replace reportreg
-
+	
 //////////////////////////////////////
 // Create residual variation in main variables
 //////////////////////////////////////

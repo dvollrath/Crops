@@ -58,11 +58,11 @@ setwd(refdir)
 #source(file.path(codedir,'Crops_Data_CSI_ByCrop.r')) # Caloric data
 #source(file.path(codedir,'Crops_Data_CSI_Max.r')) # Caloric data
 #source(file.path(codedir,'Crops_Data_DMSP_Lights.r')) # Night lights data
-#source(file.path(codedir,'Crops_Data_GAEZ_Agro.r')) # Constraint data
+source(file.path(codedir,'Crops_Data_GAEZ_Agro.r')) # Constraint data
 #source(file.path(codedir,'Crops_Data_GAEZ_Suit.r')) # Suitability data
 #source(file.path(codedir,'Crops_Data_GAEZ_Cult.r')) # Cultivated area
 #source(file.path(codedir,'Crops_Data_KG_Count.r')) # KG zone data
-source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
+#source(file.path(codedir,'Crops_Data_Earthstat.r')) # Production data
 #source(file.path(codedir,'Crops_Data_GRUMP.r')) # Population data
 #source(file.path(codedir,'Crops_Data_Distance.r')) # Distance matrix
 
