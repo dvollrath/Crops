@@ -13,25 +13,24 @@ use "./Work/all_crops_data_gadm2.dta" //
 // Set locals for regressions
 //////////////////////////////////////
 local fe state_id // fixed effect to include
-local csivar ln_csi_yield  // productivity
-local rurdvar ln_rurd_2000 // rural density per unit of total land
-local controls urb_perc_2000 ln_light_mean ln_popc_2000 // urban percent and light mean
+local csivar ln_csi_yield // measure of productivity
+local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
+local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
 local dist 500 // km cutoff for Conley SE
-local temperate temp // variable denoting temperate/tropical
-/*
+
 //////////////////////////////////////
-// Regressions - different productivity
+// Regressions - different population
 //////////////////////////////////////	
 capture drop temp
 gen temp = .
 replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
-// HYDE 1950 rural density
-doreg `csivar' ln_rurd_1950 `controls', fe(`fe') dist(`dist') comp(temp) tag(hyde) // call program to do spatial OLS
+// GRUMP 1990 density
+doreg `csivar' ln_grump_rurd_1990 ln_light_mean grump_urb_perc_1990 ln_grump_popc_1990, fe(`fe') dist(`dist') comp(temp) tag(grump) // call program to do spatial OLS
 
-// GRUMP rural density
-doreg `csivar' ln_grump_rurd ln_light_mean grump_urb_perc ln_grump_popc, fe(`fe') dist(`dist') comp(temp) tag(grump) // call program to do spatial OLS
+// HYDE rural density
+doreg `csivar' ln_rurd_2000 urb_perc_2000 ln_light_mean ln_popc_2000, fe(`fe') dist(`dist') comp(temp) tag(hyde) // call program to do spatial OLS
 
 // IPUMS rural density
 clear
@@ -64,13 +63,13 @@ replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not fo
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 // Using cultivated area
-doreg `csivar' ln_rurd_cult_2000 ln_cult_area_perc `controls', fe(`fe') dist(`dist') comp(temp) tag(cult) // call program to do spatial OLS
+doreg `csivar' ln_grump_rurd_cult ln_cult_area_perc `controls', fe(`fe') dist(`dist') comp(temp) tag(cult) // call program to do spatial OLS
 
 // Exclude cash crop districts
 doreg `csivar' `rurdvar' `controls' if cash_area_perc<.05, fe(`fe') dist(`dist') comp(temp) tag(staple) // call program to do spatial OLS
 
 // Exclude pasture based districts
-doreg `csivar' `rurdvar' `controls' if es_pastureperc<.05, fe(`fe') dist(`dist') comp(temp) tag(pasture) // call program to do spatial OLS
+doreg `csivar' `rurdvar' `controls' if es_pastureperc<.20, fe(`fe') dist(`dist') comp(temp) tag(pasture) // call program to do spatial OLS
 
 // Drop provinces with fewer than 50 districts
 //doreg `csivar' `rurdvar' `controls' if district_count>50, fe(`fe') dist(`dist') comp(temp) tag(number) // call program to do spatial OLS
@@ -86,7 +85,7 @@ estout cult1 cult2 staple1 staple2 pasture1 pasture2 using "./Drafts/tab_beta_ro
 coefplot cult1 || cult2 || staple1 || staple2 || pasture1 || pasture2, ///
 	keep(res_rurd) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(0(.05).35,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
-	headings(1 = "{bf:Cult. area for density}" 3 = "{bf:Cash crop <5% area}" 5 = "{bf:Pasture <5% area}") ///
+	headings(1 = "{bf:Cult. area for density}" 3 = "{bf:Cash crop <5% area}" 5 = "{bf:Pasture <20% area}") ///
 	bylabels("Temperate" "Tropical" "Temperate" "Tropical" "Temperate" "Tropical" )
 graph export "./Drafts/fig_coef_robust_other.eps", replace as(eps)
 graph export "./Drafts/fig_coef_robust_other.png", replace as(png)	

@@ -29,6 +29,8 @@ drop if x_cent==. // drop if no longitude data
 drop if y_cent==. // drop if no latitude data
 drop if objectid==. // drop if no GIS identifier
 
+save "./Work/all_crops_predrop_`gadm'.dta", replace
+
 //////////////////////////////////////
 // HYDE Population Data Prep
 //////////////////////////////////////
@@ -41,7 +43,7 @@ foreach year in `years' {
 	qui gen ln_popd_`year' = ln(popc_`year'/shape_ha) // population density
 	label variable ln_popd_`year' "Density `year'"
 	qui gen urb_perc_`year' = urbc_`year'/popc_`year' // urbanization rate
-	label variable urb_perc_`year' "Urbanization rate"
+	label variable urb_perc_`year' "Urban share of district pop."
 	qui gen ln_urbd_`year' = ln(urbc_`year') // urban population
 	label variable ln_urbd_`year' "Urb density `year'"
 	qui gen ln_rurd_`year' = ln(rurc_`year'/shape_ha) // urban density
@@ -53,18 +55,36 @@ foreach year in `years' {
 	label variable ln_popc_`year' "Log population"
 }
 
-qui gen ln_grump_rurd = ln(grump_rur/shape_ha)
+qui gen ln_grump_rurd = ln(grump_rur_2000/shape_ha)
 label variable ln_grump_rurd "Log rural density"
-qui gen ln_grump_popc = ln(grump_pop)
-qui gen grump_urb_perc = (grump_pop-grump_rur)/grump_pop
+qui gen ln_grump_popc = ln(grump_pop_2000)
+qui gen grump_urb_perc = (grump_pop_2000-grump_rur_2000)/grump_pop_2000
+label variable grump_urb_perc "Urban share of district pop."
+qui gen grump_urbc = grump_pop_2000 - grump_rur_2000
+qui gen ln_grump_rurd_cult = ln(grump_rur_2000/(shape_ha*cult_area_perc))
 
-bysort state_id: gen state_popc_2000 = sum(popc_2000)
-gen popc_2000_perc = popc_2000/state_popc_2000
-bysort state_id: gen state_rurc_2000 = sum(rurc_2000)
-gen rurc_2000_perc = rurc_2000/state_rurc_2000
-bysort state_id: gen state_shape_ha = sum(shape_ha)
+qui gen ln_grump_rurd_1990 = ln(grump_rur_1990/shape_ha)
+label variable ln_grump_rurd_1990 "Log rural density"
+qui gen ln_grump_popc_1990 = ln(grump_pop_1990)
+qui gen grump_urb_perc_1990 = (grump_pop_1990-grump_rur_1990)/grump_pop_1990
+qui gen grump_urbc_1990 = grump_pop_1990 - grump_rur_1990
+qui gen ln_grump_rurd_cult_1990 = ln(grump_rur_1990/(shape_ha*cult_area_perc))
+
+bysort state_id: egen state_popc_2000 = sum(grump_pop_2000)
+gen popc_2000_perc = grump_pop_2000/state_popc_2000
+bysort state_id: egen state_urbc_2000 = sum(grump_urbc)
+gen state_urbc_2000_perc = grump_urbc/state_urbc_2000
+label variable state_urbc_2000_perc "Share of state urban pop."
+
+bysort state_id: egen state_rurc_2000 = sum(grump_rur_2000)
+gen rurc_2000_perc = grump_rur_2000/state_rurc_2000
+bysort state_id: egen state_shape_ha = sum(shape_ha)
 gen state_rurd_2000 = state_rurc_2000/state_shape_ha // state level rural density
+gen p_state_shape_ha = shape_ha/state_shape_ha
+label variable p_state_shape_ha "Share of state area"
 
+gen p_state_popc_2000 = grump_pop_2000/state_popc_2000
+label variable p_state_popc_2000 "Share of state population"
 
 //////////////////////////////////////
 // Create CSI productivity variables
@@ -101,6 +121,9 @@ replace light_mean_adj = r(min) if light_mean_adj==0 // as per Henderson et al, 
 gen ln_light_mean = ln(light_mean_adj)
 label variable ln_light_mean "Log light density"
 
+bysort state_id: egen ln_light_state_max = max(ln_light_mean)
+gen p_state_light_max = exp(ln_light_mean - ln_light_state_max)
+
 //////////////////////////////////////
 // Clip CSI yield and rural density data
 //////////////////////////////////////
@@ -109,10 +132,10 @@ drop if ln_csi_yield<r(p1) | ln_csi_yield>r(p99) // drop above 99th and below 1s
 keep if !missing(ln_csi_yield) // remove if missing yield data
 
 // For main year - 2000 - drop extreme values of rural density
-qui summ ln_rurd_2000, det
-drop if ln_rurd_2000<r(p1) | ln_rurd_2000>r(p99) // drop above 99th and below 1st percentile
-keep if !missing(ln_rurd_2000) // remove if missing density data
-drop if rurc_2000 <100 // remove districts with very few rural workers
+qui summ ln_grump_rurd, det
+drop if ln_grump_rurd<r(p1) | ln_grump_rurd>r(p99) // drop above 99th and below 1st percentile
+keep if !missing(ln_grump_rurd) // remove if missing density data
+drop if grump_rur_2000 <100 // remove districts with very few rural workers
 
 //////////////////////////////////////
 // Create crop groups
@@ -120,7 +143,7 @@ drop if rurc_2000 <100 // remove districts with very few rural workers
 gen dry_suit = 0
 replace dry_suit = 1 if suit_brl>0 | suit_bck>0 | suit_rye>0 | suit_oat>0 | suit_wpo>0 | suit_whe>0
 gen wet_suit = 0
-replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo | suit_rcw>0 | suit_yam>0
+replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo>0 | suit_rcw>0 | suit_yam>0
 
 gen dry_max = 0
 replace dry_max = 1 if (barley_cells + buckwheat_cells + oat_cells + rye_cells + whitepotato_cells + wheat_cells)>.33*count
@@ -361,16 +384,23 @@ file close f_result
 
 gen csi_yield = (cals/1000)/shape_ha
 label variable csi_yield "Caloric yield (mil cals/ha)"
-gen rurd_2000 = rurc_2000/shape_ha
-label variable rurd_2000 "Rural density (persons/ha)"
-gen popc_report = popc_2000/1000
-label variable popc_report "Population (000s)"
+gen rurd_2000 = grump_rur_2000/shape_ha
+label variable rurd_2000 "Labor/land (persons/ha)"
+gen popc_report = grump_pop_2000/1000
+label variable popc_report "Total population (000s)"
+gen rurc_report = grump_rur_2000/1000
+label variable rurc_report "Rural population (000s)"
+gen shape_ha_report = shape_ha/1000
+label variable shape_ha_report "Total area (000s ha)"
+gen urbc_report = grump_urbc/1000
+label variable urbc_report "Urban population (000s)"
+
 
 
 capture file close f_result
 file open f_result using "./Drafts/tab_summ_levels.tex", write replace
 
-foreach v in rurd_2000 csi_yield urb_perc_2000 ln_light_mean popc_report {
+foreach v in rurd_2000 csi_yield ln_light_mean {
 		local lab: variable label `v' 
 		qui summ `v', det
 		file write f_result "`lab' &" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
@@ -387,6 +417,40 @@ file write f_result "{\newcommand{\provinces}{" %8.0fc (r(r)) "}" _n
 qui tabulate country_id
 file write f_result "{\newcommand{\countries}{" %8.0fc (r(r)) "}" _n
 file close f_result
+
+capture file close f_result
+file open f_result using "./Drafts/tab_summ_districts.tex", write replace
+
+foreach v in popc_report rurc_report urbc_report  {
+		local lab: variable label `v' 
+		qui summ `v', det
+		file write f_result "`lab' &" %9.1fc (r(mean)) "&" %9.1fc (r(sd)) "&" %9.1fc (r(p10)) "&" %9.1fc (r(p25)) "&" %9.1fc (r(p50)) "&" ///
+			%9.1fc (r(p75)) "&" %9.1fc (r(p90)) "\\" _n
+}
+
+local lab: variable label grump_urb_perc
+qui summ grump_urb_perc, det
+file write f_result "`lab' &" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\ \\" _n
+			
+foreach v in p_state_popc_2000 state_urbc_2000_perc  p_state_shape_ha  {
+		local lab: variable label `v' 
+		qui summ `v', det
+		file write f_result "`lab' &" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
+			%9.2fc (r(p75)) "&" %9.2fc (r(p90)) "\\" _n
+}
+
+file write f_result "\\"
+local lab: variable label shape_ha_report 
+qui summ shape_ha_report, det
+file write f_result "`lab' &" %9.1fc (r(mean)) "&" %9.1fc (r(sd)) "&" %9.1fc (r(p10)) "&" %9.1fc (r(p25)) "&" %9.1fc (r(p50)) "&" ///
+	%9.1fc (r(p75)) "&" %9.1fc (r(p90)) "\\" _n
+
+
+file close f_result
+
+capture file close f_result
+
 
 //////////////////////////////////////
 // Create density figures for yield/rurd
@@ -405,35 +469,32 @@ twoway kdensity csi_yield if temp==0, clcolor(black) ///
 graph export "./Drafts/fig_dens_csi.png", replace as(png)
 graph export "./Drafts/fig_dens_csi.eps", replace as(eps)
 
-twoway kdensity ln_rurd_2000 if temp==0, clcolor(black) ///
-	|| kdensity ln_rurd_2000 if temp==1, clcolor(gray) clpattern(dash) ///
-	graphregion(color(white)) xtitle("Log rural density (persons/ha)") ///
+twoway kdensity ln_grump_rurd if temp==0, clcolor(black) ///
+	|| kdensity ln_grump_rurd if temp==1, clcolor(gray) clpattern(dash) ///
+	graphregion(color(white)) xtitle("Log labor/land ratio (persons/ha)") ///
 	legend(size(small) ring(0) pos(2) cols(1) label(1 "Tropical") label(2 "Temperate")) ///
-	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") xlabel(-6(1)3)
+	ylabel(, nogrid angle(0) format(%9.2f)) ytitle("Density") //xlabel(-6(1)3)
 graph export "./Drafts/fig_dens_rurd.png", replace as(png)
 graph export "./Drafts/fig_dens_rurd.eps", replace as(eps)
 
-binscatter ln_csi_yield ln_rurd_2000, ///
+binscatter ln_csi_yield ln_grump_rurd, ///
 	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
-	xtitle("(Log) rural density") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
-	absorb(state_id) controls(ln_light_mean urb_perc_2000 ln_popc_2000) noaddmean ///
-	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.119") label(2 "Temperate {&beta}{sub:g} = 0.238") region(lwidth(none))) ///
+	xtitle("(Log) labor/land ratio") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
+	absorb(state_id) controls(grump_urb_perc ln_light_mean ln_grump_popc) noaddmean ///
+	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.088") label(2 "Temperate {&beta}{sub:g} = 0.239") region(lwidth(none))) ///
 	savegraph("./Drafts/fig_beta_crop.eps") replace reportreg
 	
 //////////////////////////////////////
 // Create residual variation in main variables
 //////////////////////////////////////
 quietly {
+capture drop res_ln_csi_yield
 areg ln_csi_yield, absorb(state_id)
 predict res_ln_csi_yield, res
-areg ln_rurd_2000, absorb(state_id)
-predict res_ln_rurd_2000, res
-areg urb_perc_2000, absorb(state_id)
-predict res_urb_perc_2000, res
-areg ln_popc_2000, absorb(state_id)
-predict res_ln_popc_2000, res
-areg ln_light_mean, absorb(state_id)
-predict res_ln_light_mean, res
+capture drop res_ln_grump_rurd
+areg ln_grump_rurd, absorb(state_id)
+predict res_ln_grump_rurd, res
 }
+
 
 // end

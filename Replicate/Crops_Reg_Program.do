@@ -142,7 +142,7 @@ program doreg, eclass
 	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/`comp_se'))
 	estimates store `tag'1 // store results
 	
-	label variable res_rurd "Log rural density ($\beta_g$)"
+	label variable res_rurd "Log labor/land ratio ($\beta_g$)"
 
 
 end 
@@ -183,7 +183,7 @@ program onereg, eclass
 	qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[res_rurd])/_se[res_rurd])) // add p-value for H0: beta=0 for group==0		
 	estimates store `tag'1 // store results
 	
-	label variable res_rurd "Log rural density ($\beta_g$)"
+	label variable res_rurd "Log labor/land ratio ($\beta_g$)"
 
 end 
 

@@ -9,40 +9,19 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////
-// YOU SHOULD EDIT THE PATHS TO POINT TO YOUR DIRECTORIES
-//////////////////////////////////////
-global data "/users/dietz/dropbox/project/crops/work" // working datasets
-global aj "/users/dietz/dropbox/project/crops/data" // location of AJ dataset
-global output "/users/dietz/dropbox/project/crops/drafts"
-global code "/users/dietz/dropbox/project/crops/replicate"
-
-local year=2000 // year of population data to use
-local level = "gadm2" // level of aggregation
-local cntl urb_perc_`year' ln_light_mean // control variables to include in all regressions
-local limit=4 // minimum number of districts in a country
+local limit=10 // minimum number of districts in a country
+local fe state_id // fixed effect to include
+local csivar ln_csi_yield // measure of productivity
+local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
+local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
+local dist 500 // km cutoff for Conley SE
 
 //////////////////////////////////////
 // Load data and calculate addl variables
 //////////////////////////////////////
 clear
 estimates clear
-use "$data/all_crops_data_`level'.dta"
-
-gen cons = 1 // constant for use in spatial OLS
-gen y = 1 // "time" variable for use in spatial OLS
-
-gen csi_reg = . // for use in regressions
-gen rurd_reg = . // for use in regressions
-gen rurd_int_reg = . // for use in regressions
-label variable rurd_reg "Log rural density" // label for output
-
-if "`level'"=="gadm2" { // set local flag indicating the level of FE to run
-	local fe = "id_1"
-}
-else {
-	local fe = "id_0"
-}
+use "./Work/all_crops_data_gadm2.dta" // 
 
 // Generate holding variables for estimated beta values
 generate beta = .
@@ -56,13 +35,13 @@ foreach x of local levels { // for each country
 	count if country_id==`x'
 	if r(N)>`limit' {
 		// Regress using province FE
-		qui reg ln_csi_yield ln_rurd_`year' `cntl' if country_id==`x', absorb(state_id) cluster(state_id)
-		qui replace beta = _b[ln_rurd_`year'] if country_id==`x'
-		qui replace se = _se[ln_rurd_`year'] if country_id==`x'
+		qui reg ln_csi_yield `rurdvar' `cntl' if country_id==`x', absorb(state_id) cluster(state_id)
+		qui replace beta = _b[`rurdvar'] if country_id==`x'
+		qui replace se = _se[`rurdvar'] if country_id==`x'
 		// Regress withou any province FE
-		qui reg ln_csi_yield ln_rurd_`year' `cntl' if country_id==`x', cluster(state_id)
-		qui replace beta_raw = _b[ln_rurd_`year'] if country_id==`x'
-		qui replace se_raw = _se[ln_rurd_`year'] if country_id==`x'
+		qui reg ln_csi_yield `rurdvar' `cntl' if country_id==`x', cluster(state_id)
+		qui replace beta_raw = _b[`rurdvar'] if country_id==`x'
+		qui replace se_raw = _se[`rurdvar'] if country_id==`x'
 
 	}
 }
@@ -71,19 +50,18 @@ foreach x of local levels { // for each country
 gen light_total = exp(ln_light_mean)*shape_ha
 gen csi_total = exp(ln_csi_yield)*shape_ha
 
-
 // Collapse to country-level 
 collapse (first) iso id_0 name_0 beta se beta_raw se_raw jv_region jv_subregion jv_subregion_text ///
-	(rawsum) *_cells *_harvarea count rurc_`year' urbc_`year' shape_ha light_total csi_total (mean) suit_??? ///
+	(rawsum) *_cells *_harvarea count shape_ha light_total csi_total (mean) suit_??? ///
 	, by(country_id)
 
 rename iso shortnam
-save "$data/crops_country_beta.dta", replace
+save "./Work/crops_country_beta.dta", replace
 
 clear
-use "$aj/disease.dta" // load AJ data
+use "./Data/disease.dta" // load AJ data
 capture drop _merge
-merge m:1 shortnam using "$data/crops_country_beta.dta"
+merge m:1 shortnam using "./Work/crops_country_beta.dta"
 
 gen dry_suit = 0
 replace dry_suit = 1 if suit_brl>0 & suit_bck>0 & suit_rye>0 & suit_oat>0 & suit_wpo>0 & suit_whe>0
@@ -179,7 +157,7 @@ qui estadd scalar p_diff = 2*(1-t(e(df_r),abs(_b[1.beta_low#c.life_res])/_se[1.b
 qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[life_res])/_se[life_res])) // add p-value from interaction		
 estimates store reg_aj_4
 
-estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "$output/tab_aj.tex", /// write the region results to Tex file
+estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "./Drafts/tab_aj.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
 	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///
@@ -221,7 +199,7 @@ qui estadd scalar p_diff = 2*(1-t(e(df_r),abs(_b[1.beta_low#c.pop_res])/_se[1.be
 qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[pop_res])/_se[pop_res])) 
 estimates store reg_aj_4
 
-estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 using "$output/tab_aj_pop.tex", /// write the region results to Tex file
+estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 using "./Drafts/tab_aj_pop.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
 	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///
@@ -281,7 +259,7 @@ qui estadd scalar p_diff = 2*(1-t(e(df_r),abs(_b[1.beta_low#c.comps_res])/_se[1.
 qui estadd scalar p_zero = 2*(1-t(e(df_r),abs(_b[comps_res])/_se[comps_res])) 
 estimates store reg_aj_4
 
-estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "$output/tab_aj_comp.tex", /// write the region results to Tex file
+estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "./Drafts/tab_aj_comp.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
 	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///

@@ -18,6 +18,7 @@ mdir <- "~/dropbox/project/crops"
 ## Set working directories
 refdir  <- paste0(mdir,"/Work") # working files and end data
 codedir <- paste0(mdir,"/Replicate") # code
+draftdir <- paste0(mdir,"/Drafts")
 
 ## Set data directories
 gadmdir <- paste0(mdir,"/data/GADM") # Administrative polygons
@@ -41,6 +42,10 @@ library(raster)
 library(rgdal)
 library(maptools)
 library(rgeos)
+library(ggplot2)
+library(plyr)
+library(rasterVis)
+library(graphics)
 
 ## Set working directory
 setwd(refdir)
@@ -58,7 +63,7 @@ setwd(refdir)
 #source(file.path(codedir,'Crops_Data_CSI_ByCrop.r')) # Caloric data
 #source(file.path(codedir,'Crops_Data_CSI_Max.r')) # Caloric data
 #source(file.path(codedir,'Crops_Data_DMSP_Lights.r')) # Night lights data
-source(file.path(codedir,'Crops_Data_GAEZ_Agro.r')) # Constraint data
+#source(file.path(codedir,'Crops_Data_GAEZ_Agro.r')) # Constraint data
 #source(file.path(codedir,'Crops_Data_GAEZ_Suit.r')) # Suitability data
 #source(file.path(codedir,'Crops_Data_GAEZ_Cult.r')) # Cultivated area
 #source(file.path(codedir,'Crops_Data_KG_Count.r')) # KG zone data

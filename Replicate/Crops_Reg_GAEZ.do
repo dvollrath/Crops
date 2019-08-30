@@ -13,10 +13,10 @@ use "./Work/all_crops_data_gadm2.dta" //
 // Set locals for regressions
 //////////////////////////////////////
 local fe state_id // fixed effect to include
-local rurdvar ln_rurd_2000 // rural density per unit of total land
-local controls urb_perc_2000 ln_light_mean ln_popc_2000 // urban percent and light mean
+local csivar ln_csi_yield // measure of productivity
+local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
+local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
 local dist 500 // km cutoff for Conley SE
-local temperate temp // variable denoting temperate/tropical
 
 //////////////////////////////////////
 // Regressions - different productivity
@@ -39,9 +39,9 @@ estout mirr1 mirr2 hrain1 hrain2 hirr1 hirr2 using "./Drafts/tab_beta_robust_inp
 	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
-//////////////////////////////////////
+///////////////////////////////////////////////////
 // Regressions - different productivity - poor only
-//////////////////////////////////////	
+///////////////////////////////////////////////////	
 
 doreg ln_csi_yield_med_irr `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(pmirr) // call program to do spatial OLS
 

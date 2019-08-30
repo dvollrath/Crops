@@ -108,84 +108,143 @@ or that the elasticity of the intensive production function with respect to land
 \end{equation}
 or that the elasticity of productivity with respect to land per worker, $x_i$, is equal to the negative of the elasticity of aggregate output with respect to land. It is then trivial that the elasticity of productivity with respect to density, $1/x_i$, is equal to the elasticity of aggregate output with respect to land. The Cobb-Douglas assumption used in the main paper is not necessary to derive the main estimating equation used in the paper.
 
-\section{Solving for Labor Share and Real Income}\label{APP_solve}
-In Section 4 of the main paper we solved for $L_A/L$ and $y$, the agricultural labor share and real income, respectively. The algebra leading to equations (17) and (18) in the main paper is as follows. From here forward, any equation references without a prefix, (e.g. (2)), refer to the main paper, while references with a prefix (e.g. (A.2)) refer to this Appendix.
+\section{Specification with capital immobile between sectors}
+In our main derivation, we assume that capital can move freely between agriculture and non-agriculture. If that were not true, then equation (8) in the main paper would be
+\begin{equation}
+    w_{As} = (1-\phi)(1-\beta) (1+\tau_{As}) p_{As} A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} \left(\frac{K_{Ais}}{L_{Ais}}\right)^{\phi(1-\beta)},
+\end{equation}
+and our estimation would be based on
+\begin{equation}
+    \ln A_{Ais} = \beta \ln L_{Ais}/X_{is} - \phi(1-\beta) \ln K_{Ais}/L_{Ais} - \ln w_{As}/p_{As} - \ln (1+\tau_{As}) + \ln (1-\phi)(1-\beta).
+\end{equation}
+Here it becomes obvious that we need to control for \textit{agricultural capital per worker}, rather than aggregate capital per worker. The controls we use - nighttime lights, urban share, and total population - may not be as useful in controlling for this. However, in the robustness checks using DHS data on assets, we do have controls that are explicitly measuring rural assets (livestock, etc..). As these results conform to our baseline, it does not appear that this assumption about mobile capital is driving our results. 
 
-Based on the district-level production functions from (1), total agricultural supply in province $I$ can be written as
+\section{Explicit two-sector model}\label{APP_solve}
+In Section 2 of the paper we derived our estimation equation for $\beta$, and this was done using an aggregate agricultural production function, but without reference to any specific preferences. Here we add assumptions regarding preferences and non-agricultural production so that we can solve for the agricultural labor share and real income per capita in a state as a whole. We show that the elasticity $\beta$ influences how sensitive real income and the share of labor in agriculture are to population and technological change. That model shows that as $\beta$ gets \textit{higher}, the economy gets \textit{more} sensitive to population and technological change.
+
+\subsection{State-level agricultural and non-agricultural production}
+The agricultural sector operates as described in Section 2 of the main paper. We also continue with the assumptions made in the main paper, namely that $p_{Ais} = p_{As}$, $w_{Ais} = w_{Nis} = w_{s}$, and $r_{Ais} = r_{Nis}$. To that we add the assumption that $r_{Ais} = r_{Nis} = r_{s}$, or that capital is mobile across districts within a state. 
+
+These assumptions imply that $K_{Ais}/L_{Ais} = K_{Nis}/L_{Nis} = K_{is}/L_{is} = K_s/L_s$, or that the capital output ratio in each sector, in each district, is identical. This can be seen by examining equations (4) and (7) in the main paper, which show the capital output ratio of a sector in a district as proportion to the wage/rental ratio, which is identical across districts.
+
+In equation (8) of the main paper, we derive the following expression relating the agricultural wage, district agricultural productivity, the district labor/land ratio, and the district capital/labor ratio. With the assumptions here on mobility of labor and capital, this can be re-written slightly as
 \begin{equation}
-Y_A = \sum_{i \in I} A_{i} X_{i}^{\beta} \left(K_{Ai}^{\alpha}L_{Ai}^{1-\alpha}\right)^{1-\beta}. \label{EQ_caL}
+    w_{s} = (1-\phi)(1-\beta) p_{As} A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} \left(\frac{K_{s}}{L_{s}}\right)^{\phi(1-\beta)}.
 \end{equation}
-We know each $L_{Ai}$ from (4). By a similar logic used for labor we can establish that the allocation of capital to any individual location $i$ is
+This equation holds for any two districts $i$ and $j$. Hence we can find that
 \begin{equation}
-    K_{Ai} = A_{i}^{1/\beta} X_i \frac{K_A}{\sum_{j\in I} A_{j}^{1/\beta}X_{j}} \label{EQ_KaX}
+    A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} = A_{Ajs} \left(\frac{X_{js}}{L_{Ajs}}\right)^{\beta}
 \end{equation}
-where $K_A$ is the aggregate allocation of capital to agriculture. Combine (\ref{EQ_KaX}) with the expression in (\ref{EQ_caL}) and we can solve for 
+for any two districts. In addition, we know that $\sum_i L_{Ais} = L_{As}$. Combining the expression above with this summation, one can solve for
 \begin{equation}
-    Y_A = A_A \left(\frac{K_A}{L_A}\right)^{\alpha(1-\beta)} L_A^{1-\beta} \nonumber
+    \frac{L_{Ajs}}{L_{As}} = \frac{A_{Ajs}^{1/\beta} X_{js}}{\sum_i A_{Ais}^{1/\beta} X_{is}} \label{EQ_LaiLa}
+\end{equation}
+which simply says that the fraction of the states agricultural workers that work in district $j$ depends on the size of productivity and land in district $j$ relative to the aggregate productivity and land in the state. As the capital/labor ratios are identical across all districts, the same expression describes the share of total agricultural capital that is employed in district $j$.
+
+Based on the district-level production functions from (1) in the main paper, total agricultural supply in state $s$ can be written as
+\begin{equation}
+Y_{As} = \sum_{i} A_{Ais} X_{is}^{\beta} \left(K_{Ais}^{\alpha}L_{Ais}^{1-\alpha}\right)^{1-\beta}. \label{EQ_Yas}
+\end{equation}
+Combine (\ref{EQ_LaiLa}) and the equivalent expression for capital with (\ref{EQ_Yas}) and we can solve for
+\begin{equation}
+    Y_{As} = A_{As} \left(\frac{K_{As}}{L_{As}}\right)^{\alpha(1-\beta)} L_{As}^{1-\beta} \label{EQ_YA}
 \end{equation}
 where 
 \begin{equation}
-    A_A = \left(\sum_{j\in I} A_{j}^{1/\beta}X_{j} \right)^\beta \nonumber
+    A_{As} = \left(\sum_{j} A_{js}^{1/\beta}X_{js} \right)^\beta \nonumber
 \end{equation}
-is the measure of aggregate agricultural total factor productivity for the province. 
+is the measure of aggregate agricultural total factor productivity for the province.
 
-With the assumption that land earns no return, and the share earned by capital is $\phi_K$ is both sectors, and for labor the share is $\phi_L$ in both sectors, it follows that the capital/labor ratio in both sectors is equal to the aggregate capital labor ratio,
+A similar process can be performed for non-agriculture. The aggregate production function for the state is given by
 \begin{equation}
-    \frac{K_A}{L_A} = \frac{K_N}{L_N} = \frac{K}{L} = \frac{w}{r}\frac{\phi_K}{\phi_L}. \nonumber
+    Y_{Ns} = A_{Ns} \left(\frac{K_{Ns}}{L_{Ns}}\right)^{\phi} L_{Ns}. \label{EQ_YN}
+\end{equation}
+Note that because capital and labor are perfectly mobile, it will be the case that $A_{Ns} = max(A_{N1s},...,A_{NJs})$, where $J$ is the number of districts in the state. That is, all non-agricultural activity will concentrate in the single district with the highest non-agricultural productivity. Given the data we presented on districts, this is not a terrible description of reality, in that many states in our data have mainly rural districts along with one or two significant urban (and hence heavily non-agricultural) districts. If we wanted to allow for more subtlety, we could introduce a fixed factor into non-agriculture, and this would generate a distribution of non-agricultural activity across districts.
+
+\subsection{Preferences and optimization}
+For preferences over those consumption goods, we follow \cite{boppart2014}, who specifies a functional form for the indirect utility function that allows for analysis of structural change involving income effects.\footnote{The functional form is in the price independent generalized linearity (PIGL) preference family. It has a number of attractive properties that Boppart exploits, but which are not relevant for our analysis.} This function results in non-linear Engel curves while still allowing for aggregation across individuals. 
+
+Let the amount of agricultural consumption done per person be $c_A$, the non-agricultural consumption be $c_N$, and $M$ be the nominal income $M$. The nominal price of agricultural goods facing the consumer is $P_A$, and the nominal price of non-agricultural goods is $P_N$ (and hence $p_A = P_A/P_N$). The budget constraint is $M = P_A c_A + P_N c_N$. The demand function for agricultural consumption by individuals with the Boppart preferences is
+\begin{equation}
+    \ln c_A = \ln \theta_A + (1-\epsilon) \ln M + (\gamma - 1) \ln P_A + (\epsilon - \gamma) \ln P_N \label{EQ_ca_demand}
+\end{equation}
+where $\theta_A$ is a preference parameter, and with $\gamma<1$ implying a standard inverse relationship of price and quantity demanded. With $0 < \epsilon < 1$, these preferences imply that the income elasticity of agricultural demand is less than one, capturing Engel's Law. The specific indirect utility function for our model would be $V(P_A,P_N,M) = 1/\epsilon \left(M/P_N\right)^{\epsilon} - \theta_A/\gamma \left(P_A/P_N\right)^{\gamma} - 1/\epsilon + \theta_A/\gamma$.
+
+\subsection{Equilibrium}
+To go further, the most important assumption we make is that the share of output paid to agricultural land is zero. This simplifies the analysis, and ensures that the solutions are not driven by any connection of $\beta$ to the share of output paid to land. 
+
+Total supply must equal total demand, so $Y_{As} = c_A L_s$ and $Y_{Ns} = c_N L_s$, where $c_A$ and $c_N$ are per-capita consumption of agricultural and non-agricultural goods, respectively, and $L_s$ is the total population, with $L_s = L_{As} + L_{Ns}$.
+
+Mobility between sectors ensures that, in nominal terms,
+\begin{equation}
+    P_A \frac{Y_{As}}{L_{As}} = p_N \frac{Y_{Ns}}{L_{Ns}}. \label{EQ_mobility}
+\end{equation}
+We can rearrange this to be
+\begin{equation}
+    \frac{P_A c_A}{P_N c_N} = \frac{L_{As}}{L_{Ns}}, \label{EQ_expend}
+\end{equation}
+which shows that the relative amount of labor employed in agriculture and non-agriculture is equal to the relative expenditures on those goods. With the adding up conditions on state labor and the budget constraint for consumers, it follows that in log terms
+\begin{equation}
+    \ln L_{As}/L_s = \ln P_A c_A/M. \label{EQ_pacaM}
 \end{equation}
 
-Using the equilibrium condition on wages across sectors from (16), we can solve for 
+Turning to the demand function from (\ref{EQ_ca_demand}), we can re-arrange that to
 \begin{equation}
-    \frac{p_A}{p_N} = \frac{Y_N}{L_N}\frac{L_A}{Y_A}.\label{EQ_papn}
+   (1-\epsilon) \ln P_A c_A/M = \ln \theta_A  + (\epsilon-\gamma)(\ln P_N - \ln P_A) - \epsilon \ln c_A. \nonumber
 \end{equation}
-Noting that $Y_N = c_N L$ and $Y_A = c_A L$, we can rearrange this be
+Using the relationships in (\ref{EQ_expend}) and (\ref{EQ_pacaM}), we can find
 \begin{equation}
-    \frac{p_A c_A}{p_N c_N} = \frac{L_A}{L_N}, \label{EQ_expend}
-\end{equation}
-which shows that the relative amount of labor employed in agriculture and non-agriculture is equal to the relative expenditures on those goods. With the adding up conditions $L_A + L_N = L$ and $p_Ac_A + p_N c_N = M$, it follows that in log terms
-\begin{equation}
-    \ln L_A/L = \ln p_A c_A/M. \label{EQ_pacaM}
-\end{equation}
-
-Turning to the demand function from (15), we can re-arrange that to
-\begin{equation}
-   (1-\epsilon) \ln p_A c_A/M = \ln \theta_A  + (\epsilon-\gamma)(\ln p_N - \ln p_A) - \epsilon \ln c_A. \nonumber
-\end{equation}
-Using the relationships in (\ref{EQ_papn}) and (\ref{EQ_pacaM}), as well as the fact that $c_A = (Y_A/L_A)(L_A/L)$, we can substitute here to find
-\begin{equation}
-    (1-\epsilon)\ln L_A/L = \ln \theta_A + (\epsilon-\gamma)\left(\ln Y_N/L_N - \ln Y_A/L_A \right) - \epsilon \left(\ln Y_A/L_A + \ln L_A/L \right). \nonumber
+    (1-\epsilon)\ln L_{As}/L_s = \ln \theta_A + (\epsilon-\gamma)\left(\ln Y_{Ns}/L_{Ns} - \ln Y_{As}/L_{As} \right) - \epsilon \left(\ln Y_{As}/L_{As} + \ln L_{As}/L_s \right). \nonumber
 \end{equation}
 Collecting terms we have
 \begin{equation}
-    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln Y_N/L_N - \gamma \ln Y_A/L_A. \nonumber
+    \ln L_{As}/L_s = \ln \theta_A + (\epsilon-\gamma) \ln Y_{Ns}/L_{Ns} - \gamma \ln Y_{As}/L_{As}. \nonumber
 \end{equation}
-Using the production functions in (13) and (\ref{EQ_caL}), we can write this as
+Using the production functions in (\ref{EQ_YA}) and (\ref{EQ_YN}), we can write this as
 \begin{equation}
-    \ln L_A/L = \ln \theta_A + (\epsilon-\gamma) \ln \left(A_N (K/L)^{\alpha}\right) - \gamma \ln \left(A_A (K/L)^{\alpha(1-\beta)} L_A^{-\beta}\right) - \gamma \beta \ln L + \gamma \beta \ln L, \nonumber
+    \ln  L_{As}/L_s = \ln \theta_A + (\epsilon-\gamma) \ln \left(A_{Ns} (K_s/L_s)^{\alpha}\right) - \gamma \ln \left(A_{As} (K_s/L_s)^{\alpha(1-\beta)} L_{As}^{-\beta}\right) - \gamma \beta \ln L_s + \gamma \beta \ln L_s, \nonumber
 \end{equation}
-where we've added and subtracted the term involving $L$. At this point, what remains is to separate the productivity and capital terms using the logs, and then straightforward algebra to arrive at
+where we've added and subtracted the term involving $L_s$. At this point, what remains is to separate the productivity and capital terms using the logs, and then straightforward algebra to arrive at
 \begin{equation}
-    \ln L_A/L = \ln \theta_A + \frac{\beta\gamma}{1-\beta\gamma} \ln L - \frac{\gamma}{1-\beta\gamma} \ln A_A + \frac{\gamma - \epsilon}{1-\beta\gamma} \ln A_N + \frac{\alpha(\beta\gamma - \epsilon)}{1-\beta\gamma} \ln K/L. \nonumber
+    \ln L_{As}/L_s = \ln \theta_A + \frac{\beta\gamma}{1-\beta\gamma} \ln L_s - \frac{\gamma}{1-\beta\gamma} \ln A_{As} + \frac{\gamma - \epsilon}{1-\beta\gamma} \ln A_{Ns} + \frac{\alpha(\beta\gamma - \epsilon)}{1-\beta\gamma} \ln K_s/L_s. \label{EQ_lnLAL}
 \end{equation}
-Exponentiating this, we arrive at (17) from the main text.
+As we'll ultimately be interested in elasticities of the agricultural labor share with respect to other terms, we leave the expression in logs and the elasticities are easy to read off of the right-hand side.
 
 For real income, in agricultural terms we have
 \begin{equation}
-    y = \frac{M}{p_A} = c_A + \frac{p_N}{p_A} c_N. \nonumber
+    y_s = \frac{M}{P_A} = c_A + \frac{P_N}{P_A} c_N. \nonumber
 \end{equation}
 Using (\ref{EQ_expend}) we can write this as
 \begin{equation}
-    y = c_A + \frac{p_N c_N}{p_A c_A}c_A = c_A \left(1 + \frac{L_N}{L_A}\right) = c_A \frac{L}{L_A}. \nonumber
+    y_s = c_A + \frac{P_N c_N}{P_A c_A}c_A = c_A \left(1 + \frac{L_{Ns}}{L_{As}}\right) = c_A \frac{L_s}{L_{As}}. \nonumber
 \end{equation}
-Noting that $c_A = Y_A/L$, we have that
+Noting that $c_A = Y_{As}/L_s$, we have that
 \begin{equation}
-    y = \frac{Y_A}{L_A} = A_A (K/L)^{\alpha(1-\beta)} (L_A/L)^{-\beta} L^{-\beta}, \nonumber
+    y_s = \frac{Y_{As}}{L_{As}} = A_{As} (K_s/L_s)^{\alpha(1-\beta)} (L_{As}/L_s)^{-\beta} L^{-\beta}. \nonumber
 \end{equation}
-where the second equality follows from (\ref{EQ_caL}). At this point, we can use (17) to plug in for $L_A/L$ in the above equation, and solve for 
+At this point, we can use (\ref{EQ_lnLAL}) to plug in for $L_{As}/L_s$, and solve for 
 \begin{equation}
-    \ln y = \frac{1}{1-\beta\gamma} \ln A_A - \frac{\beta}{1-\beta\gamma} \ln L + \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln A_N + \frac{\alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln K/L. \nonumber
+    \ln y_s = \frac{1}{1-\beta\gamma} \ln A_{As} - \frac{\beta}{1-\beta\gamma} \ln L_s + \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln A_{Ns} + \frac{\alpha(1-\beta) + \alpha\beta(\epsilon-\gamma)}{1-\beta\gamma} \ln K_s/L_s. \label{EQ_lny}
 \end{equation}
-Exponentiating, we arrive at (18) in the main text.
+Again, we leave this in log form to read off the elasticities.
+
+\begin{proposition}
+The elasticities of the agricultural labor share ($L_A/L$) and real income ($y$) with respect to various shocks,
+\begin{enumerate}
+    \item[(a)] Agricultural productivity ($A_{As}$): $\frac{\partial \ln L_{As}/L_s}{\partial \ln A_{As}} = - \frac{\gamma}{1-\beta\gamma}$ and $\frac{\partial \ln y_s}{\partial \ln A_{As}} = \frac{1}{1-\beta\gamma}$
+    \item[(b)] Population ($L_s$): $\frac{\partial \ln L_{As}/L_s}{\partial \ln L_s} = \frac{\beta\gamma}{1-\beta\gamma}$ and $\frac{\partial \ln y_s}{\partial \ln L_s} = - \frac{\beta}{1-\beta\gamma}$
+    \item[(c)] Non-agricultural productivity ($A_{Ns}$): $\frac{\partial \ln L_{As}/L_s}{\partial \ln A_{Ns}} = - \frac{\epsilon-\gamma}{1-\beta\gamma}$ and $\frac{\partial \ln y_s}{\partial \ln A_{Ns}} = \frac{\beta(\epsilon-\gamma)}{1-\beta\gamma}$
+    \item[(d)] Capital/labor ($K_s/L_s$): $\frac{\partial \ln L_A/L}{\partial \ln K_s/L_s} = -\frac{\alpha(\epsilon-\beta\gamma)}{1-\beta\gamma}$ and $\frac{\partial \ln y_s}{\partial \ln K_s/L_s} = \frac{\alpha\beta(\epsilon-\gamma)}{1-\beta\gamma}$
+\end{enumerate}
+are both increasing in absolute value with $\beta$.
+\end{proposition}
+\begin{proof}
+This follows from inspection of (\ref{EQ_lnLAL}) and (\ref{EQ_lny}).
+\end{proof}
+
+This conforms to the intuition explained in the text. One note is that the \textit{sign} of the elasticities with respect to agricultural productivity and population are unambiguous. Agricultural productivity lowers the agricultural labor share and raises real income per capita. To see this, note that $\gamma<1$ so that the demand function is downward sloping, and so $1-\beta\gamma>0$. For population, an increase will raise the agricultural labor share, but decrease real income per capita.
+
+The \textit{sign} of the elasticities with respect to non-agricultural productivity and the capital/labor ratio are ambiguous, and depend on the relative size of $\gamma$ and $\epsilon$. If $\epsilon>\gamma$, then the cross-price elasticity of demand for agriculture is positive with respect to non-agriculture prices. In that case non-agricultural productivity will lower the agricultural labor share (as this productivity lowers the price of non-agricultural goods and people substitute towards them) while also raising real income per capita. For the capital/labor ratio, a similar logic holds. Regardless of the exact values, it is the case that the absolute size of the elasticities is increasing in $\beta$.
 
 \section{Adding Malthusian fertility responses}
 Our main model is static, taking the size of population (and capital) as given. By adding in a simple Malthusian fertility response, one can establish several results related to population density and the land elasticity. 
@@ -240,6 +299,11 @@ The geographic areas provided by IPUMS in the GEOLEV2 variable are in many cases
 The 39 countries included from IPUMS are, with the census date listed: 
 \input{tab_ipums_countries.tex} 
 
+\section{Labor/land and $\beta_g$}
+We can examine how estimated values of $\beta_g$ vary with labor/land ratios at the state level. We have estimated a separate $\beta_g$ for each state in our dataset that contains 10 or more districts within it. In each case, we run the same regression as in (10) of the main paper, excluding the state fixed effect but including the normal controls (e.g. night lights). This gives us a total of 1,018 estimates of $\beta_g$. In Figure \ref{FIG_beta_state} we plot the value of all these $\beta_g$ estimates against the rural labor/land ratio of the state. These estimates are quite noisy, given that the average number of districts within a state is only 26. That does not represent an issue for our baseline resutls. Our baseline regressions with state fixed effects are effectively finding an efficient combination of these separate state-level estimates. 
+
+The dark dashed line shows a simple linear fit for this data. As can be seen there is a slight tendency of the estimated $\beta_g$ values to get larger as a state gets more dense, although the effect is small. Doubling rural labor/land ratios only increase the estimated $\beta_g$ by around 0.004. This positive relationship of the land elasticity and rural labor/land is consistent with land and labor being complements, not substitutes. If anything, the higher rural labor/land ratios of tropical areas would push up our estimated value of $\beta_g$ for that region. The gap in $\beta_g$ between tropical and temperate areas we find in our main results therefore does not appear to be driven by differences in rural labor/land ratios. 
+
 \section{Alternative measure of $A_{isg}$}
 The CSI index used as the baseline measure of $A_{isg}$ combines the raw potential tonnage of production of specific crops with information on their calorie content so that one can compare the \textit{caloric} yield of each crop within a given grid-cell. Then the maximum value of that caloric yield is selected across crops, and those maximums are aggregated across grid-cells in a district to arrive at the $A_{isg}$ measure. This follows Galor and Ozak's (2016) methodology, but there may be an issue with using these calorie counts to compare crops. The calorie count of each crop may not be an accurate measure of the available calories from those crops, given storage and preparation techniques. A worry is that we may have created variation in $A_{isg}$ because of variation in the calorie counts of crops, and that this is driving the results. For example, given paddy rice's very high caloric yield in the Galor and Ozak methodology, it is possible that we are overstating the productivity of districts that are in fact very un-productive from the perspective of farmers, but because they are capable of growing rice, Galor and Ozak have coded them as having very high productivity. This would bias our estimates of $\beta$ down for these areas. 
 
@@ -280,6 +344,20 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 Our baseline samples are Tropical and Temperate. As defined in the main text, the Tropical sample includes districts that are suitable for growing specific crops (cassava, cowpeas, pearl millet, sweet potato, wet rice, yams) but have zero suitability for growing others (barley, buckwheat, oats, rye, white potato, wheat). Temperate is defined in the reverse manner. These definitions exclude 15,692 districts that are capable of growing \textit{both} types of crops. 
 
 Column (1) of Table \ref{TAB_beta_expand} shows the results for just those districts suitable for growing both kinds of crops. The estimated $\beta$ is 0.140, roughly in line with the result for the Tropical sample. Column (2) differs by including any districts that are suitable for Temperate crops (regardless of their suitability for growing Tropical crops). This gives a result of 0.180, smaller than our baseline estimate where we focus on districts suitable only for Temperate crops. Column (3) estimates $\beta$ for any districts that are capable of growing Tropical crops, regardless of their ability to grow Temperate, and the value is 0.132. Again, we see a difference between these two types of regions. However, the gap is smaller, consistent with the fact that we are not distinguishing them as clearly, and the fact that columns (2) and (3) include the 15,692 districts that can grow both kinds of crops. Columns (4)-(6) repeat these regressions, only limiting the sample by excluding districts with large urban areas. We find similar results in this case.
+
+
+\section{Figures}
+\begin{figure}[!htb]
+\begin{center}
+\caption{Relationship of state-level $\beta_g$ and Rural Labor/land Ratio}
+\label{FIG_beta_state}
+\includegraphics[width=1.0\textwidth]{fig_beta_province.eps}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Plotted are the values of $\beta_g$ estimated for each individual state in our dataset that contains 10 or more districts. The specification for these regressions is equation (\ref{EQ_regress}), and includes the controls for (log) night lights, (log) total population, and the percent urban. The value of rural labor/land for a state is total rural population of the state divided by total land area of the state.
+}
+\end{figure}
+\clearpage
+
 
 \section{Robustness Tables}
 \listoftables
@@ -451,6 +529,7 @@ Column (1) of Table \ref{TAB_beta_expand} shows the results for just those distr
 \vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. The coefficient estimate on rural population density indicates the value of $\beta_g$. ``Temperate and tropical'' includes all districts that are suitable for \textit{both} tropical and temperate crops (as defined in the text). ``Any temperate'' includes any district that is suitable for temperate crops (regardless of their suitability for tropical crops), and ``Any tropical'' is defined similarly for tropical crops regardless of suitability for temperate.
 }
 \end{table}
+
 
 
 \end{document}

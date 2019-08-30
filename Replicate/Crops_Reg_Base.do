@@ -14,8 +14,8 @@ use "./Work/all_crops_data_gadm2.dta" //
 //////////////////////////////////////
 local fe state_id // fixed effect to include
 local csivar ln_csi_yield // measure of productivity
-local rurdvar ln_rurd_2000 // rural density per unit of total land
-local controls urb_perc_2000 ln_light_mean ln_popc_2000 // urban percent and light mean and total population
+local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
+local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
 local dist 500 // km cutoff for Conley SE
 
 //////////////////////////////////////
@@ -70,10 +70,10 @@ replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not fo
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 // For only with under certain urban total
-doreg `csivar' `rurdvar' `controls' if urbc_2000<25000, fe(`fe') dist(`dist') comp(temp) tag(urbc) // call program to do spatial OLS
+doreg `csivar' `rurdvar' `controls' if grump_urbc<25000, fe(`fe') dist(`dist') comp(temp) tag(urbc) // call program to do spatial OLS
 
 // For only with under certain urban total
-doreg `csivar' `rurdvar' `controls' if urb_perc_2000<.50, fe(`fe') dist(`dist') comp(temp) tag(perc) // call program to do spatial OLS
+doreg `csivar' `rurdvar' `controls' if grump_urb_perc<.50, fe(`fe') dist(`dist') comp(temp) tag(perc) // call program to do spatial OLS
 
 // For only in "poor" regions
 doreg `csivar' `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(poor) // call program to do spatial OLS

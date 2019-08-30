@@ -1,3 +1,140 @@
+YYY
+
+Y
+
+\subsection{Migration between districts}
+The prior scenario requires the use of controls for non-agricultural productivity and the capital/labor ratio because we assume that there is no movement of factors across districts, and that therefore the wage and rental rate are district-specific. A different scenario involves the assumption that factors are, in fact, mobile across districts within a given state (although no assumption is necessary about migration across states).
+
+If factors are mobile across districts, and the returns are thus equalized, then 
+then for agriculture it must be that $w_{Ais} = w_{As}$ and $r_{Ais} = r_{As}$. This is again consistent with \citet{young2013inequality} and \citet{hklm2017}, and with the evidence shown in the following section that the pervasive evidence of movement between urban and rural areas implies movement across districts, as most districts in our data are almost entirely rural, or contain only very small villages and towns. Note that this assumption does not imply that the agricultural returns to factors are undistorted, or equal to what we would expect in a competitive equilibrium. It only assumes that all districts in the state face a similar wage and rental rate.
+
+In addition, we still assume that goods are free to move between districts, and thus that $p_{Ais} = p_{As}$ for districts within a state. With these two assumptions in place, we can go back to equation (\ref{EQ_minimizing}), take logs, and re-arrange to
+\begin{equation*}
+	\ln A_{Ais} = \alpha + \beta \ln L_{Ais}/X_{is} + \ln p_{As} + \phi(1-\beta)\ln r_{As} + \left[1-\phi(1-\beta)\right] \ln w_{As}.
+\end{equation*}
+Here, the problem of estimating $\beta$ from the relationship of (log) agricultural productivity and the (log) agricultural labor/land ratio becomes straightforward. The price, $p_{As}$, rental rate, $p_{As}$, and wage, $w_{As}$, can all be held constant by including state-level fixed effects in a regression. We do not need to specify how those prices or returns to factors are determined within the state to do this.
+
+
+
+Using this capital/labor ratio together with the first-order condition for labor from \ref{EQ_factorprices} and the production function from (\ref{EQ_production}), the cost-minimizing labor/land ratio will satisfy 
+\begin{equation}
+	\left(\frac{L_{Ais}}{X_{is}}\right)^{\beta} = (1-\beta) p_{Ais} A_{Ais} \left(\frac{\phi}{r_{Ais}}\right)^{\phi(1-\beta)}\left(\frac{(1-\phi)}{w_{Ais}}\right)^{1 - \phi(1-\beta)}. \label{EQ_minimizing}
+\end{equation}
+As would be expected, this ratio depends positively on productivity, $A_{Ais}$, such that for given output and factor prices, the district will employ more labor per unit of land if they are more productive. Similarly, for a given productivity level and output price, higher wages and/or rental rates for capital will be associated with a lower labor/land ratio.
+
+Without proceeding any further in terms of solving for the actual allocation of workers into the agricultural sector, we can use equation (\ref{EQ_minimizing}) to illustrate the idea behind our estimation strategy. The relationship between the agricultural labor/land ratio, $L_{Ais}/X_{is}$, and agricultural productivity, $A_{Ais}$, is governed by the parameter $\beta$. Taking logs of (\ref{EQ_minimizing}) and re-arranging terms, we have
+\begin{equation*}
+	\ln A_{Ais} = \alpha + \beta \ln L_{Ais}/X_{is} + \ln p_{Ais} + \phi(1-\beta)\ln r_{Ais} + \left[1-\phi(1-\beta)\right] \ln w_{Ais}
+\end{equation*}
+where $\alpha$ captures fixed terms involving $\beta$ and $\phi$.\footnote{Formally, $\alpha = -\phi(1-\beta)\ln \phi - \left[1-\phi(1-\beta)\right]\ln (1-\phi) - \ln (1-\beta)$} Holding constant the wage, rental rate, and agricultural price across districts, we could in theory recover an estimate of $\beta$ by from the relationship of (log) agricultural productivity and (log) agricultural labor/land ratio. 
+
+Of course, the central empirical question is whether, in fact, there are conditions under which wages, rental rates, and prices are constant across districts, or if not, whether there are ways to control for them. 
+
+
+
+In the following two sub-sections we show how assumptions regarding the mobility of factors and goods between non-agriculture and agriculture within districts, and the mobility of factors between agricultural sectors in different districts, establish conditions under which we can identify $\beta$. Once we lay those out, in the following section of the paper we show the evidence supporting the assumptions regarding mobility that lay behind that identification.
+
+\subsection{Non-agricultural mobility}
+To continue, consider the non-agricultural sector. It will have first-order conditions
+\begin{eqnarray*}
+    w_{Nis} &=& (1-\phi)\frac{Y_{Nis}}{L_{Nis}} \\ 
+    r_{Nis} &=& \phi \frac{Y_{Nis}}{K_{Nis}},
+\end{eqnarray*}
+which will result in a capital/labor ratio of
+\begin{equation*}
+	\frac{K_{Nis}}{L_{Nis}} = \frac{\phi}{1-\phi} \frac{w_{Nis}}{r_{Nis}}.
+\end{equation*}
+
+Here we introduce the first assumption about the mobility of factors. Let labor and capital move freely between the agricultural and non-agricultural sectors \textit{within} a district, such that the returns to capital and labor are equalized across the sectors. This is consistent with recent evidence by \citet{young2013inequality} and \citet{hklm2017}, which we review in more detail in the next section of the paper. This assumption implies that $w_{Ais} = w_{Nis}$ and $r_{Ais} = r_{Nis}$.\footnote{The evidence cited on worker mobility finds that wages appear to be equalized for workers of similar skill levels, although there is heterogeneity in those skills, and hence in total earnings. As written, the model assumes all workers are identical in human capital. We can allow for a difference between skilled/unskilled workers, and for the agricultural sector and non-agricultural sector to differ in the intensity with which those types of workers are used, and it does not alter the conclusions of this sub-section. See the appendix for a demonstration of this.}
+
+With equal wages and rental rates, it will be the case that the capital/labor ratio in both sectors is equal to the district level capital/labor ratio, or $K_{Ais}/L_{Ais} = K_{Nis}/L_{Nis} = K_{is}/L_{is}$. Using that along with the first-order conditions for labor in both sectors, and the production function in (\ref{EQ_production}) and (\ref{EQ_nonag}), we can solve for
+\begin{equation}
+	\left(\frac{L_{Ais}}{X_{is}}\right)^{\beta} = (1-\beta) \frac{p_{Ais} A_{Ais}}{A_{Nis}} \left(\frac{K_{is}}{L_{is}} \right)^{-\phi\beta}. \label{EQ_laxdistrict}
+\end{equation}
+This indicates that the agricultural labor/land ratio depends on the relative productivity of agricultural compared to non-agriculture ($A_{Ais}/A_{Nis}$), and the size of the capital/labor ratio at the district level. 
+
+The second assumption is that goods (both agricultural and non-agricultural) are free to move \textit{across} districts within a given state/province. We will make the case in the following section that this is plausible given the small size of individual districts. This assumption implies that the relative price of agricultural goods in a district is equal to the state-level relative price, of $p_{Ais} = p_{As}$. While we are assuming that the relative price is equalized across districts, we are not assuming that the relative price is necessarily undistorted. That is, there may be taxes, subsidies, or other frictions that prevent $p_{As}$ from being equal to a competitive equilibrium price. All that we assume here is that this relative price is common to all the districts within a given state/province. 
+
+With that assumption in hand, we can take logs of the relationship in (\ref{EQ_laxdistrict}) and re-arrange to the following
+\begin{equation}
+	\ln A_{Ais} = \alpha + \beta \ln L_{Ais}/X_{is} + \ln p_{As} + \ln A_{Nis} + \phi\beta \ln K_{is}/L_{is},
+\end{equation}
+where now $\alpha = - \ln (1-\beta)$. We could again recover an estimate of $\beta$ by using the relationship of (log) agricultural productivity, $A_{Ais}$, and the (log) agricultural labor/land ratio, $L_{Ais}/X_{is}$. This requires us to hold constant the relative price of agriculture, but that can be accommodated in a regression setting with a state fixed effect, as the term is common to all districts within state $s$. 
+
+We also have to hold constant the non-agricultural productivity level and the district-level capital/labor ratio. To do this, we can introduce controls. In particular, we have data on district-level night lights to proxy for the capital/labor ratio at the district level, as well as the non-agricultural productivity level (described in detail below). In addition, the percent urban in the district is a proxy for both non-agricultural productivity and the capital/labor ratio in this setting, as the percent urban will be a positive function of non-agricultural productivity and the capital/labor ratio. Total population (or urban population) of a district can also be included as a control, allowing for the idea of agglomeration effects influencing the level of productivity in the non-agricultural sector.
+
+
+\subsection{Theoretical setting}
+Consider a district $i$ located in province (or state) $s$. Let the aggregate agricultural production function for that district be given by
+\begin{equation}
+Y_{Ais} = A_{Ais} X_{is}^{\beta} \left(K_{Ais}^{\phi}L_{Ais}^{1-\phi}\right)^{1-\beta} \label{EQ_production}
+\end{equation}
+where $A_{Ais}$ is total factor productivity, $X_{is}$ is land, $K_{Ais}$ is capital (or any other inputs aside from land and labor), and $L_{Ais}$ is the number of agricultural workers. The land elasticity we are interested in is $\beta$.\footnote{While we have written the function here as Cobb-Douglas, this is solely for ease of exposition. The analysis does not require this. In the Appendix we show that one could use a general constant returns to scale function to derive a similar estimation equation.}
+
+We assume that operators in this district are cost-minimizers, and take the real wage of agricultural workers and real rental rate of agricultural capital as given. The real wage is denoted by $(1+\tau^w_{is})w_{As}$, where $w_{As}$ is the province average wage, and $(1+\tau^w_{is})$ is a district-specific wedge relative to that average wage, similar to the structure used in \cite{hsieh2009misallocation}. For capital, the real rental rate is $(1+\tau^r_{is})r_{As}$, where $r_{As}$ is the province average rental rate, and $(1+\tau^r_{is})$ is a district-specific wedge on that rental rate. These wedges capture any arbitrary distortion, and not just explicit taxes or subsidies set by governments.
+
+Given the real wage and rental rate, the first-order conditions governing the choice of labor and capital to employ are
+\begin{eqnarray}
+    (1+\tau^w_{is})w_{As} &=& (1-\phi)(1-\beta) \frac{Y_{Ais}}{L_{Ais}} \\ \nonumber 
+    (1+\tau^r_{is})r_{As} &=& \phi(1-\beta)\frac{Y_{Ais}}{K_{Ais}}. \label{EQ_factorprices}
+\end{eqnarray}
+Given these two conditions, the capital/labor ratio used in the district will be
+\begin{equation}
+	\frac{K_{Ais}}{L_{Ais}} = \frac{\phi}{1-\phi} \frac{(1+\tau^w_{is})}{(1+\tau^r_{is})} \frac{w_{As}}{r_{As}}. \nonumber
+\end{equation}
+Using this capital/labor ratio together with the first-order condition for labor from (2) and the production function from (\ref{EQ_production}), the cost-minimizing labor/land ratio will satisfy 
+\begin{equation}
+	\left(\frac{L_{Ais}}{X_{is}}\right)^{\beta} = (1-\beta) A_{Ais} \left(\frac{\phi}{(1+\tau^r_{is})r_{As}}\right)^{\phi(1-\beta)}\left(\frac{(1-\phi)}{(1+\tau^w_{is})w_{As}}\right)^{1 - \phi(1-\beta)}. \label{EQ_minimizing}
+\end{equation}
+As would be expected, this ratio depends positively on productivity, $A_{Ais}$, such that for given output and factor prices, the district will employ more labor per unit of land if they are more productive. Similarly, for a given productivity level and output price, higher real wages and/or rental rates for capital will be associated with a lower labor/land ratio.
+
+This relationship forms the basis for our estimation of $\beta$. To make this more clear, take logs of both sides of (\ref{EQ_minimizing}), and re-arrange to the following
+\begin{equation}
+	\ln A_{Ais} = \alpha + \beta \ln L_{Ais}/X_{is} + \tau_{is} + \omega_s, \label{EQ_est}
+\end{equation}
+where $\alpha$ is a collection of fixed parameters.\footnote{Formally, $\alpha = -\phi(1-\beta)\ln \phi/(1-\phi) - \ln (1-\phi) - \ln (1-\beta)$}. The last two terms are defined as:
+\begin{eqnarray}
+	\tau_{is} &=& \phi(1-\beta) \ln (1+\tau^r_{is}) + [1-\phi(1-\beta)] \ln (1+\tau^w_{is}) \\
+	\omega_s &=& \phi(1-\beta) \ln r_{As} + [1-\phi(1-\beta)] \ln w_{As}.
+\end{eqnarray}
+The first term, $\tau_{is}$, is a combined wedge term representing how district $i$ real wages and rental rates deviate from the province averages. The second term, $\omega_s$, captures that province average level of real wages and rental rates. No assumption is necessary about how those province-level rates are set. They may be arbitrarily distorted relative to competitive market equilibrium rates due to taxes, subsidies, barriers to movement of labor and/or capital between provinces, or other frictions. The wedge term $\tau_{is}$ reflects specific policies or distortions (e.g. taxes or subsidies) at the district level. 
+
+The non-agricultural sector is not explicit, but is embedded in the terms involving wages and rental rates. Non-agricultural productivity, taxes, subsidies, or other distortions would, in equilibrium, be reflected in the real rental and wages rates in agriculture. Province-level effects of the non-agricultural sector common to all districts are captured by $\omega_s$. District-specific effects of non-agriculture that create deviations from the province wages or rental rates are picked up by the wedge term $\tau_{is}$.
+
+\subsection{Empirical approach}
+Equation (\ref{EQ_est}) shows, in principle, that we could use variation in $A_{Ais}$ and $L_{Ais}/X_{is}$ to estimate the value of $\beta$ using district level data. The province level of average wages and rental rates, $\omega_s$, can be accounted for by fixed effects. Given those province fixed effects, we can identify $\beta$ by looking at the relationship of $\ln A_{Ais}$ to $L_{Ais}/X_{is}$ across districts \textit{within} a given province. This means that the overall \textit{level} of agricultural productivity or rural density at the province level is not used. Therefore distortions to the price of agricultural goods at the province level, wedges between provinces in the real wage or rental rate, or differences in non-agricultural productivity between provinces may all be present in reality, but do not affect our estimation of $\beta$. In particular, differences across provinces (and countries) in the overall level of development (and hence the level of real wages or the real return to capital) do not influence our estimates.
+
+However, the district-specific wedge, $\tau_{is}$, is unobservable. Thus if there is meaningful variation in the real wage or real rental rate of capital across districts \textit{within} a given province, our estimates of $\beta$ may be biased. We cannot measure these wedges directly, and instead use a set of proxy variables to capture their variation. In practice, we replace the wedge terms in equation (\ref{EQ_est}) with $\delta_{\tau}' \mathbf{Z}_{is}$, so that we have
+\begin{equation}
+	\ln A_{Ais} = \alpha + \beta \ln L_{Ais}/X_{is} + \delta_{\tau}' \mathbf{Z}_{is} + \omega_s, \label{EQ_Omega}
+\end{equation}
+where $\delta_{\tau}'$ is the vector of coefficients on the controls contained in $\mathbf{Z}_{is}$. We discuss the specific controls included at the end of this section.
+
+Prior to that, a second issue with using equation (\ref{EQ_Omega}) to estimate $\beta$ is the measurement of $A_{Ais}$. We address this by using an agro-climatic measure of inherent productivity. In particular, let overall agricultural productivity be defined by 
+\begin{equation}
+	\ln A_{Ais} = \ln A_{Ais}^{Agro} + \rho_s + \delta_{A}' \mathbf{Z}_{is}. \label{EQ_prod}
+\end{equation}
+The first factor is potential agro-climatic productivity, $\ln A_{Ais}^{Agro}$, which captures productivity coming from things such as temperature, rainfall, and soil conditions. This agro-climatic productivity measure is specific to a district. Second, $\rho_s$ captures technological (or institutional or cultural) factors that affect agricultural productivity, common to all districts within a given province $s$. Finally, $\mathbf{Z}_{is}$ captures district-specific observable characteristics that may also influence productivity in agriculture. The term $\delta_{A}'$ is a vector of the effect these characteristics have on productivity, which is distinct from the effect they may have on the wedge term through $\delta_{\tau}'$.
+
+We will measure the agro-climatic productivity term within a district using the work of \cite{galorozak2016}, which is itself built on the Global Agro-ecological Zone project from the \cite{gaez}. We describe the details of the GAEZ data below, but consider it to be a noisy measure of true agro-climatic productivity,
+\begin{equation}
+	\ln A_{Ais}^{GAEZ} = \ln A_{Ais}^{Agro} + \epsilon_{is}. \label{EQ_gaez}
+\end{equation}
+Here $\epsilon_{is}$ is a noise term and is assumed to be uncorrelated with true agro-climatic productivity. In short, we assume that the GAEZ did not make systematic errors in measuring agro-climatic productivity. Assessing that will be part of our robustness checks.
+
+Combining (\ref{EQ_gaez}) with (\ref{EQ_prod}), (\ref{EQ_Omega}), and (\ref{EQ_est}) we arrive at a final specification
+\begin{equation}
+	\ln A^{GAEZ}_{Ais} = \alpha + \beta \ln L_{Ais}/X_{is} + \gamma_{s} + \delta' \mathbf{Z}_{is} + \epsilon_{is}. \label{EQ_regress}
+\end{equation}
+Here, $\gamma_s = \omega_s + \rho_s$ is a province-specific fixed effect which absorbs the province-level differences in real factor prices and the level of agricultural productivity. The vector $\delta' = \delta_{\tau}' + \delta_{A}'$ is the combined effect of the controls in $\mathbf{Z}_{is}$ on factor prices and productivity.
+
+The specification in (\ref{EQ_regress}) will deliver unbiased estimates of $\beta$ so long as our controls and fixed effects ensure that within-province variation in rural density is not related to $\epsilon_{is}$. To the extent that $\epsilon_{is}$ captures simple GAEZ measurement error in inherent productivity, this should not be problematic. However, more worrisome is the possibility of some systematic district-level variation in wedges or agricultural productivity that is related to rural density. We do not have a natural experiment to leverage for random or quasi-random variation in productivity or rural density that would rule this out. We argue instead that the province fixed effects and controls contained in $\mathbf{Z}_{is}$ capture all the relevant variation in district real factor price wedges and unobserved productivity. 
+
+A reason to believe that the district-specific wedges are not very relevant (even if province- or country- level ones may be) is that each district tends to be quite small relative to its province. The median province has 28 disticts, and the median district contains only 6.7\% of total province population and 7.7\% of total province rural population. In absolute terms, the median district contains only about 26,000 total people, and about 12,500 rural residents. The districts in our dataset are not large relative to the wider economy around them, and as such the province-level fixed effects should capture almost all of the relevant variation in real wages, rental rates, and productivity. As part of our robustness checks, we also exclude particular districts from our sample that \textit{are} large in population, or contain urban areas with more than 25,000 residents, as these may be more likely to have significant district-level wedges to factor prices. We also examine only provinces with more than 50 districts, to ensure we are looking at districts that are relatively small with respect to their province.
+
+Beyond that, we have the sets of controls contained in $\mathbf{Z}_{is}$. To summarize, we include measures of district (log) night light density, the district share of population in urban areas, and the (log) total district population. Among many possible relationships in the data, high night light density and large urban share (relative to the province as a whole) can indicate that real wages or rental rates are higher than in surrounding districts, suggesting positive wedges on those two factor prices. A large population (relative to province as a whole) could imply either a positive or negative wedge on factor prices, depending on if agglomeration or congestion effects prevail. We also include polynomials of all three control variables in a robustness check to allow for non-linear relationships between them, wedges, and unmeasured productivity. For a sub-sample of our main data, we also include controls for demographics and household asset data from the Demographic and Health Surveys to provide more proxies for real wages and rental rates. As we show below, the patterns we find for the elasticity $\beta$ are consistent regardless of the controls we include.
+
+
 /Users/dietz/Dropbox/GrowthBlog/GrowthEcon/_posts/2016-01-30-Persistence-Technology.md
 pandoc https://emanuelfontelles.github.io/cv/ -f html-native_divs -o cv.pdf --pdf-engine=xelatex
 pandoc -f html -o deep-roots-2.pdf http://growthecon.com/blog/Deep-Roots-2/ -o deep-roots-2.pdf
