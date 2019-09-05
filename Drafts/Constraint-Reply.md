@@ -4,13 +4,12 @@ author: T. Ryan Johnson and Dietrich Vollrath
 date: August 2019
 ---
 
-This is a consolidated reply, given the situation where you allowed us to pass along prior referee reports. We have grouped the topics or questions from all reviewers, to the extent we could. For some specific points, we included the original referee text, and our reply. 
-
+This is a consolidated reply, given the situation where we were allowed to pass along prior referee reports. We have grouped the major questions from all reviewers to the extent we could. Following those major points are sections addressing some smaller questions from specific referees.
 
 ### Identification
 The primary concern across all referees was in the identification of the land elasticity. Without rehashing the entire setup, the key assumptions are that labor and goods are mobile *between* districts within states. With that assumption, most of the potential confounding variables (e.g. the agricultural wage and the relative price of agricultural goods) get swept up in state fixed effects, and we can identify the land elasticity from the relationship of agricultural productivity and the labor/land ratio. 
 
-In the absence of the mobility of labor and goods, the referees (and your) intuition that our estimates would be biased towards zero is correct. If each district is autarkic, then there is no necessary relationship at all in the cross-section between labor/land ratios and productivity, and hence you would get estimates close to zero. The obvious concern is that in tropical areas there are more restrictions on mobility, for whatever reason, and that explains the low estimated land elasticities. 
+In the absence of the mobility of labor and goods, the referees (and editors) intuition that our estimates would be biased towards zero is correct. If each district is autarkic, then there is no necessary relationship at all in the cross-section between labor/land ratios and productivity, and hence you would get estimates close to zero. The obvious concern is that in tropical areas there are more restrictions on mobility, for whatever reason, and that explains the low estimated land elasticities. 
 
 So the core change to the paper was to document and justify the assumption of mobility across districts that allows us to use the state fixed effects to handle the unoberved (but common to all districts within a state) wage and relative price. The new section 2 of the paper provides that evidence, which we felt needed to come before the empirical set-up so that the source of the assumptions was clear. We do a few things there:
 
@@ -19,9 +18,7 @@ So the core change to the paper was to document and justify the assumption of mo
 3. We discuss the results in Young's recent paper on urban/rural migration, which documents the substantial movement of people back and forth between those areas, and how the data is consistent with an equalization of wages (per unit of human capital) across those areas. Further, we discuss results in a working paper by Hicks, Kleemans, Yi, and Miguel showing similar results using longitudinal data. They have individual level controls for human capital (including a crude IQ proxy) and show that conditional on that, wages are equalized, and also that movement is substantial between urban and rural areas.
 4. We use the universe of DHS surveys to look at the questions on migration, mimicking to some degree what Young did in his paper. This allows us to document that within developing countries a substantial number of people have moved at some point in their life, and that the share moving recently (last 5 years) is also substantial. Further, for a subset of those DHS surveys we have some information on place of origin, and show there is regular movement of people from rural to urban and urban to rural.
 
-Combined, we use that to justify a conclusion that there is movement across districts within states. The substantial movement of people from rural to urban areas (and in reverse) and the wage equalization documented by Young and Hicks et al suggests free mobility between urban and rural areas. As many or most districts within states (in particular in developing countries) have negligible urban areas, then urban/rural movement necessarily implies movement between districts. Layed on top of that is the absolute small size of these districts, and it appears to us an entirely plausible assumption that mobility between districts occurs.
-
-In specific cases, the mobility assumption may not hold. The obvious example being China. We can exclude them from the regressions, with no change in results. We can also restrict ourselves only to those countries that have the DHS data that shows movement, and the results hold. 
+Combined, we use that to justify a conclusion that there is movement across districts within states. The substantial movement of people from rural to urban areas (and in reverse) and the wage equalization documented by Young and Hicks et al suggests free mobility between urban and rural areas. As many or most districts within states (in particular in developing countries) have negligible urban areas, then urban/rural movement necessarily implies movement between districts. Layed on top of that is the absolute small size of these districts, and it appears to us a plausible assumption that mobility between districts occurs. For specific exceptions, such as China, there is no change in our results from excluding them (and in fact Chinese districts tend to be excluded from our baseline results because they are capable of growing both temperate and tropical crops).
 
 We think the new Section 3 of the paper, which lays out the theoretical setting to derive the estimation equation, is now more clear. It takes the assumptions generated in Section 2, and shows how applying them to our setting allows us to control for unobservables by using state fixed effects. 
 
@@ -30,31 +27,71 @@ This doesn't get us totally out of the woods, however. We assume that capital ca
 ### Alternative estimation strategies
 This paper is effectively estimating a production function, albeit only one parameter of it. As several reviewers noted, there is a deep and thorough literature on doing this from a firm (or possibly farm) level. They wonder why we don't approach the question that way. A few thoughts on this:
 
-1. The short answer is that they're asking for an entirely different paper. No, we don't use firm-level techniques (Olley-Pakes, Ackerberg-Caves-Frasier) because we don't have units of observation (districts) that have panel data on output and *all* inputs to production. Hence we came up with this methodology, which essentially is to look at as small units as possible, to come up with estimates. It isn't a standard technique because the standard technique didn't apply to this setting. 
+1. The short answer is that they're asking for an entirely different paper. No, we don't use firm-level techniques (Olley-Pakes, Levinsohn-Petrin, Ackerberg-Caves-Frasier) because we don't have units of observation (districts) that have panel data on output and *all* inputs to production. Hence we came up with this methodology, which essentially is to look at as small units as possible, in the cross-section, which allowed us to get estimates without panel data. Our paper isn't using a standard technique because the standard technique didn't apply to this setting. 
 2. We could apply firm-level techniques to farm-level panel data. But then we'd be estimating farm-level production functions in a limited number of contexts. We want to estimate an aggregate elasticity, which need not be identical to the farm-level elasticity. And if there was variation between farm-level results in tropical and temperate contexts, we wouldn't have enough results to know if that represented systematic variation in the elasticities between those geographic areas. 
 
-There isn't anything we can really "fix" here, without starting from scratch. 
+We've made the decision here to go for global coverage in this case, and it requires a different approach than the panel firm-level approach often used in I/O or other contexts. Those firm-level approaches require their own assumptions about timing of capital versus labor decisions and price-taking that may or may not be more reasonable than the mobility assumptions we adopt given the evidence in Section 2.
 
 ### Aggregated elasticities
-A few reviewers wanted a better summary of the elasticity results at the country level. This is subject to a number of caveats, but the indication from reviewers was that those caveats were acceptable given the interest in those numbers. Hence we've now provided an appendix table (it seemed a bit long for the main paper) which shows the aggregate land elasticity. 
+A few reviewers wanted a better summary of the elasticity results at the country level and/or more information on how our definition of tropical and temperate regions mapped to the globe. We've added a new Figure 1, which is the pixel-level map of the globe, with pixels coded as temperate, tropical, or "both" (meaning they can produce either kind of crop). This gives the reader a sense of where these regions are located, and is helpful in showing that the temperate region (in particular) is not confined to solely high latitude areas in North America and Eurasia. 
 
-In addition, a map of these results was suggested by several reviewers. We've made two that may be of interest.
-
-1. A map showing just the districts that we classify as "Temperate" or "Tropical" and use in the baseline regression. 
-2. A map showing an aggregate elasticity for each country.
+For the aggregated elasticities (new section 4.9), this is subject to a few caveats we discuss in that section. But the reviewers seemed to be comfortable with some caveats, so we included the aggregate elasticities. Table 8 shows country-level land elasticities based on our estimates and district-level data. An additional appendix Table A.3 shows land elasticities calculated with our estimates and using pixel-level data. They are consistent with one another.
 
 ### The full model
-There are both small and large issues here. The large issue is that some reviewers don't see the need for the fully specified model, as the conclusion seems obvious. It could be replaced with a few paragraphs explaining the intuition. We've kept the model in the paper in this draft, but this is something we'd be happy to move to the appendix. 
+There are both small and large issues here. The large issue is that some reviewers don't see the need for the fully specified model, as the conclusion seems obvious. Given that comment, and in light of the extra material we've added to the main text, we've moved the mathematics of the full model to the appendix. In its place (Section 5.1) we've included an intuitive description of why the land elasticity matters for the agricultural labor share and real income.
 
-On the small issues:
-1. The interpretation of the Boppart preferences, and whether ag/non-ag are considered substitutes or complements
-2. 
+On the small issues. There were some questions about the interpretation of the Boppart preferences, and whether ag/non-ag are considered substitutes or complements. This is in part about a choice of the values of parameters, which in the original draft we made explicit. However, the conclusions about how the land elasticity determines the sensitivity of the agricultural labor share or real income to shocks holds regardless of the choice of those parameters. In short, the land elasticity makes the response of labor share and real income more sensitive to shocks, regardless of the sign of the response. 
 
+One note here is that the sign of the effect of agricultural productivity and population are not ambiguous, regardless of assumptions on parameters in the Boppart setting. Higher agricultural productivity lower the agricultural labor share and raises real incomes. Higher population increases the agricultural labor share and lowers real incomes. The assumption about complements/substitutes of ag/non-ag only affected the sign of the effect of non-agricultural productivity or capital shocks.
 
 ### Data sources and timing
-Several referees expressed concern with the HYDE population data, given the underlying data sources. The prior version showed results were robust to both GRUMP (associated with the CIESIN gridded population of the world project) or IPUMS, but in this version we've made the GRUMP data the baseline. This in fact shows stronger results than before.
+Several referees expressed concern with the HYDE population data, given the underlying data sources. The prior version showed results were robust to both GRUMP (associated with the CIESIN gridded population of the world project) or IPUMS. In this version we've made the GRUMP data the baseline. This in fact shows stronger results than before.
 
 One additional question about the population data dealt with timing, and why we used 2000 (rather than 2010). In the case of GRUMP, 2000 is the latest version available, so there is no alternative. HYDE has a later iteration, but for consistency we show robustness of our results using HYDE 2000. We also show that results are robust to using GRUMP from 1990 (their earliest version). 
 
-### Crop types
-Yes, it's about staples. We aren't looking at actual crop output, so we can distinguish cropped area for staples. Why? Because that is probably a more interesting number long run (and might useful historically). f
+### Crop types and applicability
+We build the productivity measures using staple crops, as these are the dominant form of agriculture across most of the world. But of course not every district in every country is producing staple crops, and this raises two questions.
+
+1. Are results robust to cash crops? That is, are we including districts that produce cash crops along with districts that produce staples in our regressions, and thus are we getting a bad estimate of the land elasticity for staple crops? We addressed that in the original draft by excluding districts with more than 5% of their area used for cash crops (Table 4, Panel B, columns 3 and 4). Similarly, we also did robustness by excluding districts with more than 20% of their land used as pasture (Table 4, Panel B, columns 5 and 6)
+2. What are the elasticities for cash crops? That is, if we looked *only* at cash crops, are the land elasticities very different? This we did not address in the original draft, and several referees appear to be asking for this particular number(s). Given that the draft already was going long, we relegated this to the appendix. There is a table A.4 which presents estimates of the land elasticity only for districts that are in the 99th percentile or above in the share of their harvested area given over to that specific cash crop (banana, coffee, cotton, sugarcane, tea, and tobacco). The values of the land elasticity for these crops tend to be in the mid-range between 0.139 (sugarcane) to 0.197 (banana) of land elasticities. One exception is tea, where the estimate is 0.267, higher than in our baseline temperate estimate.
+
+### Referee-specific comments
+These are not full point-by-point responses, as several of the major points were covered already. We've pulled out what we believe are the relevant referee-specific points to provide answers. 
+
+#### Referee 1
+1. "*you assume that agricultural and non-agricultural goods to be substitutes, which seems odd.*" This was a point made regarding the full model. As noted above, the model was moved to the appendix. More relevant, the specific assumption about the size of parameters that led to this assumption is not necessary for our proposition. 
+
+2. "*Why do you assume an exogenous factor income shares?*" this is again a comment on the model, and one that was not necessary, and has been removed. 
+
+#### Referee 2
+
+1. "*The assumption that the components of TFP are log-linear with coefficients of one: is this without loss of generality?*" By components of TFP, the referee is referring to the relationship of the agro-climatic measure we have from the GAEZ and the actual level of agricultural TFP. Yes, the log-linear relationship is an assumption. No, the strict coefficient of one is not necessary. 
+
+2. "*Similarly, the data are a cross-section, not a panel.....Are the results different
+if the HYDE data from 1900 or 1500 are used?*" This is similar to the point made about using firm-level techniques. We don't have panels of output or variation over time in agro-climatic suitability, so we can't use panel techniques. The HYDE data does have population that goes back in time, but as other referees point out (and as we discussed above) this dataset imputes that population to small areas in earlier time periods, so it isn't credible to use as a real source of population data for 1900 or 1500. 
+
+3. "*Technically, the model predictions refer to agricultural labor, not to population*". This was addressed in the original paper when we used the IPUMS data as a robustness check (p. 18-19 in this draft). IPUMS shows that the size of the agricultural labor force (i.e. workers that self-report as in the agricultural sector) is highly correlated with rural population size (a correlation of 0.91). We feel that supports our use of the rural population data, although the referee is technically correct.
+
+4. "*It seems strange to make nighttime lights a control. That appears to be an outcome of both land quality and population*". Given the cross-sectional nature of the data, night lights can be seen as a measure of the fixed capital stock (which is what we describe it as measuring in our methodology in Section 3). Yes, in a dynamic model it would evolve, but for our purposes of comparing districts at one given point in time, we take it as a measure of the "stock" of capital.
+
+5. "*Why do the estimations not require data on non-land inputs?*" We are taking "capital" in our model as a collection of all non-land/non-labor inputs. If they were all mobile between districts, then the state fixed effects would net them out without having to specify them precisely. As it is, we are using the night lights and other controls to proxy for the level of those non-land/non-labor inputs. 
+
+6. "*The specific form of the indirect utility function should be defended, since it isn’t clear to me whether it can be derived from any standard utility function.*" Boppart's (2014) paper provides a justification for the utility function in our expanded model.
+
+7. "*There doesn’t seem to be much consideration of prices or cash crops in this paper.*" Appendix table A.4 shows cash crop estimates, and Table 4 shows robustness to exclusion of cash crops from the baseline. Prices of those cash crops (or any crop) would only be relevant to our estimation if they varied across districts within a state. We think the evidence in Section 2 on the small size of these districts supports the assumption that they operate within similar markets, and face a similar price.
+
+8. "*The section that replicates Acemoglu (and Johnson) should be cut.*" We've received requests throughout the history of this paper to show some tangible way in which the variation in land elasticity is related to observable outcomes. Hence we've retained the results, which we discuss are not meant to necessarily support the Acemoglu and Johnson claims regarding causality. However, the results are certaintly not required to make the point about differences in land elasticity, and could be cut. 
+
+9. "*The authors have made it clear that they are estimating an aggregate production function that need not be approximated by any individual or farm-level production functions that can recovered from micro data.*" We make mention of this on page 3, footnote 5, of the introduction. It seems beyond the scope of this paper to make a full discussion of the way in which aggregate and farm-level production functions could be related.
+
+#### Referee 3
+
+1. "*Moreover, don't you assume in (2) that the shares of factors are identical across all districts within a province?....All this leads me to conclude that, unless I'm missing something, you should provide an explanation for how wages are determined*" In the prior version, we did get caught up discussing factor shares (this is something of a remnant of an earlier critique). In the current draft, that has been removed. We think Section 3 is clear now that *empirically* the exact determination of wages is not crucial, only the assumption that mobility ensures those wages equalize. Thus there could be arbitrary wedges on agricultural (or non-agricultural) wages.
+
+2. "*You use the FAO data for measures of productivity. But, as far as I understand, FAO provides estimates of expected output per unit of land.*" The FAO (through the GAEZ project) does report productivity in output per unit of land. This should not pose a problem for our estimation strategy, as we are assuming that each district takes the amount of land as a fixed endowment. We could assume that districts are attempting to maximize their profit per unit of land (which is fixed), rather than total profits, and arrive at the same conclusions.
+
+#### Referee 4
+
+1. "*As a robustness check, standard errors should be clustered by country as an alternative to Conley errors*". We've done this, and all results remain significant at similar levels. We did not replicate everything in the Appendix, but would be able to if this was felt to be important.
+
+2. "*Slope and elevation are inputs to the GAEZ data, with more rugged areas tending to have lower agricultural productivity....so the authors should include an additional robustness check controlling for ruggedness.*" We think the concern here is that rugged and non-rugged districts may have fundamentally different production functions (different land elasticities) and so comparing them to one another would not give us a true estimate of the land elasticity. In the Appendix, we show that if we limit ourselves to "flat" districts, based on their average slopes or other measures of terrain, give us similar results. There is some decline in the absolute size of the land elasticity for both temperate and tropical zones when the most rugged areas are excluded, but the gap remains significant.

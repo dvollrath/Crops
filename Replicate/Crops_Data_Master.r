@@ -42,9 +42,6 @@ library(raster)
 library(rgdal)
 library(maptools)
 library(rgeos)
-library(ggplot2)
-library(plyr)
-library(rasterVis)
 library(graphics)
 
 ## Set working directory

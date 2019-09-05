@@ -70,10 +70,10 @@ replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not fo
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
 // For only with under certain urban total
-doreg `csivar' `rurdvar' `controls' if grump_urbc<25000, fe(`fe') dist(`dist') comp(temp) tag(urbc) // call program to do spatial OLS
+doreg `csivar' `rurdvar' `controls' if grump_urbc<100000, fe(`fe') dist(`dist') comp(temp) tag(urbc) // call program to do spatial OLS
 
 // For only with under certain urban total
-doreg `csivar' `rurdvar' `controls' if grump_urb_perc<.50, fe(`fe') dist(`dist') comp(temp) tag(perc) // call program to do spatial OLS
+doreg `csivar' `rurdvar' `controls' if p_state_popc_2000<.05, fe(`fe') dist(`dist') comp(temp) tag(perc) // call program to do spatial OLS
 
 // For only in "poor" regions
 doreg `csivar' `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(poor) // call program to do spatial OLS

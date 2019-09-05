@@ -97,7 +97,8 @@ gen ln_area = ln(shape_ha) // log of zone area
 gen ln_csi_yield = ln_csi_cals - ln_area // log yield per area
 label variable ln_csi_yield "Log caloric yield"
 
-foreach c in barley buckwheat rye oat whitepotato wheat cassava cowpea pearlmillet sweetpotato wetrice yams {
+foreach c in barley buckwheat rye oat whitepotato wheat cassava cowpea pearlmillet sweetpotato wetrice yams ///
+			banana coffee cotton oilpalm sunflower tea tobacco sugarbeet sugarcane {
 	gen ln_`c'_yield = ln(`c'_only_cals) - ln_area
 }
 

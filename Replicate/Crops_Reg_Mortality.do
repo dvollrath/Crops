@@ -8,7 +8,7 @@
 // 3. Call regression routines under various assumptions
 //
 //////////////////////////////////////////////////////////////////////
-
+/*
 local limit=10 // minimum number of districts in a country
 local fe state_id // fixed effect to include
 local csivar ln_csi_yield // measure of productivity
@@ -57,26 +57,28 @@ collapse (first) iso id_0 name_0 beta se beta_raw se_raw jv_region jv_subregion 
 
 rename iso shortnam
 save "./Work/crops_country_beta.dta", replace
-
+*/
 clear
 use "./Data/disease.dta" // load AJ data
 capture drop _merge
-merge m:1 shortnam using "./Work/crops_country_beta.dta"
+merge m:1 shortnam using "./Work/district-beta-map.dta"
+//capture drop _merge
+//merge m:1 shortnam using "./Work/crops_country_beta.dta"
 
-gen dry_suit = 0
-replace dry_suit = 1 if suit_brl>0 & suit_bck>0 & suit_rye>0 & suit_oat>0 & suit_wpo>0 & suit_whe>0
-gen wet_suit = 0
-replace wet_suit = 1 if suit_csv>0 & suit_cow>0 & suit_pml>0 & suit_spo & suit_rcw>0 & suit_yam>0
+//gen dry_suit = 0
+//replace dry_suit = 1 if suit_brl>0 & suit_bck>0 & suit_rye>0 & suit_oat>0 & suit_wpo>0 & suit_whe>0
+//gen wet_suit = 0
+//replace wet_suit = 1 if suit_csv>0 & suit_cow>0 & suit_pml>0 & suit_spo & suit_rcw>0 & suit_yam>0
 
 keep if sjbasesamplenoncomm==1 & startrich!=1 & !missing(logGDPperpopworkingage)
 
-drop if beta<0
+drop if wtd_district_beta<0
 
-summ beta, det
+summ wtd_district_beta, det
 capture drop beta_low
 gen beta_low = .
-replace beta_low = 1 if beta<r(p50) & !missing(beta)
-replace beta_low = 0 if beta>=r(p50) & !missing(beta)
+replace beta_low = 1 if wtd_district_beta<.2 & !missing(wtd_district_beta)
+replace beta_low = 0 if wtd_district_beta>=.2 & !missing(wtd_district_beta)
 
 // Pull out country and year FE from each major variable
 qui reg logtotalmaddgdp i.ctry yr????
@@ -262,6 +264,6 @@ estimates store reg_aj_4
 estout reg_aj_1 reg_aj_2 reg_aj_3 reg_aj_4 reg_aj_5 reg_aj_6 using "./Drafts/tab_aj_comp.tex", /// write the region results to Tex file
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
-	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Below}$" "Countries" "Observations")) ///
+	stats(p_zero p_diff N_ctry N_obs, fmt(%9.3f %9.3f %9.0f %9.0f) labels("p-value $\theta=0$" "p-value $\theta=\theta^{Trop}$" "Countries" "Observations")) ///
 	keep(comps_res) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 

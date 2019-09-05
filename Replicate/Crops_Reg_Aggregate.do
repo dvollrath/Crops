@@ -1,51 +1,64 @@
 //////////////////////////////////////
-// Baseline results - Table 2 in paper
+// Aggregate beta values
 //////////////////////////////////////
 
 //////////////////////////////////////
-// Load data and calculate addl variables
+// By pixel
 //////////////////////////////////////
-clear
-estimates clear
-use "./Work/all_crops_data_gadm2.dta" // 
+insheet using "./Work/gadm_pixel_crop_cal.csv", clear comma names // from R, pixel data
+   // See Crops_Map_Country_Beta.r for processing that yields this file
+rename gadm_raster_adm0_category iso // rename to useful names
+rename layer maxcals
+rename map_crop_type crop_type
+
+drop if iso=="NA" // drop empty cells (ocean, etc.)
+drop if maxcals=="NA"
+drop if crop_type=="NA"
+
+destring maxcals, replace // destring to numeric
+destring crop_type, replace
+
+drop if crop_type==0 // eliminate unsuitable cells
+
+bysort iso: egen iso_maxcals = sum(maxcals) // sum calories by country (iso)
+gen beta = 0 // generate a beta variable to hold value for each pixel
+replace beta = .239 if crop_type==1 // assign beta values to pixel
+replace beta = .088 if crop_type==2
+replace beta = .128 if crop_type==3
+gen wtd_maxcals = beta*maxcals/iso_maxcals // generate weighted beta value for each pixel
+
+collapse (rawsum) wtd_maxcals , by(iso) // collapse pixels to country (iso) level
+rename wtd_maxcals beta_pixel // this is pixel-level beta aggregation
+save "./Work/gadm_pixel_crop_beta.dta", replace
+
+insheet using "./Work/gadm36_0_data.csv", clear names
+rename gid_0 iso
+save "./Work/gadm36_0_data.dta", replace
+merge 1:1 iso using "./Work/gadm_pixel_crop_beta.dta"
+drop if beta_pixel==.
+sort name_0
+gen name_short = substr(name_0,1,15)
+
+
+capture file close f_result
+file open f_result using "./Drafts/tab_aggregate_pixel_beta.tex", write replace
+local countries = _N
+
+forvalues i = 1(1)54 {
+	file write f_result (name_short[`i']) " & " %9.3f (beta_pixel[`i']) " & " ///
+		(name_short[`i'+54]) " & " %9.3f (beta_pixel[`i'+54]) " & " ///
+		(name_short[`i'+108]) " & " %9.3f (beta_pixel[`i'+108]) " & " ///
+		(name_short[`i'+162]) " & " %9.3f (beta_pixel[`i'+162]) " \\" _n
+}
+capture file close f_result
 
 //////////////////////////////////////
-// Set locals for regressions
+// By district
 //////////////////////////////////////
-local fe state_id // fixed effect to include
-local csivar ln_csi_yield // measure of productivity
-local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
-local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
-
-//////////////////////////////////////
-// Regressions - temperate and tropical
-//////////////////////////////////////	
-
-// Create dummy to distinguish temperate from tropical on crops
-capture drop temp
-gen temp = .
-replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
-replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
-replace temp = 2 if dry_suit==1 & wet_suit==1 // suitable for BOTH types of crops
-
-
-areg `csivar' if inlist(temp,0,1), absorb(`fe')
-qui predict res_csi, res
-areg `rurdvar' if inlist(temp,0,1), absorb(`fe')
-qui predict res_rurd, res
-areg grump_urb_perc if inlist(temp,0,1), absorb(`fe')
-qui predict res_urb_perc, res
-areg ln_grump_popc if inlist(temp,0,1), absorb(`fe')
-qui predict res_popc, res
-areg ln_light_mean if inlist(temp,0,1), absorb(`fe')
-qui predict res_light_mean, res
-
-reg res_csi res_rurd res_urb_per res_popc res_light_mean  if temp==0
-local beta_tropical = _b[res_rurd]
-reg res_csi res_rurd res_urb_per res_popc res_light_mean if temp==1
-local beta_temperate = _b[res_rurd]
-areg `csivar' `rurdvar' `controls' if temp==2, absorb(`fe')
-local beta_both = _b[`rurdvar']
+// Set values of three zones elasticity
+local beta_tropical = .088
+local beta_temperate = .239
+local beta_both = .128
 
 use "./Work/all_crops_predrop_gadm2.dta", clear // load up ALL districts, even those dropped for estimation
 gen dry_suit = 0
@@ -53,7 +66,7 @@ replace dry_suit = 1 if suit_brl>0 | suit_bck>0 | suit_rye>0 | suit_oat>0 | suit
 gen wet_suit = 0
 replace wet_suit = 1 if suit_csv>0 | suit_cow>0 | suit_pml>0 | suit_spo | suit_rcw>0 | suit_yam>0
 
-capture drop temp
+capture drop temp // drop and generate the temp variable to identify crop type
 gen temp = .
 replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
@@ -61,21 +74,25 @@ replace temp = 2 if dry_suit==1 & wet_suit==1 // suitable for BOTH types of crop
 replace temp = 4 if dry_suit==0 & wet_suit==0 // suitable for NEITHER type of crop
 replace temp = 4 if temp==. // catching any other leftover category
 
-gen district_beta = .
+gen district_beta = .  // create a district-level beta value
 replace district_beta = `beta_tropical' if temp==0
 replace district_beta = `beta_temperate' if temp==1
 replace district_beta = `beta_both' if temp==2
 
-bysort name_0: egen country_cals = sum(cals)
-gen district_cals_perc = cals/country_cals
-gen wtd_district_beta = district_cals_perc*district_beta
+bysort name_0: egen country_cals = sum(cals) // get country level calories
+gen district_cals_perc = cals/country_cals // get district calorie weight
+gen wtd_district_beta = district_cals_perc*district_beta // calorie weighted beta for district
 
-export delimited id_0 id_1 id_2 iso name_0 name_1 objectid district_beta temp using "./Work/district-beta-map.csv", ///
-	delimiter(",") nolabel replace
+//export delimited id_0 id_1 id_2 iso name_0 name_1 objectid district_beta temp using "./Work/district-beta-map.csv", ///
+//	delimiter(",") nolabel replace
+	
+collapse (first) iso id_0 (rawsum) wtd_district_beta , by(name_0) // collapse to country level
 
-collapse (rawsum) wtd_district_beta , by(name_0)
+merge 1:1 iso using "./Work/gadm_pixel_crop_beta.dta" // merge in the pixel-level beta for comparison
 
 drop if wtd_district_beta==0
+rename iso shortnam // for matching with mortality data later
+save "./Work/district-beta-map.dta", replace
 
 replace name_0 = "Bosnia" if name_0=="Bosnia and Herzegovina"
 replace name_0 = "D.R. Congo" if name_0=="Democratic Republic of the Congo"

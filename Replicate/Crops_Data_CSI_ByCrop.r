@@ -10,7 +10,7 @@
 #######################################################################
 
 control <- read.csv(file.path(datadir, "crops_control.csv"), header=TRUE)
-crops <- control[control[,"max"]=="Yes","crop"] # select crop names of crops indicated to be included by "Yes"
+crops <- control[control[,"ind"]=="Yes","crop"] # select crop names of crops indicated to be included by "Yes"
 
 ## Reference rasters and identifier data
 gadm <- raster(file.path(refdir, "gadm_raster_adm2.tif")) # admin boundaries
@@ -19,10 +19,6 @@ csi <- read.csv(file.path(refdir, "gadm28_adm2_data.csv"), header=TRUE)
 
 ## Update working directory for CSI input files
 cworkdir <- paste0(csidir,"/",water) # update CSI data directory
-
-## Define conditional function for use later
-con=function(condition, trueValue, falseValue){
-  return(condition * trueValue + (!condition)*falseValue)}
 
 message(sprintf("\nProcessing stack:\n"))
 
@@ -37,6 +33,21 @@ for (c in crops) { # for each individual crop
   colnames(s) <- c("OBJECTID",paste0(name,"_only_cals",p1500))
   csi <- merge(csi, s, by="OBJECTID")
 }
+# Sugarcane potential (zero calories)
+message(sprintf("\nProcessing: %s\n", "sugarcane"))
+comp <- raster(file.path(gaezdir,"res02_crav6190l_sugc150b_yld.tif"))
+cal <- comp*ha # total potential outout
+s <- zonal(cal,gadm,fun='sum',digits=3,na.rm=FALSE,progress='text')
+colnames(s) <- c("OBJECTID","sugarcane_only_cals") # called "cals" to be consistent, but real output
+csi <- merge(csi, s, by="OBJECTID")
+
+# Tobacco potential (zero calories)
+message(sprintf("\nProcessing: %s\n", "tobacco"))
+comp <- raster(file.path(gaezdir,"res02_crav6190l_toba150b_yld.tif"))
+cal <- comp*ha # total potential outout
+s <- zonal(cal,gadm,fun='sum',digits=3,na.rm=FALSE,progress='text')
+colnames(s) <- c("OBJECTID","tobacco_only_cals") # called "cals" to be consistent, but real output
+csi <- merge(csi, s, by="OBJECTID")
 
 # Save combined data frame to CSV
 write.csv(csi,file=file.path(refdir, paste0("all_csi_only_data",p1500,".csv")),row.names=FALSE, na="")

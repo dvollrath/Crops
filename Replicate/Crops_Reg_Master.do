@@ -22,19 +22,20 @@ do "./Replicate/Crops_Reg_Program.do" // set up program used to run interaction 
 // Scripts to prepare data
 //////////////////////////////////////
 do "./Replicate/Crops_Reg_Collapse.do" // combines separate GIS datasets to one
-do "./Replicate/Crops_Reg_Prep.do" // generates needed variables, set labels
-
-//------ Need only run above this line once -------//
+do "./Replicate/Crops_Reg_Prep.do" // generates needed variables, summary stats (Table 1)
+do "./Replicate/Crops_Reg_IPUMS_Prep.do" // prep IPUMS data for use in Table 4
+do "./Replicate/Crops_DHS_Migration.do" // migration data (Table 2)
 
 //////////////////////////////////////
 // Baseline results table
 //////////////////////////////////////
-do "./Replicate/Crops_Reg_Base.do" // call the main temperate/tropical regressions (Table 2)
-do "./Replicate/Crops_Reg_PopLand.do" // call robustness regressions (Table 3)
-do "./Replicate/Crops_Reg_GAEZ.do" // call productivity regressions (Table 4)
-do "./Replicate/Crops_Reg_DHS.do" // call DHS regressions (Table 5)
+do "./Replicate/Crops_Reg_Base.do" // call the main temperate/tropical regressions (Table 3)
+do "./Replicate/Crops_Reg_PopLand.do" // call robustness regressions (Table 4)
+do "./Replicate/Crops_Reg_GAEZ.do" // call productivity regressions (Table 5)
+do "./Replicate/Crops_Reg_DHS.do" // call DHS regressions (Table 6)
+do "./Replicate/Crops_Reg_Mixed.do" // call mixed region reg (Table 7)
+do "./Replicate/Crops_Reg_Aggregate.do" // calc aggregate betas (Table 8)
+do "./Replicate/Crops_Reg_Mortality.do" // call mortality regressions (Table 9)
 
-do "./Replicate/Crops_Reg_Region.do" // call political region regressions (Appendix)
-do "./Replicate/Crops_Reg_Extend.do" // call extended crop definition regressions (Appendix)
 do "./Replicate/Crops_Reg_ByCrop.do" // call single crop definition regressions (Appendix)
-
+do "./Replicate/Crops_Reg_Climate.do" // call reg by climate zone (Appendix)
