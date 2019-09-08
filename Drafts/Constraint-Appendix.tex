@@ -120,6 +120,25 @@ and our estimation would be based on
 \end{equation}
 Here it becomes obvious that we need to control for \textit{agricultural capital per worker}, rather than aggregate capital per worker. The controls we use - nighttime lights, urban share, and total population - may not be as useful in controlling for this. However, in the robustness checks using DHS data on assets, we do have controls that are explicitly measuring rural assets (livestock, etc..). As these results conform to our baseline, it does not appear that this assumption about mobile capital is driving our results. 
 
+\section{Multiple labor types}
+Our empirical setting is not dependent on the assumption that all labor is homogenous. Allow the production function to have two kinds of labor, unskilled ($U$) and skilled ($S$). Agricultural production is then
+\begin{equation}
+Y_{Ais} = A_{Ais} X_{is}^{\beta} \left(K_{Ais}^{\phi}(U_{Ais}^{\theta}S_{Ais}^{1-\theta})^{1-\phi}\right)^{1-\beta} 
+\end{equation}
+where $\theta$ indicates their relative importance to production. Let producers profit maximize taking the relative price as given, as well as a separate wage for unskilled, $w_{Uis}$, and skilled $w_{Sis}$ workers. Taking first order conditions, the district will employ a ratio of skilled to unskilled workers of
+\begin{equation}
+    \frac{S_{Ais}}{U_{Ais}} = \frac{1-\theta}{\theta}\frac{w_{Uis}}{w_{Sis}}.
+\end{equation}
+Given the mobility assumptions, all districts will use the same ratio of skilled to unskilled workers. Call that ratio $\omega_{SU}$. The total raw number of agricultural workers will be $L_{Ais} = S_{Ais} + U_{Ais}$. With this identity and the ratio of skilled to unskilled workers, production can be written
+\begin{equation}
+    Y_{Ais} = A_{Ais} X_{is}^{\beta} \left(K_{Ais}^{\phi}(L_{Ais}\Omega_{As})^{1-\phi}\right)^{1-\beta} 
+\end{equation}
+where
+\begin{equation}
+    \Omega_{As} = \left(\frac{1}{1+\omega_{SU}} \right)^{\theta} \left(\frac{\omega_{SU}}{1+\omega_{SU}} \right)^{1-\theta}
+\end{equation}
+is a fixed term common to all districts in a state. Given that it is common to all districts, the $\Omega_{Ais}$ term drops out of our regressions. The production function can thus be examined just in terms of $L_{Ais}$, the raw number of agricultural workers.
+
 \section{Explicit two-sector model}\label{APP_solve}
 In Section 2 of the paper we derived our estimation equation for $\beta$, and this was done using an aggregate agricultural production function, but without reference to any specific preferences. Here we add assumptions regarding preferences and non-agricultural production so that we can solve for the agricultural labor share and real income per capita in a state as a whole. We show that the elasticity $\beta$ influences how sensitive real income and the share of labor in agriculture are to population and technological change. That model shows that as $\beta$ gets \textit{higher}, the economy gets \textit{more} sensitive to population and technological change.
 
