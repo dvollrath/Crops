@@ -1,10 +1,13 @@
 ---
-title: Replies to reviewer comments
-author: T. Ryan Johnson and Dietrich Vollrath
+title: Replies to editor and reviewers, MS-2019-3962
 date: September 2019
 ---
 
-This is a consolidated reply, given the situation where we were allowed to pass along prior referee reports. We have grouped the major questions from all reviewers to the extent we could. Following those major questions are sections addressing some smaller questions from specific referees.
+Francesco, thanks again for giving us the chance to resubmit our manuscript. As discussed via e-mail, we've responded to the major questions that were posed by the forwarded referee reports from the JEEA, as well as your own issues. This is a consolidated reply given the situation. We have grouped the major questions from all reviewers to the extent we could. Following those major questions are sections addressing some smaller questions from specific referee reports.
+
+Best,
+
+Dietz and Ryan
 
 ### Identification
 The primary concern across all referees was in the identification of the land elasticity. Without rehashing the entire setup, the key assumptions are that labor and goods are mobile *between* districts within states. With that assumption, most of the potential confounding variables (e.g. the agricultural wage and the relative price of agricultural goods) get swept up in state fixed effects, and we can identify the land elasticity from the relationship of agricultural productivity and the labor/land ratio. 

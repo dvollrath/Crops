@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////
-// Alternate Productivity Measures - Table 4 in paper
+// Alternate Productivity Measures - Table 5 in paper
 ////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////
@@ -15,7 +15,9 @@ use "./Work/all_crops_data_gadm2.dta" //
 local fe state_id // fixed effect to include
 local csivar ln_csi_yield // measure of productivity
 local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
-local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
+local controls grump_urb_perc ln_light_mean ln_grump_popc /// main controls
+	ln_road_total_dens perc_road_tp1 perc_road_tp2 perc_road_tp3 ///
+	ln_agro_slpidx dist_bigcity // distance controls
 local dist 500 // km cutoff for Conley SE
 
 //////////////////////////////////////
@@ -26,11 +28,14 @@ gen temp = .
 replace temp = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
 replace temp = 0 if dry_suit==0 & wet_suit==1 // suitable for trop crops, not for temp
 
-doreg ln_csi_yield_med_irr `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(mirr) // call program to do spatial OLS
+//doreg ln_csi_yield_med_irr `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(mirr) // call program to do spatial OLS
+hdreg ln_csi_yield_med_irr `rurdvar', fe(`fe') controls(`controls') dist(`dist') comp(temp) tag(mirr) // call program to do spatial OLS
 
-doreg ln_csi_yield_hi_rain `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(hrain) // call program to do spatial OLS
+//doreg ln_csi_yield_hi_rain `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(hrain) // call program to do spatial OLS
+hdreg ln_csi_yield_hi_rain `rurdvar', fe(`fe') controls(`controls') dist(`dist') comp(temp) tag(hrain) // call program to do spatial OLS
 
-doreg ln_csi_yield_hi_irr `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(hirr) // call program to do spatial OLS
+//doreg ln_csi_yield_hi_irr `rurdvar' `controls', fe(`fe') dist(`dist') comp(temp) tag(hirr) // call program to do spatial OLS
+hdreg ln_csi_yield_hi_irr `rurdvar', fe(`fe') controls(`controls') dist(`dist') comp(temp) tag(hirr) // call program to do spatial OLS
 
 // Output table
 estout mirr1 mirr2 hrain1 hrain2 hirr1 hirr2 using "./Drafts/tab_beta_robust_input.tex", /// write the region results to Tex file
@@ -38,16 +43,19 @@ estout mirr1 mirr2 hrain1 hrain2 hirr1 hirr2 using "./Drafts/tab_beta_robust_inp
 	cells(b(fmt(3)) se(par fmt(3))) ///
 	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
 	keep(res_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
-	
+
 ///////////////////////////////////////////////////
 // Regressions - different productivity - poor only
 ///////////////////////////////////////////////////	
 
-doreg ln_csi_yield_med_irr `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(pmirr) // call program to do spatial OLS
+//doreg ln_csi_yield_med_irr `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(pmirr) // call program to do spatial OLS
+hdreg ln_csi_yield_med_irr `rurdvar' if inlist(jv_subregion,4,7,8,9), fe(`fe') controls(`controls') dist(`dist') comp(temp) tag(pmirr) // call program to do spatial OLS
 
-doreg ln_csi_yield_hi_rain `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(phrain) // call program to do spatial OLS
+//doreg ln_csi_yield_hi_rain `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(phrain) // call program to do spatial OLS
+hdreg ln_csi_yield_hi_rain `rurdvar' if inlist(jv_subregion,4,7,8,9), fe(`fe') controls(`controls') dist(`dist') comp(temp) tag(phrain) // call program to do spatial OLS
 
-doreg ln_csi_yield_hi_irr `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(phirr) // call program to do spatial OLS
+//doreg ln_csi_yield_hi_irr `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(temp) tag(phirr) // call program to do spatial OLS
+hdreg ln_csi_yield_hi_irr `rurdvar' if inlist(jv_subregion,4,7,8,9), fe(`fe') controls(`controls') dist(`dist') comp(temp) tag(phirr) // call program to do spatial OLS
 
 // Output table and coefficient plot
 estout pmirr1 pmirr2 phrain1 phrain2 phirr1 phirr2 using "./Drafts/tab_beta_robust_input_poor.tex", /// write the region results to Tex file
@@ -65,4 +73,4 @@ coefplot mirr1 || pmirr1 || mirr2 || pmirr2 || hrain1 ///
 	bylabels("Temperate" "Temperate, excl. rich" "Tropical" "Tropical, excl. rich" "Temperate" "Temperate, excl. rich" "Tropical" "Tropical, excl. rich" "Temperate" "Temperate, excl. rich" "Tropical" "Tropical, excl. rich")
 graph export "./Drafts/fig_coef_robust_input.eps", replace as(eps)
 graph export "./Drafts/fig_coef_robust_input.png", replace as(png)	
-		
+	

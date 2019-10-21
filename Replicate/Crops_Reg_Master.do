@@ -15,13 +15,14 @@ set scheme plotplain
 //////////////////////////////////////
 // Scripts to load programs
 //////////////////////////////////////
-do "./Replicate/ols_spatial_HAC.ado" // set up program to do spatial standard errors
+do "./Replicate/ols_spatial_JV.do" // set up program to do spatial standard errors
 do "./Replicate/Crops_Reg_Program.do" // set up program used to run interaction regressions
 
 //////////////////////////////////////
 // Scripts to prepare data
 //////////////////////////////////////
 do "./Replicate/Crops_Reg_Collapse.do" // combines separate GIS datasets to one
+do "./Replicate/Crops_Reg_Distance.do" // create measures of distance to cities
 do "./Replicate/Crops_Reg_Prep.do" // generates needed variables, summary stats (Table 1)
 do "./Replicate/Crops_Reg_IPUMS_Prep.do" // prep IPUMS data for use in Table 4
 do "./Replicate/Crops_DHS_Migration.do" // migration data (Table 2)
@@ -39,3 +40,5 @@ do "./Replicate/Crops_Reg_Mortality.do" // call mortality regressions (Table 9)
 
 do "./Replicate/Crops_Reg_ByCrop.do" // call single crop definition regressions (Appendix)
 do "./Replicate/Crops_Reg_Climate.do" // call reg by climate zone (Appendix)
+do "./Replicate/Crops_Reg_Constraints.do" // call reg using GAEZ constraints as controls (Appendix)
+do "./Replicate/Crops_Reg_Terrain.do" // call reg limiting sample by terrain (Appendix)

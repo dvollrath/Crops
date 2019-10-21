@@ -11,7 +11,7 @@ local gadm = "gadm2"
 
 graph set eps fontface Times
 
-use "./Work/all_crops_collapse_`gadm'.dta", clear
+use "./Work/all_crops_collapse_gadm2_dist.dta", clear
 
 //////////////////////////////////////
 // IDs
@@ -19,6 +19,8 @@ use "./Work/all_crops_collapse_`gadm'.dta", clear
 gen country_id = id_0
 egen state_id = group(id_0 id_1)
 bysort state_id: egen district_count = count(id_2) // create count of districts in a state
+
+gen district_id = _n
 
 gen c = 1 // a constant for use in spatial regression
 
@@ -32,12 +34,15 @@ drop if objectid==. // drop if no GIS identifier
 save "./Work/all_crops_predrop_`gadm'.dta", replace
 
 //////////////////////////////////////
+// Basic area data
+//////////////////////////////////////
+qui gen shape_ha = shape_area*1000000 // convert to hectares
+qui gen ln_cult_area_perc = ln(cult_area_perc) // generate log cultivated percent
+
+//////////////////////////////////////
 // HYDE Population Data Prep
 //////////////////////////////////////
 local years 1900 1950 2000
-
-qui gen shape_ha = shape_area*1000000 // convert to hectares
-qui gen ln_cult_area_perc = ln(cult_area_perc) // generate log cultivated percent
 
 foreach year in `years' {
 	qui gen ln_popd_`year' = ln(popc_`year'/shape_ha) // population density
@@ -55,6 +60,9 @@ foreach year in `years' {
 	label variable ln_popc_`year' "Log population"
 }
 
+//////////////////////////////////////
+// GRUMP Population Data Prep
+//////////////////////////////////////
 qui gen ln_grump_rurd = ln(grump_rur_2000/shape_ha)
 label variable ln_grump_rurd "Log rural density"
 qui gen ln_grump_popc = ln(grump_pop_2000)
@@ -109,6 +117,20 @@ gen ln_csi_yield_hi_rain = ln(cals_hi_rain) - ln_area
 gen ln_csi_yield_hi_irr = ln(cals_hi_irr) - ln_area
 
 //////////////////////////////////////
+// Create road variables
+//////////////////////////////////////
+gen ln_road_total_dens = ln(road_total_dens)
+
+gen perc_road_tp1 = road_tp1_dens/road_total_dens
+gen perc_road_tp2 = road_tp2_dens/road_total_dens
+gen perc_road_tp3 = road_tp3_dens/road_total_dens
+gen perc_road_tp4 = road_tp4_dens/road_total_dens
+gen perc_road_tp5 = road_tp5_dens/road_total_dens
+gen perc_road_major = perc_road_tp1 + perc_road_tp2
+
+gen ln_dist_bigcity = ln(1 + dist_bigcity)
+
+//////////////////////////////////////
 // Create flag for DHS data
 //////////////////////////////////////
 gen dhs_flag = (!missing(dhsid))
@@ -124,19 +146,6 @@ label variable ln_light_mean "Log light density"
 
 bysort state_id: egen ln_light_state_max = max(ln_light_mean)
 gen p_state_light_max = exp(ln_light_mean - ln_light_state_max)
-
-//////////////////////////////////////
-// Clip CSI yield and rural density data
-//////////////////////////////////////
-qui summ ln_csi_yield, det
-drop if ln_csi_yield<r(p1) | ln_csi_yield>r(p99) // drop above 99th and below 1st percentile
-keep if !missing(ln_csi_yield) // remove if missing yield data
-
-// For main year - 2000 - drop extreme values of rural density
-qui summ ln_grump_rurd, det
-drop if ln_grump_rurd<r(p1) | ln_grump_rurd>r(p99) // drop above 99th and below 1st percentile
-keep if !missing(ln_grump_rurd) // remove if missing density data
-drop if grump_rur_2000 <100 // remove districts with very few rural workers
 
 //////////////////////////////////////
 // Create crop groups
@@ -170,12 +179,20 @@ gen cash_area_perc = cash_area/harvarea_sum
 //////////////////////////////////////
 // Create soil quality variables
 //////////////////////////////////////
-gen agro_soil_perc = .
-replace agro_soil_perc = 100 if agro_sq1==0
-replace agro_soil_perc = (agro_sq1-0)*90 + (1-agro_sq1)*100 if agro_sq1>0 & agro_sq1<=1
-replace agro_soil_perc = (agro_sq1-1)*70 + (2-agro_sq1)*90 if agro_sq1>1 & agro_sq1<=2
-replace agro_soil_perc = (agro_sq1-2)*50 + (3-agro_sq1)*70 if agro_sq1>2 & agro_sq1<=3
-replace agro_soil_perc = (agro_sq1-2)*30 + (3-agro_sq1)*50 if agro_sq1>3 & agro_sq1<=4
+gen agro_sq1_dum = round(agro_sq1)
+gen agro_sq2_dum = round(agro_sq2)
+gen agro_sq7_dum = round(agro_sq7)
+gen agro_ric_dum = round(agro_ric)
+gen agro_slpmed_dum = round(agro_slpmed)
+
+gen ln_agro_slpidx = ln(agro_slpidx)
+
+//////////////////////////////////////
+// Create agro-climatic controls
+//////////////////////////////////////
+gen ln_agro_et0 = ln(agro_et0) // Evapotranspiration
+gen ln_agro_lgd = ln(agro_lgd) // temperate growing period
+gen agro_lgd_dum = (agro_lgd>364) // 
 
 //////////////////////////////////////
 // Basic climate zone sums
@@ -317,8 +334,26 @@ replace ipums_flag = 1 if inlist(name_0,"Mozambique","Panama","Peru","Sierra Leo
 replace ipums_flag = 1 if inlist(name_0,"South Sudan","Spain","Sudan","Tanzania","Turkey")
 replace ipums_flag = 1 if inlist(name_0,"Uganda","United States","Venezuela","Zambia")
 
-save "./Work/all_crops_data_`gadm'.dta", replace
+//////////////////////////////////////
+// Apply trimming to extreme values
+//////////////////////////////////////
+qui summ ln_csi_yield, det
+drop if ln_csi_yield<r(p1) | ln_csi_yield>r(p99) // drop above 99th and below 1st percentile
+keep if !missing(ln_csi_yield) // remove if missing yield data
 
+// For main year - 2000 - drop extreme values of rural density
+qui summ ln_grump_rurd, det
+drop if ln_grump_rurd<r(p1) | ln_grump_rurd>r(p99) // drop above 99th and below 1st percentile
+keep if !missing(ln_grump_rurd) // remove if missing density data
+drop if grump_rur_2000 <100 // remove districts with very few rural workers
+
+drop if grump_urb_perc > 0.90 // drop heavily urban districts regardless of density/productivity
+
+//////////////////////////////////////
+// Save dataset
+//////////////////////////////////////
+
+save "./Work/all_crops_data_`gadm'.dta", replace
 
 //////////////////////////////////////
 // Write table of regional membership
@@ -396,12 +431,20 @@ label variable shape_ha_report "Total area (000s ha)"
 gen urbc_report = grump_urbc/1000
 label variable urbc_report "Urban population (000s)"
 
+gen road_total_dens_report = road_total_dens/1000
+label variable road_total_dens_report "Road density (km per sq-km)"
+label variable perc_road_tp1 "Share of roads, highway"
+label variable perc_road_tp2 "Share of roads, primary"
+label variable perc_road_tp3 "Share of roads, secondary"
 
+gen agro_slpidx_report = agro_slpidx/100
+label variable agro_slpidx_report "Slope index (0-100)"
+label variable dist_bigcity "Distance (km) to city w/ 100,000"
 
 capture file close f_result
 file open f_result using "./Drafts/tab_summ_levels.tex", write replace
 
-foreach v in rurd_2000 csi_yield ln_light_mean {
+foreach v in rurd_2000 csi_yield ln_light_mean road_total_dens_report perc_road_tp1 perc_road_tp2 perc_road_tp3 agro_slpidx_report dist_bigcity {
 		local lab: variable label `v' 
 		qui summ `v', det
 		file write f_result "`lab' &" %9.2fc (r(mean)) "&" %9.2fc (r(sd)) "&" %9.2fc (r(p10)) "&" %9.2fc (r(p25)) "&" %9.2fc (r(p50)) "&" ///
@@ -478,13 +521,6 @@ twoway kdensity ln_grump_rurd if temp==0, clcolor(black) ///
 graph export "./Drafts/fig_dens_rurd.png", replace as(png)
 graph export "./Drafts/fig_dens_rurd.eps", replace as(eps)
 
-binscatter ln_csi_yield ln_grump_rurd, ///
-	nquantiles(50) by(temp) mcolors(black gray) msymbol(oh dh) lcolors(black gray) ///
-	xtitle("(Log) labor/land ratio") ytitle("(Log) caloric yield")  ylabel(,nogrid angle(0) format(%9.1f)) ///
-	absorb(state_id) controls(grump_urb_perc ln_light_mean ln_grump_popc) noaddmean ///
-	legend(pos(3) ring(0) cols(1) label(1 "Tropical {&beta}{sub:g} = 0.088") label(2 "Temperate {&beta}{sub:g} = 0.239") region(lwidth(none))) ///
-	savegraph("./Drafts/fig_beta_crop.eps") replace reportreg
-	
 //////////////////////////////////////
 // Create residual variation in main variables
 //////////////////////////////////////

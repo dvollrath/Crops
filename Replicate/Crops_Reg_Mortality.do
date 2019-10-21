@@ -61,7 +61,7 @@ save "./Work/crops_country_beta.dta", replace
 clear
 use "./Data/disease.dta" // load AJ data
 capture drop _merge
-merge m:1 shortnam using "./Work/district-beta-map.dta"
+merge m:1 shortnam using "./Work/district-beta-map.dta", nogenerate
 //capture drop _merge
 //merge m:1 shortnam using "./Work/crops_country_beta.dta"
 

@@ -64,7 +64,7 @@
 
 \vspace{2in} \noindent \textsc{Online Appendix} \hrulefill
 
-\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here. Also included are definitions of countries included in regions used in paper, as well as additional theoretical work related to the model.
+\vspace{.05in} \noindent Robustness checks and alternative assumptions for empirical work from the main paper are contained here. Also included is additional theoretical work related to the model.
 \vspace{.1in} \hrule
 
 \end{titlepage}
@@ -112,13 +112,87 @@ or that the elasticity of productivity with respect to land per worker, $x_i$, i
 \section{Specification with capital immobile between sectors}
 In our main derivation, we assume that capital can move freely between agriculture and non-agriculture. If that were not true, then equation (8) in the main paper would be
 \begin{equation}
-    w_{As} = (1-\phi)(1-\beta) (1+\tau_{As}) p_{As} A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} \left(\frac{K_{Ais}}{L_{Ais}}\right)^{\phi(1-\beta)},
+    w_{As} = (1-\phi)(1-\beta) (1-\tau_{Asi}) p_{As} A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} \left(\frac{K_{Ais}}{L_{Ais}}\right)^{\phi(1-\beta)},
 \end{equation}
 and our estimation would be based on
 \begin{equation}
-    \ln A_{Ais} = \beta \ln L_{Ais}/X_{is} - \phi(1-\beta) \ln K_{Ais}/L_{Ais} - \ln w_{As}/p_{As} - \ln (1+\tau_{As}) + \ln (1-\phi)(1-\beta).
+    \ln A_{Ais} = \beta \ln L_{Ais}/X_{is} - \phi(1-\beta) \ln K_{Ais}/L_{Ais} - \ln w_{As}/p_{As} - \ln (1-\tau_{Asi}) + \ln (1-\phi)(1-\beta).
 \end{equation}
 Here it becomes obvious that we need to control for \textit{agricultural capital per worker}, rather than aggregate capital per worker. The controls we use - nighttime lights, urban share, and total population - may not be as useful in controlling for this. However, in the robustness checks using DHS data on assets, we do have controls that are explicitly measuring rural assets (livestock, etc..). As these results conform to our baseline, it does not appear that this assumption about mobile capital is driving our results. 
+
+\section{Specification with a wage/rent wedge included}
+In our main setting, we allowed for a ``revenue'' wedge on agriculture and non-agricultural production, but not a separate wage or rental rate wedge. If we go back to the profit function for agriculture and add a state-level wage wedge
+\begin{equation}
+    \pi_{Ai} = (1-\tau_{Asi}) p_{As} Y_{Ais} - (1+\tau_{sw}) w_{Ais} L_{Ais} - r_{Ais} K_{Ais},
+\end{equation}
+we can re-solve the problem with this in place. Note that we do not need a separate capital wedge, as this will be redundant in creating a gap in the factor costs to the agricultural producers. 
+
+First order conditions for the producers are now
+\begin{eqnarray}
+    w_{Ais} &=& (1-\phi)(1-\beta) \frac{(1-\tau_{Asi})}{(1+\tau_{sw})} p_{As} \frac{Y_{Ais}}{L_{Ais}} \\ \nonumber 
+    r_{Ais} &=& \phi(1-\beta) (1-\tau_{Asi}) p_{As} \frac{Y_{Ais}}{K_{Ais}}. \label{EQ_factorprices}
+\end{eqnarray}
+which results in a capital/labor ratio of
+\begin{equation}
+    \frac{K_{Ais}}{L_{Ais}} = (1+\tau_{sw}) \frac{\phi}{1-\phi} \frac{w_{Ais}}{r_{Ais}}. \label{EQ_KLag}
+\end{equation}
+$\tau_{sw}$ scales up wages (or lowers them if negative) and in response produers choose a higher capital/labor ratio, no different than if the wage were higher. 
+
+If the non-agricultural sector faces the same $\tau_{sw}$ wage wedge, then from this point forward nothing changes in our model. Both sectors choose the same capital/labor ratio, and that capital/labor ratio is equal to the district aggregate capital/labor ratio, $K_{is}/L_{is}$, which we then have to control for in our regressions.
+
+If the non-agricultural sector faces a different $\tau_{sw}$ wedge, then this complicates the model slightly. The capital/labor ratios in the two sectors would be 
+\begin{eqnarray}
+    \frac{K_{Ais}}{L_{Ais}} &=& (1+\tau_{Asw}) \frac{\phi}{1-\phi} \frac{w_{Ais}}{r_{Ais}} \\
+    \frac{K_{Nis}}{L_{Nis}} &=& (1+\tau_{Nsw}) \frac{\phi}{1-\phi} \frac{w_{Nis}}{r_{Nis}}.
+\end{eqnarray}
+They remain proportional, with 
+\begin{equation}
+    \frac{K_{Ais}}{L_{Ais}} = \frac{(1+\tau_{Asw})}{(1+\tau_{Nsw})}\frac{K_{Nis}}{L_{Nis}}.
+\end{equation}
+Without being identical, we cannot replace $K_{Ais}/L_{Ais}$ with the aggregate capital/labor ratio, and the equilibrium condition underlying our empirical specification (equation 8 in the main paper) is
+\begin{equation}
+    w_{As} = (1-\phi_A)(1-\beta) (1-\tau_{Asi}) p_{As} A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} \left(\frac{K_{Ais}}{L_{Ais}}\right)^{\phi_A(1-\beta)}. 
+\end{equation}
+This means our specification equation for the empirics can be written as
+\begin{equation}
+    \ln A_{Ais} = \beta \ln L_{Ais}/X_{is} - \phi_A(1-\beta) \ln K_{Ais}/L_{Ais} - \ln (1-\tau_{Asi}) - \ln w_{As}/p_{As} + \ln (1-\phi_A)(1-\beta),
+\end{equation}
+and shows that we need some control for agricultural capital/labor ratios. This is identical to the issue raised by having different $\phi$ values by sector, discussed in the following section.
+
+Our results using DHS controls (Table 6 in the main paper) include specific measures of agricultural capital, and our results are consistent (if not indicating a larger spread between temperate and tropical). In addition, even if one believes that our night lights, road density, total population, and urban share controls are measures of the non-agricultural capital/labor ratio, they still provide a control for agricultural capital/labor ratios given that the two ratios are proportional. That is, the variation across districts in non-agricultural capital/labor ratios is still informative about agricultural capital/labor ratios even if the level of the two ratios is not identical.
+
+\section{Specification with different capital elasticities}
+One assumption in our main model is that there is a common $\phi$ parameter governing the elasticity of output to capital (and labor) 
+in both agriculture and non-agriculture. If there were in fact different parameters, our model would still lead to a similar empirical specification. To see this, let agricultural production be
+\begin{equation}
+    Y_{Ais} = A_{Ais} X_{is}^{\beta} \left(K_{Ais}^{\phi_A}L_{Ais}^{1-\phi_A}\right)^{1-\beta}
+\end{equation}
+and non-agricultural production be
+\begin{equation}
+    Y_{Nis} = A_{Nis} K_{Nis}^{\phi_N}L_{Nis}^{1-\phi_N}.
+\end{equation}
+With the same profit-maximization problem taken by each sector as in our baseline model, we would arrive at the following capital/labor ratios in the two sectors,
+\begin{eqnarray}
+    \frac{K_{Ais}}{L_{Ais}} &=& \frac{\phi_A}{1-\phi_A} \frac{w_{Ais}}{r_{Ais}} \\
+    \frac{K_{Nis}}{L_{Nis}} &=& \frac{\phi_N}{1-\phi_N} \frac{w_{Nis}}{r_{Nis}}.
+\end{eqnarray}
+Now, even with the assumption that $w_{Ais} = w_{Nis}$ and $r_{Ais}=r_{Nis}$ the capital/labor ratios will not be identical across the two sectors. We have that
+\begin{equation}
+    \frac{K_{Ais}}{L_{Ais}} = \frac{\phi_A}{1-\phi_A}\frac{1-\phi_N}{\phi_N}\frac{K_{Nis}}{L_{Nis}}. \label{eq_klan}
+\end{equation}
+They are proportional, but not identical. 
+
+Without being identical, we cannot replace $K_{Ais}/L_{Ais}$ with the aggregate capital/labor ratio, and the equilibrium condition underlying our empirical specification (equation 8 in the main paper) is
+\begin{equation}
+    w_{As} = (1-\phi_A)(1-\beta) (1-\tau_{Asi}) p_{As} A_{Ais} \left(\frac{X_{is}}{L_{Ais}}\right)^{\beta} \left(\frac{K_{Ais}}{L_{Ais}}\right)^{\phi_A(1-\beta)}. 
+\end{equation}
+This means our specification equation for the empirics can be written as
+\begin{equation}
+    \ln A_{Ais} = \beta \ln L_{Ais}/X_{is} - \phi_A(1-\beta) \ln K_{Ais}/L_{Ais} - \ln (1-\tau_{Asi}) - \ln w_{As}/p_{As} + \ln (1-\phi_A)(1-\beta),
+\end{equation}
+and shows that we need some control for agricultural capital/labor ratios. This is the identical problem to assuming different wage/rental wedges in agriculture and non-agriculture, discussed in the prior section.
+
+Our results using DHS controls (Table 6 in the main paper) include specific measures of agricultural capital, and our results are consistent (if not indicating a larger spread between temperate and tropical). In addition, even if one believes that our night lights, road density, total population, and urban share controls are measures of the non-agricultural capital/labor ratio, they still provide a control for agricultural capital/labor ratios given that the two ratios are proportional. That is, the variation across districts in non-agricultural capital/labor ratios is still informative about agricultural capital/labor ratios even if the level of the two ratios is not identical.
 
 \section{Multiple labor types}
 Our empirical setting is not dependent on the assumption that all labor is homogenous. Allow the production function to have two kinds of labor, unskilled ($U$) and skilled ($S$). Agricultural production is then
@@ -283,6 +357,23 @@ Examining the exponent on $L_t$, it is clear that this is less than one, making 
 \end{equation}
 From this, one can see the influence of agricultural productivity on population, and hence on population density. Note that the elasticity of steady state population with respect to $A_A$ depends inversely on $\beta$. As the land elasticity gets larger, the effect of agricultural productivity on population size decreases. The positive Malthusian relationship of population size and (agricultural) productivity remains, but because the Malthusian constraint is much tighter when $\beta$ is large, the relationship is not as strong as when $\beta$ is small. 
 
+\section{GAEZ productivity measures and $A_{Ais}$}
+Our empirics rely on the specification that
+\begin{equation}
+    \ln A_{Ais} = \ln A_{As} + \ln A^{GAEZ}_{Ais} + \epsilon_{is},
+\end{equation}
+which implies that $A^{GAEZ}_{Ais}$ and $A_{Ais}$ have an elasticity of exactly one with respect to one another. We justify this from the construction of the underlying GAEZ measures of agro-climatic yields which are used to calculate $A^{GAEZ}_{Ais}$. 
+
+First, note that $A^{GAEZ}_{Ais}$ is measured as a yield (output per hectare), and most important, it is calculated holding input per hectare constant (low, medium, or high input use). Thus a one-percent variation in $A^{GAEZ}_{Ais}$ is measuring a one-percent variation in yield for a given set of inputs per hectare. The theoretical object $A_{Ais}$ is Hicks-neutral TFP. By definition, a one-percent variation in $A_{Ais}$ is associated with a one-percent variation in yield, again holding input use constant. As the elasticity of both $A^{GAEZ}_{Ais}$ and $A_{Ais}$ with respect to yields is one, their elasticity with respect to one another must be equal to one as well. 
+
+What does it mean that GAEZ holds inputs constant in their calculations? First, GAEZ calculates the maximum agro-climatic attainable yield for each crop, which is based on raw energy (sunlight) and available water (evapotranspiration). This represents an upper bound for each pixel, regardless of technologies employed or inputs applied. Second, GAEZ calculates a series of constraints for each pixel that keep yields from reaching those maximums. Examples are high slopes, unworkable soils, or a lack of soil nutrients. Each of these constraints applies some kind of multiplier less than one to the maximum yield. For example, very high slopes might mean a multiplier of 0.25, meaning the pixel can only reach 25\% of the theoretical maximum.
+
+Inputs in GAEZ are a way of alleviating constraints. Terraces, plows, and fertilizer are ways of making up for high slopes, unworkable soil, or a lack of soil nutrients, respectively. Each level of input use changes the constraint multiplier. Low input use might move the slope constraint from 0.25 to 0.5, while medium inputs move the slope constraint to 0.75, and high inputs move the slope constraint to 1.0, meaning that high inputs alleviate the entire constraint posed by high slopes. 
+
+Not all pixels, and therefore not all districts, have identical constraints. And thus the actual amount of input used within a district, even for the same input level (low, medium, and high) might differ. To ensure that this variation is not driving our results, we have looked at the robustness of our results once we control for the explicit constraints that GAEZ uses in their calculations. The specific constraints we identify from the GAEZ methodology as central are: dummies for soil nutrient availability, dummies for soil nutrient retention, dummies for soil workability, dummies for precipitation/evapotranspiration rates, dummies for the slope class, and dummies for the length of growing period. 
+
+In Table \ref{TAB_constraints} we show the results from including all of these constraints in our regressions as controls. The baseline results in columns (1) and (2) show a similar gap between temperate and tropical elasticities, 0.265 to 0.128. When we eliminate districts with urban population more than 50,000, or exclude North American and Europe, the results are nearly identical to our baseline results from the main paper. Variation in constraints across districts is not causing any distinct bias in our estimates.
+
 \section{Demographic and Health Survey Data}
 In the main text, we used Demographic and Health Survey (DHS) data to create controls for demographics and assets at the district level. To do this, we started with all available DHS surveys for which latitude/longitude data was provided for the location of each cluster of surveyed individuals. For each survey, we overlaid these points on the map of 2nd-level political units (districts), creating a concordance of clusters to districts. 
 
@@ -322,14 +413,14 @@ We can examine how estimated values of $\beta_g$ vary with labor/land ratios at 
 
 The dark dashed line shows a simple linear fit for this data. As can be seen there is a slight tendency of the estimated $\beta_g$ values to get larger as a state gets more dense, although the effect is small. Doubling rural labor/land ratios only increase the estimated $\beta_g$ by around 0.004. This positive relationship of the land elasticity and rural labor/land is consistent with land and labor being complements, not substitutes. If anything, the higher rural labor/land ratios of tropical areas would push up our estimated value of $\beta_g$ for that region. The gap in $\beta_g$ between tropical and temperate areas we find in our main results therefore does not appear to be driven by differences in rural labor/land ratios. 
 
-\section{Alternative measure of $A_{isg}$}
-The CSI index used as the baseline measure of $A_{isg}$ combines the raw potential tonnage of production of specific crops with information on their calorie content so that one can compare the \textit{caloric} yield of each crop within a given grid-cell. Then the maximum value of that caloric yield is selected across crops, and those maximums are aggregated across grid-cells in a district to arrive at the $A_{isg}$ measure. This follows Galor and Ozak's (2016) methodology, but there may be an issue with using these calorie counts to compare crops. The calorie count of each crop may not be an accurate measure of the available calories from those crops, given storage and preparation techniques. A worry is that we may have created variation in $A_{isg}$ because of variation in the calorie counts of crops, and that this is driving the results. For example, given paddy rice's very high caloric yield in the Galor and Ozak methodology, it is possible that we are overstating the productivity of districts that are in fact very un-productive from the perspective of farmers, but because they are capable of growing rice, Galor and Ozak have coded them as having very high productivity. This would bias our estimates of $\beta$ down for these areas. 
+\section{Alternative measure of $A^{GAEZ}_{isg}$}
+The CSI index used as the baseline measure of $A^{GAEZ}_{isg}$ combines the raw potential tonnage of production of specific crops with information on their calorie content so that one can compare the \textit{caloric} yield of each crop within a given grid-cell. Then the maximum value of that caloric yield is selected across crops, and those maximums are aggregated across grid-cells in a district to arrive at the $A^{GAEZ}_{isg}$ measure. This follows Galor and Ozak's (2016) methodology, but there may be an issue with using these calorie counts to compare crops. The calorie count of each crop may not be an accurate measure of the available calories from those crops, given storage and preparation techniques. A worry is that we may have created variation in $A^{GAEZ}_{isg}$ because of variation in the calorie counts of crops, and that this is driving the results. For example, given paddy rice's very high caloric yield in the Galor and Ozak methodology, it is possible that we are overstating the productivity of districts that are in fact very un-productive from the perspective of farmers, but because they are capable of growing rice, Galor and Ozak have coded them as having very high productivity. This would bias our estimates of $\beta$ down for these areas. 
 
 To see that this is not driving our results, we have performed separate regressions estiamting $\beta$ where we use a single crop-specific raw yield from GAEZ as the measure of productivity (e.g. wheat or rice). In this case, there is no caloric information employed at all, as we are not trying to combine data across crops. Each district is thus measured on a comparable basis. Table \ref{TAB_indcrop} shows these results. Panel A is for the temperate districts identified in the main paper as those capable of growing the temperate crops, while Panel B is for the tropical districts capable of growing tropical crops. In both panels, the first column replicates our baseline results from Table 2 of the main paper.
 
-For temperate crops, the baseline estimate of $\beta$ is 0.228. The next six columns show the estimated value of $\beta$ if in place of the CSI yield from Galor and Ozak as the $A_{isg}$ variable, we use the raw yield of the specified crop. For example, using just the raw yield of barley to measure $A_{isg}$ in temperate districts, we find an estimated $\beta$ of 0.225. Given that this is nearly identical to the baseline estimate, this indicates that the baseline is not driven simply by the caloric values assigned to barley versus other temperate crops. The rest of the columns show the same kind of result. In each case, the estimate of $\beta$ is very close to 0.228, indicating that the CSI index is not driven by caloric information, but by common variation in the raw productivity of these crops across districts. In Panel B, a similar story is shown. The baseline estimate for the tropical districts is 0.132, while each of the separate columns delivers a result nearly identical, save pearl millet (although still at 0.145). Again, the baseline estimate using the CSI index is not driven simply by the use of calories to weight the different crops.
+For temperate crops, the baseline estimate of $\beta$ is 0.228. The next six columns show the estimated value of $\beta$ if in place of the CSI yield from Galor and Ozak as the $A^{GAEZ}_{isg}$ variable, we use the raw yield of the specified crop. For example, using just the raw yield of barley to measure $A^{GAEZ}_{isg}$ in temperate districts, we find an estimated $\beta$ of 0.225. Given that this is nearly identical to the baseline estimate, this indicates that the baseline is not driven simply by the caloric values assigned to barley versus other temperate crops. The rest of the columns show the same kind of result. In each case, the estimate of $\beta$ is very close to 0.228, indicating that the CSI index is not driven by caloric information, but by common variation in the raw productivity of these crops across districts. In Panel B, a similar story is shown. The baseline estimate for the tropical districts is 0.132, while each of the separate columns delivers a result nearly identical, save pearl millet (although still at 0.145). Again, the baseline estimate using the CSI index is not driven simply by the use of calories to weight the different crops.
 
-The implication of these results is that \textit{any} scheme used to weight raw yields across crops is going to deliver similar results regarding $\beta$. Prices, or alternative means of measuring nutritional quality, if used to construct $A_{isg}$ would still show that temperate areas have larger land elasticities than tropical areas.
+The implication of these results is that \textit{any} scheme used to weight raw yields across crops is going to deliver similar results regarding $\beta$. Prices, or alternative means of measuring nutritional quality, if used to construct $A^{GAEZ}_{isg}$ would still show that temperate areas have larger land elasticities than tropical areas.
 
 \section{Climate zone results}
 For this, we use the K{\"o}ppen-Geiger scheme, which classifies each grid cell on the planet on three dimensions. First are the \textit{main climate} zones: equatorial (denoted with an ``A''), arid (B), warm temperate (C), and snow (D).\footnote{There is another classification of climate, polar (E), but that covers only areas that are uninhabited for all intents and purposes.} Second, each grid-cell has a \textit{precipitation} classification: fully humid (f), dry summers (s), dry winters (w), monsoonal (m), desert (D), and steppe (S). Finally, there is the \textit{temperature} dimension: hot summers (a), warm summers (b), cool summers (c), hot arid (h), and dry arid (k).\footnote{There are three other temperature classifications - extreme continental, polar frost, and polar tundra - that also cover only uninhabited areas.} Each grid cell thus receives either a three or two-part code. The area around Paris, for example, is ``Cfb'', meaning it is a warm temperate area, fully humid (rain throughout the year), with warm summers. The area near Saigon is ``Aw'', meaning it is equatorial, with dry winters. There is no separate temperature dimension assigned to equatorial zones, as it tends to be redundant.
@@ -343,7 +434,7 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 \label{FIG_beta_state}
 \includegraphics[width=1.0\textwidth]{fig_beta_province.eps}
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Plotted are the values of $\beta_g$ estimated for each individual state in our dataset that contains 10 or more districts. The specification for these regressions is equation (\ref{EQ_regress}), and includes the controls for (log) night lights, (log) total population, and the percent urban. The value of rural labor/land for a state is total rural population of the state divided by total land area of the state.
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Plotted are the values of $\beta_g$ estimated for each individual state in our dataset that contains 10 or more districts. The specification for these regressions is equation (10), and includes the controls for (log) night lights, (log) total population, and the percent urban. The value of rural labor/land for a state is total rural population of the state divided by total land area of the state.
 }
 \end{figure}
 \clearpage
@@ -361,7 +452,7 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 \begin{tabularx}{\textwidth}{lXXXXXXX}
 \midrule
 \multicolumn{8}{l}{Panel A: Using only temperate districts defined by crop suitability} \\ \\
-\multicolumn{8}{c}{Dependent variable is $A_{isg}$ measured by:} \\ \\
+\multicolumn{8}{c}{Dependent variable is $A^{GAEZ}_{isg}$ measured by:} \\ \\
  & CSI & Barley & Buckwheat & Oats & Rye & W. Pot. & Wheat \\
  & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\
 \midrule
@@ -369,7 +460,7 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 \midrule
 \\
 \multicolumn{8}{l}{Panel B: Using only tropical districts defined by crop suitability} \\ \\
-\multicolumn{8}{c}{Dependent variable is $A_{isg}$ measured by:} \\ \\
+\multicolumn{8}{c}{Dependent variable is $A^{GAEZ}_{isg}$ measured by:} \\ \\
  & CSI & Cassava & Cowpea & P. Millet & Sw. Pot. & Wet Rice & Yams \\
  & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\
 \midrule
@@ -378,7 +469,7 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 \end{tabularx}
 }
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize The panels differ in the districts included in each regression. In Panel A, only districts that are suitable for temperate agriculture are inclueded (based on the criteria we outline in the paper based on GAEZ suitability measures). In Panel B, on tropical districts are included. The columns differ by the variable used to measure $A_{isg}$, inherent agricultural productivity. Column (1) uses the CSI index from Galor and Ozak (2016), as in our baseline results. Columns (2)-(7) use the raw potential yield (in tonnes) of the crop, from the GAEZ, for the crop specified. Additional controls are as in our basline results, and include province fixed effects. Conley standard errors, adjusted for spatial auto-correlation, are shown in parentheses. 
+\vspace{-.5cm}\singlespacing {\footnotesize The panels differ in the districts included in each regression. In Panel A, only districts that are suitable for temperate agriculture are inclueded (based on the criteria we outline in the paper based on GAEZ suitability measures). In Panel B, on tropical districts are included. The columns differ by the variable used to measure $A_{isg}$, inherent agricultural productivity. Column (1) uses the CSI index from Galor and Ozak (2016), as in our baseline results. Columns (2)-(7) use the raw potential yield (in tonnes) of the crop, from the GAEZ, for the crop specified. All regressions include state fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, log total population, log road density, share of roads of different types, distance to nearest city of 100,000 people, and a log slope index. Conley standard errors, adjusted for spatial auto-correlation, are shown in parentheses. 
 }
 \end{table}
 
@@ -392,7 +483,7 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A_{isg}$)} \\ \\
+\multicolumn{7}{l}{Dependent Variable in all panels: Log caloric yield ($A^{GAEZ}_{isg}$)} \\ \\
 \multicolumn{7}{l}{Panel A: Climate Zones} \\
  & Equatorial & Arid & Temperate & Snow  &     &   \\
  & (1) & (2) & (3) & (4) &  & \\
@@ -418,7 +509,7 @@ What we do in Table \ref{TAB_beta_kg} is divide districts into regions based on 
 \end{tabularx}
 }
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include province fixed effects, a constant, and controls for the district urbanization rate and log density of district nighttime lights. The coefficient estimate on rural population density indicates the value of $\beta_g$. Inclusion of districts is based on whether they have more than 50\% of their land area in the given K{\"o}ppen-Geiger zone. See text for details.
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: Conley standard errors, adjusted for spatial auto-correlation with a cutoff distance of 500km, are shown in parentheses. All regressions include state fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, log total population, log road density, share of roads of different types, distance to nearest city of 100,000 people, and a log slope index. The coefficient estimate on rural population density indicates the value of $\beta_g$. Inclusion of districts is based on whether they have more than 50\% of their land area in the given K{\"o}ppen-Geiger zone. See text for details.
 }
 \end{table}
 \clearpage
@@ -436,7 +527,7 @@ Country & $\beta$ & Country & $\beta$ & Country & $\beta$ & Country & $\beta$ \\
 \end{tabularx}
 }
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: This table reports the aggregated value of the land elasticity, $\beta$, for each country. The aggregate value is a weighted average of the value for tropical pixels (0.088), temperate pixels (0.239), and ``both'' pixels (0.131) that can grow both tropical and temperate crops. The weights in the average are the maximum calories that can be produced in a pixel relative to the maximum calories that can be produced by all pixels in the country. 
+\vspace{-.5cm}\singlespacing {\footnotesize \textbf{Notes}: This table reports the aggregated value of the land elasticity, $\beta$, for each country. The aggregate value is a weighted average of the value for tropical pixels (0.126), temperate pixels (0.287), and ``both'' pixels (0.168) that can grow both tropical and temperate crops. The weights in the average are the maximum calories that can be produced in a pixel relative to the maximum calories that can be produced by all pixels in the country. 
 }
 \end{table}
 
@@ -445,11 +536,11 @@ Country & $\beta$ & Country & $\beta$ & Country & $\beta$ & Country & $\beta$ \\
 \begin{table}[!htb]
 \begin{center}
 \caption{Estimates of $\beta$ for cash crops}
-\label{TAB_indcrop}
+\label{TAB_cashcrop}
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
-\multicolumn{7}{c}{Dependent variable is $A_{isg}$ measured for:} \\ \\
+\multicolumn{7}{c}{Dependent variable is $A^{GAEZ}_{isg}$ measured for:} \\ \\
  & Banana & Coffee & Cotton & Sugarcane & Tea & Tobacco \\
  & (1) & (2) & (3) & (4) & (5) & (6)  \\
 \midrule
@@ -458,7 +549,7 @@ Country & $\beta$ & Country & $\beta$ & Country & $\beta$ & Country & $\beta$ \\
 \end{tabularx}
 }
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize Each column is the result of a regression of the (log) productivity of the specified cash crop on the labor/land ratio. Districts included in each column are those where the percent of total harvested area in the specified crop is above the 99th percentile for the percent across all districts in our dataset. State fixed effects are included, as our our standard controls for (log) night lights, (log) total population, and the urban percent. Standard errors clustered at the state level are reported.
+\vspace{-.5cm}\singlespacing {\footnotesize Each column is the result of a regression of the (log) productivity of the specified cash crop on the labor/land ratio. Districts included in each column are those where the percent of total harvested area in the specified crop is above the 99th percentile for the percent across all districts in our dataset. All regressions include state fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, log total population, log road density, share of roads of different types, distance to nearest city of 100,000 people, and a log slope index. Standard errors clustered at the state level are reported.
 }
 \end{table}
 
@@ -466,7 +557,7 @@ Country & $\beta$ & Country & $\beta$ & Country & $\beta$ & Country & $\beta$ \\
 \begin{table}[!htb]
 \begin{center}
 \caption{Estimates of $\beta$ for terrain classes}
-\label{TAB_indcrop}
+\label{TAB_terrain}
 {\footnotesize
 \begin{tabularx}{\textwidth}{lXXXXXX}
 \midrule
@@ -481,7 +572,51 @@ Country & $\beta$ & Country & $\beta$ & Country & $\beta$ & Country & $\beta$ \\
 \end{tabularx}
 }
 \end{center}
-\vspace{-.5cm}\singlespacing {\footnotesize Sets of regressions differ by exclusion of districts based on their terrain index (GAEZ). A lower terrain index indicates a more rugged terrain, so the regressions are exluding rugged areas, and including only flatter districts. State fixed effects are included, as our our standard controls for (log) night lights, (log) total population, and the urban percent. Standard errors clustered at the state level are reported.
+\vspace{-.5cm}\singlespacing {\footnotesize Sets of regressions differ by exclusion of districts based on their terrain index (GAEZ). A lower terrain index indicates a more rugged terrain, so the regressions are exluding rugged areas, and including only flatter districts. State fixed effects are included, as our our standard controls for (log) night lights, (log) total population, and the urban percent. All regressions include state fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, log total population, log road density, share of roads of different types, distance to nearest city of 100,000 people, and a log slope index. Conley standard errors are reported with a window of 500km.
+}
+\end{table}
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of $\beta$ with GAEZ constraint controls}
+\label{TAB_constraints}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{c}{Dependent variable is $A^{GAEZ}_{isg}$:} \\ \\
+ & \multicolumn{2}{c}{Baseline:} & \multicolumn{2}{c}{Urban pop. $<50K$:} & \multicolumn{2}{c}{Excl. N.A./Europe:} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & Temperate & Tropical & Temperate & Tropical & Temperate & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6)  \\
+\midrule
+\input{tab_beta_robust_input_controls.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize Set of regressions with additional controls for GAEZ agro-climatic constraints included. These constraints are: dummies for soil nutrient availability, dummies for soil nutrient retention, dummies for soil workability, dummies for slope classes, dummies for annual precipitation/evapotranspiration, dummies for whether length of growing period is 365 days or less. All regressions include state fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, log total population, log road density, share of roads of different types, distance to nearest city of 100,000 people, and a log slope index. Conley standard errors are reported with a window of 500km.
+}
+\end{table}
+
+\clearpage
+\begin{table}[!htb]
+\begin{center}
+\caption{Estimates of $\beta$ with Conley standard errors at different distances}
+\label{TAB_conley}
+{\footnotesize
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\midrule
+\multicolumn{7}{c}{Dependent variable is $A^{GAEZ}_{isg}$:} \\ \\
+ & \multicolumn{2}{c}{Baseline (500km):} & \multicolumn{2}{c}{1000km} & \multicolumn{2}{c}{2000km} \\ \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+ & Temperate & Tropical & Temperate & Tropical & Temperate & Tropical \\
+ & (1) & (2) & (3) & (4) & (5) & (6)  \\
+\midrule
+\input{tab_beta_crop_conley.tex}
+\midrule
+\end{tabularx}
+}
+\end{center}
+\vspace{-.5cm}\singlespacing {\footnotesize Set of regressions where distance of spatial autocorrelation is set to different values. All regressions include state fixed effects, a constant, and controls for the district urbanization rate, log density of district nighttime lights, log total population, log road density, share of roads of different types, distance to nearest city of 100,000 people, and a log slope index. Conley standard errors are reported with a window of 500km.
 }
 \end{table}
 

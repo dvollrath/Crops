@@ -30,6 +30,7 @@ kgdir   <- paste0(mdir,"/data/Koeppen-Geiger-GIS") # KG climate zones
 esdir   <- paste0(mdir,"/data/Earthstat") # Earthstat production data
 ipumdir <- paste0(mdir,"/data/IPUMS") # IPUMS data
 grumdir <- paste0(mdir,"/data/GRUMP") # GRUMP population data
+gripdir <- paste0(mdir,"/data/GRIP") # GROADS roady data
 datadir <- paste0(mdir,"/Replicate") # Control files
 
 ## Set crop list, input, and water conditions

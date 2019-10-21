@@ -2,12 +2,6 @@
 # Date: 2016-11-08
 # Author: Dietz Vollrath
 # 
-# Create reference files
-# 1. Read in attributes of GADM file
-# 2. Rasterize the GADM polygons to GAEZ resolution
-# 3. Estimate area in each cell of GADM raster
-# 4. Get area of each zone by doing zonal stats on GADM raster (for QA)
-# 5. Get centroids of GADM1 and GADM2 polygons
 #
 #######################################################################
 

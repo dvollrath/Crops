@@ -3,6 +3,17 @@
 //////////////////////////////////////
 
 //////////////////////////////////////
+// Load data and estimate baseline elasticities
+//////////////////////////////////////
+clear
+estimates clear
+use "./Work/all_crops_data_gadm2.dta" // 
+
+local beta_temp = .285
+local beta_trop = .126
+local beta_mixed = .167
+
+//////////////////////////////////////
 // By pixel
 //////////////////////////////////////
 insheet using "./Work/gadm_pixel_crop_cal.csv", clear comma names // from R, pixel data
@@ -22,9 +33,9 @@ drop if crop_type==0 // eliminate unsuitable cells
 
 bysort iso: egen iso_maxcals = sum(maxcals) // sum calories by country (iso)
 gen beta = 0 // generate a beta variable to hold value for each pixel
-replace beta = .239 if crop_type==1 // assign beta values to pixel
-replace beta = .088 if crop_type==2
-replace beta = .128 if crop_type==3
+replace beta = `beta_temp' if crop_type==1 // assign beta values to pixel
+replace beta = `beta_trop' if crop_type==2
+replace beta = `beta_mixed' if crop_type==3
 gen wtd_maxcals = beta*maxcals/iso_maxcals // generate weighted beta value for each pixel
 
 collapse (rawsum) wtd_maxcals , by(iso) // collapse pixels to country (iso) level
@@ -38,7 +49,6 @@ merge 1:1 iso using "./Work/gadm_pixel_crop_beta.dta"
 drop if beta_pixel==.
 sort name_0
 gen name_short = substr(name_0,1,15)
-
 
 capture file close f_result
 file open f_result using "./Drafts/tab_aggregate_pixel_beta.tex", write replace
@@ -56,10 +66,6 @@ capture file close f_result
 // By district
 //////////////////////////////////////
 // Set values of three zones elasticity
-local beta_tropical = .088
-local beta_temperate = .239
-local beta_both = .128
-
 use "./Work/all_crops_predrop_gadm2.dta", clear // load up ALL districts, even those dropped for estimation
 gen dry_suit = 0
 replace dry_suit = 1 if suit_brl>0 | suit_bck>0 | suit_rye>0 | suit_oat>0 | suit_wpo>0 | suit_whe>0
@@ -75,9 +81,9 @@ replace temp = 4 if dry_suit==0 & wet_suit==0 // suitable for NEITHER type of cr
 replace temp = 4 if temp==. // catching any other leftover category
 
 gen district_beta = .  // create a district-level beta value
-replace district_beta = `beta_tropical' if temp==0
-replace district_beta = `beta_temperate' if temp==1
-replace district_beta = `beta_both' if temp==2
+replace district_beta = `beta_trop' if temp==0
+replace district_beta = `beta_temp' if temp==1
+replace district_beta = `beta_mixed' if temp==2
 
 bysort name_0: egen country_cals = sum(cals) // get country level calories
 gen district_cals_perc = cals/country_cals // get district calorie weight
@@ -103,6 +109,10 @@ replace name_0 = "Eq. Guinea" if name_0=="Equatorial Guinea"
 replace name_0 = "Papau N.G." if name_0=="Papua New Guinea"
 replace name_0 = "Rep. of Congo" if name_0=="Republic of Congo"
 replace name_0 = "Cote d'Ivoire" if name_0=="Côte d'Ivoire"
+
+drop if name_0==""
+sort name_0
+
 capture file close f_result
 file open f_result using "./Drafts/tab_aggregate_beta.tex", write replace
 

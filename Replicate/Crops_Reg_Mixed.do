@@ -1,5 +1,5 @@
 //////////////////////////////////////
-// Baseline results - Table 2 in paper
+// Mixed crop area results - Table 7
 //////////////////////////////////////
 
 //////////////////////////////////////
@@ -15,11 +15,13 @@ use "./Work/all_crops_data_gadm2.dta" //
 local fe state_id // fixed effect to include
 local csivar ln_csi_yield // measure of productivity
 local rurdvar ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
-local controls grump_urb_perc ln_light_mean ln_grump_popc // urban percent and light mean and total population
+local controls grump_urb_perc ln_light_mean ln_grump_popc /// main controls
+	ln_road_total_dens perc_road_tp1 perc_road_tp2 perc_road_tp3 ///
+	ln_agro_slpidx dist_bigcity // distance controls
 local dist 500 // km cutoff for Conley SE
 
 //////////////////////////////////////
-// Regressions - temperate and tropical
+// Regressions mixed districts
 //////////////////////////////////////	
 
 // Create dummy to distinguish temperate from tropical on crops
@@ -29,17 +31,17 @@ replace mixed = 0 if dry_suit==1 & wet_suit==1  // suitable for BOTH, baseline
 replace mixed = 1 if dry_suit==1 & wet_suit==0 // suitable for temp crops, not for trop
 replace mixed = 2 if dry_suit==0 & wet_suit==1 // suitable for trop, not for temp
 
-threereg `csivar' `rurdvar' `controls', fe(`fe') dist(`dist') comp(mixed) tag(base) // call program to do spatial OLS
+hdreg3 `csivar' `rurdvar', controls(`controls') fe(`fe') dist(`dist') comp(mixed) tag(base) // call program to do spatial OLS
 
-threereg `csivar' `rurdvar' `controls' if grump_urbc<100000, fe(`fe') dist(`dist') comp(mixed) tag(urbc) // call program to do spatial OLS
+hdreg3 `csivar' `rurdvar' if grump_urbc<50000, controls(`controls') fe(`fe') dist(`dist') comp(mixed) tag(urbc) // call program to do spatial OLS
 
-threereg `csivar' `rurdvar' `controls' if inlist(jv_subregion,4,7,8,9), fe(`fe') dist(`dist') comp(mixed) tag(poor)
+hdreg3 `csivar' `rurdvar' if inlist(jv_subregion,4,7,8,9), controls(`controls') fe(`fe') dist(`dist') comp(mixed) tag(poor)
 
-threereg `csivar' ln_grump_rurd_cult ln_cult_area_perc `controls', fe(`fe') dist(`dist') comp(mixed) tag(cult)
+hdreg3 `csivar' ln_grump_rurd_cult, controls(ln_cult_area_perc `controls') fe(`fe') dist(`dist') comp(mixed) tag(cult)
 
-threereg `csivar' `rurdvar' `controls' if cash_area_perc<.05, fe(`fe') dist(`dist') comp(mixed) tag(cash)
+hdreg3 `csivar' `rurdvar' if cash_area_perc<.10, controls(`controls') fe(`fe') dist(`dist') comp(mixed) tag(cash)
 
-threereg ln_csi_yield_hi_rain `rurdvar' `controls', fe(`fe') dist(`dist') comp(mixed) tag(hirain)
+hdreg3 ln_csi_yield_hi_rain `rurdvar', controls(`controls') fe(`fe') dist(`dist') comp(mixed) tag(hirain)
 
 // Output tables and coefficient plot
 estout base1 urbc1 poor1 cult1 cash1 hirain1 using "./Drafts/tab_beta_mixed_base.tex", /// write the region results to Tex file
@@ -51,7 +53,7 @@ estout base1 urbc1 poor1 cult1 cash1 hirain1 using "./Drafts/tab_beta_mixed_base
 coefplot base1 || urbc1 || poor1 || cult1 || cash1 ||hirain1, ///
 	keep(res_rurd) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(0(.05).35,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
-	bylabels("Baseline" "Urban Pop < 25K" "Ex. Eur. and NA" "Cultivated land" "Ex. Cash crop" "High input prod.")
+	bylabels("Baseline" "Urban Pop < 50K" "Ex. Eur. and NA" "Cultivated land" "Ex. Cash crop" "High input prod.")
 graph export "./Drafts/fig_coef_mixed_base.png", replace as(png)
 graph export "./Drafts/fig_coef_mixed_base.eps", replace as(eps)
 

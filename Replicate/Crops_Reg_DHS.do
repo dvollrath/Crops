@@ -1,5 +1,5 @@
 //////////////////////////////////////
-// Baseline results - Table 2 in paper
+// Results with DHS controls
 //////////////////////////////////////
 
 //////////////////////////////////////
@@ -15,7 +15,9 @@ use "./Work/all_crops_data_gadm2.dta" //
 local fe state_id // fixed effect to include
 local csivar ln_csi_yield // measure of productivity
 local rurdvar c.ln_grump_rurd //ln_rurd_2000 // rural density per unit of total land
-local controls c.grump_urb_perc c.ln_light_mean c.ln_grump_popc // urban percent and light mean and total population
+local controls c.grump_urb_perc c.ln_light_mean c.ln_grump_popc /// urban percent and light mean and total population
+	c.ln_road_total_dens c.perc_road_tp1 c.perc_road_tp2 c.perc_road_tp3 ///
+	c.ln_agro_slpidx // distance controls
 local dhshead c.dhs_p50_head_ed_years c.dhs_p50_head_age c.dhs_p50_hh_mem_dejure // dhs_p10_head_ed_years dhs_p10_head_age dhs_p10_hh_mem_dejure dhs_p90_head_ed_years dhs_p90_head_age dhs_p90_hh_mem_dejure
 local dhsasset c.dhs_hh_land c.dhs_hh_cattle_dum c.dhs_hh_draft_dum c.dhs_hh_sheep_dum c.dhs_hh_bank c.dhs_hh_flush c.dhs_hh_elec
 local dist 500 // km cutoff for Conley SE
@@ -23,7 +25,6 @@ local dist 500 // km cutoff for Conley SE
 //////////////////////////////////////
 // Regressions - temperate and tropical
 //////////////////////////////////////	
-
 capture drop temp
 gen temp = .
 
@@ -84,11 +85,11 @@ estout comp1 comp2 dhs1 dhs2 asset1 asset2 using "./Drafts/tab_beta_crop_dhs.tex
 	replace style(tex) ///
 	cells(b(fmt(3)) se(par fmt(3))) ///
 	indicate("Demog. controls = dhs_p50_head_ed_years" "Asset controls = dhs_hh_land") ///
-	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square (ex. FE)")) ///
+	stats(p_zero p_diff N_country N_obs r2, fmt(%9.3f %9.3f %9.0g %9.0g %9.2f) labels("p-value $\beta_g=0$" "p-value $\beta_g=\beta_{Temp}$" "Countries" "Observations" "R-square")) ///
 	keep(ln_grump_rurd) label mlabels(none) collabels(none) prefoot("\midrule") starlevels(* 0.10 ** 0.05 *** 0.01)
 	
 coefplot comp1 || comp2 || dhs1 || dhs2 || asset1 || asset2, ///
-	keep(ln_grump_rurd) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(0(.05).35,format(%9.2f)) ///
+	keep(ln_grump_rurd) bycoefs graphregion(color(white)) xtitle("{&beta} estimate") xlabel(0(.05).50,format(%9.2f)) ///
 	mlabel format(%9.3f) mlabposition(12) ///
 	headings(1 = "{bf:DHS sample, no DHS controls}" 3 = "{bf:Control DHS demog}" 5 = "{bf:Control DHS assets}") ///
 	bylabels("Temperate" "Tropical" "Temperate" "Tropical" "Temperate" "Tropical")
