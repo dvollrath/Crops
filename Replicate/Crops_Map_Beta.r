@@ -67,3 +67,32 @@ legend( # add legend at bottom of plot
   bty="n"
 )
 dev.off()
+
+
+### in black and white
+colors <- c( # define colors by category
+  "#e0e0e0", # unsuitable
+  "#a0a0a0", # temperate
+  "#606060", # tropical
+  "#202020" # both
+)
+#colors <- c("palegoldenrod","palegreen","palegreen2","palegreen3")
+#colors <- terrain.colors(4,alpha=1)
+setEPS()
+postscript(file.path(draftdir,"fig_world_crop_zones_bw.eps"),width=8,height=5)
+par(bty="n",mai=c(.25,.25,.25,0)) # set no borders parameter
+plot( # plot crop suitability raster
+  cropextent,
+  legend = FALSE, # will create separately
+  col =colors, # fill for the cells in the map
+  xaxt = 'n',
+  yaxt = 'n'  
+)
+legend( # add legend at bottom of plot
+  "bottom", # make it run across bottom of map
+  legend = c("Unsuitable", "Temperate", "Tropical", "Both"), # labels
+  fill = colors,
+  horiz = TRUE, # make it run across bottom of map
+  bty="n"
+)
+dev.off()
